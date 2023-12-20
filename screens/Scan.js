@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
-import styles from "../styles/main";
 import LinearGradientBody from "../components/LinearGradienBodyt";
 import Header from "../components/Header";
 import useAuth from "../hooks/useAuth";
+import useStyles from "../styles/main";
 
 const Scan = () => {
+  const styles = useStyles()
   const {auth} = useAuth()
   return (
     <LinearGradientBody>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
-import styles from "../styles/main";
 import userIcon from "../assets/png/utilisateur.png";
 import cadenaIcon from "../assets/png/cadenas.png";
 import chevronRight from "../assets/png/chevron-droit.png";
@@ -13,6 +12,7 @@ import LoginInput from "../components/LoginInput";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import {StackActions} from '@react-navigation/native'
 import logo from "../assets/png/Logo_Euro.png"
+import useStyles from "../styles/main";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -22,6 +22,7 @@ const Login = ({ navigation }) => {
   const [errors, setErrors] = useState({});
   const { setAuth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
+  const styles = useStyles()
 
   const validate = () => {
     let error = {};

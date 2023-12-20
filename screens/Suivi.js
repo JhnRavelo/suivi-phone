@@ -3,8 +3,10 @@ import { View, Text } from "react-native";
 import styles from "../styles/main";
 import LinearGradientBody from "../components/LinearGradienBodyt";
 import Header from "../components/Header";
+import useStyles from "../styles/main";
 
 const Suivi = () => {
+  const styles = useStyles()
   return (
     <LinearGradientBody>
       <Header />

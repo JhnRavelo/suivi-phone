@@ -1,8 +1,9 @@
 import React from "react";
 import { Image, Text, TextInput, View } from "react-native";
-import styles from "../styles/main";
+import useStyles from "../styles/main";
 
 const LoginInput = ({icon, value, onChange, placeholder, secure, errors }) => {
+  const styles = useStyles()
   return (
     <View style={styles.loginField}>
       <Image source={icon} style={styles.loginIcon} />

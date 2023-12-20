@@ -9,7 +9,7 @@ const QrCode = () => {
     <LinearGradientBody>
       <Header />
       <View style={styles.container}>
-        <Text>QR Code</Text>
+        
       </View>
     </LinearGradientBody>
   );

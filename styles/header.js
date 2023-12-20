@@ -1,8 +1,10 @@
 import { StyleSheet } from "react-native";
 
 const headerStyles = StyleSheet.create({
-  logoutButtonView: {
+  logoutButton: {
     left: 250,
+  },
+  logoutButtonView: {
     elevation: 10,
     display: "flex",
     alignItems: "center",

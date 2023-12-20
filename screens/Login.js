@@ -106,7 +106,7 @@ const Login = ({ navigation }) => {
         <View style={styles.screen}>
           <View style={styles.screenContent}>
             <View style={styles.login}>
-              <Image source={logo} style={{width: 100, height: 100, top: -70, left: 20}} />
+              <Image source={logo} style={styles.logoLogin} />
               <LoginInput
                 value={email}
                 icon={userIcon}

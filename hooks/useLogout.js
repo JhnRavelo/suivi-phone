@@ -1,8 +1,6 @@
-import React from "react";
-import { axiosDefault } from "../api/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAuth from "./useAuth";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, StackActions } from "@react-navigation/native";
 import useAxiosPrivate from "./usePrivateAxios";
 
 const useLogout = () => {
@@ -17,7 +15,7 @@ const useLogout = () => {
       if (res.data.success) {
         await AsyncStorage.removeItem("jwt");
         setAuth({});
-        navigation.navigate("login");
+        navigation.dispatch(StackActions.replace("login"));
       }
     } catch (error) {
       console.log(error);

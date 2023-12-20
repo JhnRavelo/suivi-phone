@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native"
-import {Font} from "expo"
-import Lato from "../assets/fonts/Lato-Regular.ttf"
+import { StyleSheet } from "react-native";
+import { Font } from "expo";
+import Lato from "../assets/fonts/Lato-Regular.ttf";
 
 const styles = StyleSheet.create({
   body: {
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
-    fontFamily: "Lato-Regular"
+    fontFamily: "Lato-Regular",
   },
   container: {
     display: "flex",
@@ -26,24 +26,31 @@ const styles = StyleSheet.create({
   screenContent: {
     zIndex: 1,
     position: "relative",
-    height: "100%"
+    height: "100%",
   },
   login: {
     width: 320,
     padding: 30,
-    paddingTop: 150
+    paddingTop: 150,
   },
   loginField: {
     paddingLeft: 20,
-    position: "relative"
-  },  
+    position: "relative",
+  },
+  logoLogin: {
+    width: 100,
+    height: 100,
+    top: -120,
+    left: 20,
+    marginBottom: -80,
+  },
   loginIcon: {
     position: "absolute",
     top: 12.5,
     left: 16,
     width: 22,
     height: 22,
-    tintColor: "#E94A12"
+    tintColor: "#E94A12",
   },
   loginInput: {
     borderBottomWidth: 2,
@@ -53,7 +60,7 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     fontWeight: "700",
     width: "75%",
-    color: "#A2A2A2"
+    color: "#A2A2A2",
   },
   loginSubmit: {
     backgroundColor: "#ffffff",
@@ -78,11 +85,11 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontSize: 18,
   },
-  buttonIcon: { 
+  buttonIcon: {
     marginLeft: "auto",
     tintColor: "#E94A12",
     width: 30,
-    height: 30
+    height: 30,
   },
   screenBg: {
     position: "absolute",
@@ -91,11 +98,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     zIndex: 0,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   screenBgShape: {
     transform: "rotate(45deg)",
-    position: "absolute"
+    position: "absolute",
   },
   screenBgShape1: {
     height: 450,
@@ -103,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     top: -50,
     right: 120,
-    borderTopRightRadius: 72
+    borderTopRightRadius: 72,
   },
   screenBgShape2: {
     height: 200,
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2157A1",
     top: -172,
     right: 0,
-    borderRadius: 32
+    borderRadius: 32,
   },
   screenBgShape3: {
     height: 450,
@@ -119,7 +126,7 @@ const styles = StyleSheet.create({
     top: -10,
     left: 200,
     borderRadius: 32,
-    zIndex: -10
+    zIndex: -10,
   },
   screenBgShape4: {
     height: 400,
@@ -127,13 +134,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#3799B8",
     top: 350,
     right: -20,
-    borderRadius: 60
+    borderRadius: 60,
   },
   textError: {
     color: "red",
     fontWeight: "700",
     fontSize: 16,
-  }
-})
+  },
+});
 
-export default styles
+export default styles;

@@ -10,6 +10,7 @@ const LogoutButton = () => {
       onPress={() => {
         logout();
       }}
+      style={headerStyles.logoutButton}
     >
       <View style={headerStyles.logoutButtonView}>
         <Text style={headerStyles.logoutButtonText}>Déconnexion</Text>

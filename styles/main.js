@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     width: 360,
     elevation: 1,
     borderStyle: "solid",
+    shadowColor: '',
   },
   screenContent: {
     zIndex: 1,
@@ -141,6 +142,15 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  boxShadow: {
+    shadowColor: "#333333",
+    shadowOffset: {
+      width: 6,
+      height: 6
+    },
+    shadowRadius: 4,
+    shadowOpacity: 0.3
+  }
 });
 
 export default styles;

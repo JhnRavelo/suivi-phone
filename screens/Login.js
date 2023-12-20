@@ -103,7 +103,7 @@ const Login = ({ navigation }) => {
   return (
     <LinearGradientBody>
       <View style={styles.container}>
-        <View style={styles.screen}>
+        <View style={[styles.screen, styles.boxShadow]}>
           <View style={styles.screenContent}>
             <View style={styles.login}>
               <Image source={logo} style={styles.logoLogin} />
@@ -124,7 +124,7 @@ const Login = ({ navigation }) => {
                 secure={true}
               />
               <Pressable
-                style={styles.loginSubmit}
+                style={[styles.loginSubmit, styles.boxShadow]}
                 onPress={() => handleLogin()}
               >
                 <Text style={styles.buttonText}>Se Connecter</Text>

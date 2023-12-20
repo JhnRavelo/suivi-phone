@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import NavigationStackLog from "./navigation/NavigationStackLog";
+import { NavigationContainer } from "@react-navigation/native";
+import { AuthProvider } from "./context/AuthContext";
+import * as Font from "expo-font";
+import { useEffect, useState } from "react";
 
-export default function App() {
+const App = () => {
+  const [isReady, setIsReady] = useState(false);
+  useEffect(() => {
+    fetchFont();
+  });
+
+  const fetchFont = async () => {
+    await Font.loadAsync({
+      "Lato-Regular": require("./assets/fonts/Lato-Regular.ttf"),
+    });
+    setIsReady(true);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      {isReady && (
+        <AuthProvider>
+          <NavigationContainer>
+            <NavigationStackLog />
+          </NavigationContainer>
+        </AuthProvider>
+      )}
+    </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

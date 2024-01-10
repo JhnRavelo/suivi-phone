@@ -17,23 +17,22 @@ const Scan = ({ navigation }) => {
   const screenRoute = useRoute();
   const { setScreen, screen } = useScreen();
   let screenName = screenRoute.name;
-  
+
   const unsubscribe = useCallback(() => {
     const tabPress = navigation.addListener("tabPress", (e) => {
       if (screen != "scan") {
-        console.log("merci");
         setScanned(true);
       }
     });
-    
+
     return () => {
       tabPress();
     };
   }, [navigation]);
-  
-  useEffect(()=>{   
+
+  useEffect(() => {
     setScreen(screenName);
-  }, [navigation])
+  }, [navigation]);
 
   useEffect(() => {
     askPermissionForCamera();
@@ -76,12 +75,6 @@ const Scan = ({ navigation }) => {
         )}
         {scanned && <ScanButton />}
 
-        {/* <QRCodeScanner  
-          showMarker={true}
-          reactivate={true}
-          onRead={({ data }) => alert(data)}
-          reactivateTimeout={1000}
-        /> */}
       </View>
     </LinearGradientBody>
   );

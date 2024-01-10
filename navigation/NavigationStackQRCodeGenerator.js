@@ -1,15 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from 'react'
+import React from "react";
 import NewProductForm from "../screens/NewProductForm";
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 
 const NavigationStackQRCodeGenerator = () => {
   return (
-    <Stack.Navigator>
-        <Stack.Screen name="newProduct" component={NewProductForm} />
+    <Stack.Navigator screenOptions={{ headerShown: false }} >
+      <Stack.Screen name="newProduct" component={NewProductForm}  />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default NavigationStackQRCodeGenerator
+export default NavigationStackQRCodeGenerator;

@@ -8,16 +8,16 @@ import useScan from "../hooks/useScan";
 import useScreen from "../hooks/useScreen";
 import { useRoute } from "@react-navigation/native";
 
-const Suivi = ({navigation}) => {
-  const {scanInfo, setScanned, scanned} = useScan()
-  const styles = useStyles()
-  const [scanData, setScanData] = useState()
+const Suivi = ({ navigation }) => {
+  const { scanInfo, setScanned, scanned } = useScan();
+  const styles = useStyles();
+  const [scanData, setScanData] = useState();
   const screenRoute = useRoute();
   const { setScreen } = useScreen();
   let screenName = screenRoute.name;
-  useEffect(()=>{   
+  useEffect(() => {
     setScreen(screenName);
-  }, [navigation])
+  }, [navigation]);
 
   return (
     <LinearGradientBody>

@@ -9,27 +9,18 @@ import { useRoute } from "@react-navigation/native";
 import NavigationStackQRCodeGenerator from "../navigation/NavigationStackQRCodeGenerator";
 import useScreen from "../hooks/useScreen";
 
-const QrCode = ({navigation}) => {
+const QrCode = ({ navigation }) => {
   const styles = useStyles();
   const { auth } = useAuth();
   const screenRoute = useRoute();
-  const { setScreen, screen } = useScreen();
+  const { setScreen } = useScreen();
   let screenName = screenRoute.name;
 
-  useEffect(()=>{   
+  useEffect(() => {
     setScreen(screenName);
-  }, [navigation])
-  return (
-    <LinearGradientBody>
-      <Header />
-      <View style={[styles.container, {marginBottom: 50,}]}>
-          <View style={{backgroundColor: "color", width: 360, height: 500, borderRadius: 15, top: 120, left: 20}} >
-            <NavigationStackQRCodeGenerator />
-          </View>
-        {/* <QRCode value={`email: ${auth.email}\nvaleur: 1`} size={250} logoMargin={10}/> */}
-      </View>
-    </LinearGradientBody>
-  );
+  }, [navigation]);
+
+  return <NavigationStackQRCodeGenerator />;
 };
 
 export default QrCode;

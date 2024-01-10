@@ -6,14 +6,14 @@ import useStyles from "../styles/main";
 import useScreen from "../hooks/useScreen";
 import { useRoute } from "@react-navigation/native";
 
-const Fiche = ({navigation}) => {
-  const styles = useStyles()
+const Fiche = ({ navigation }) => {
+  const styles = useStyles();
   const screenRoute = useRoute();
   const { setScreen, screen } = useScreen();
   let screenName = screenRoute.name;
-  useEffect(()=>{   
+  useEffect(() => {
     setScreen(screenName);
-  }, [navigation])
+  }, [navigation]);
   return (
     <LinearGradientBody>
       <Header />

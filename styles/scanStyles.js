@@ -10,11 +10,10 @@ const scanStyles = StyleSheet.create({
         width: "auto",
         height: "auto",
         backgroundColor: "#1C2B39",
-        padding: 5
+        padding: 10
     },
     scanButtonText: {
-        fontSize: 30,
-        
+        fontSize: 30,    
     }
 })
 

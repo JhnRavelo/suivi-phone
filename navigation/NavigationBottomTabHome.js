@@ -21,6 +21,7 @@ const NavigationBottomTabHome = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarStyle: bottomTabsStyle.tabBar,
+          tabBarHideOnKeyboard: true,
         }}
         initialRouteName="scan"
       >

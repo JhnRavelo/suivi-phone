@@ -4,6 +4,7 @@ import { AuthProvider } from "./context/AuthContext";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import { ScanProvider } from "./context/ScanContext";
+import { ScreenProvider } from "./context/ScreenContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -23,9 +24,11 @@ const App = () => {
       {isReady && (
         <AuthProvider>
           <ScanProvider>
-            <NavigationContainer>
-              <NavigationStackLog />
-            </NavigationContainer>
+            <ScreenProvider>
+              <NavigationContainer>
+                <NavigationStackLog />
+              </NavigationContainer>
+            </ScreenProvider>
           </ScanProvider>
         </AuthProvider>
       )}

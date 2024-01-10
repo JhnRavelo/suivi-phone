@@ -5,19 +5,19 @@ import LinearGradientBody from "../components/LinearGradienBodyt";
 import Header from "../components/Header";
 import useStyles from "../styles/main";
 import useScan from "../hooks/useScan";
+import useScreen from "../hooks/useScreen";
+import { useRoute } from "@react-navigation/native";
 
-const Suivi = () => {
+const Suivi = ({navigation}) => {
   const {scanInfo, setScanned, scanned} = useScan()
   const styles = useStyles()
   const [scanData, setScanData] = useState()
-
-// useEffect(()=>{
-//   if(scanned && scanData != scanInfo){
-//     setScanned(false)
-//     setScanData(scanInfo)
-//     console.log("suivi", scanned)
-//   }
-// }, [scanned])
+  const screenRoute = useRoute();
+  const { setScreen } = useScreen();
+  let screenName = screenRoute.name;
+  useEffect(()=>{   
+    setScreen(screenName);
+  }, [navigation])
 
   return (
     <LinearGradientBody>

@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 const ScanContext = createContext();
 
 const ScanProvider = ({ children }) => {
-  const [scanned, setScanned] = useState(false);
+  const [scanned, setScanned] = useState(true);
   const [scanInfo, setScanInfo] = useState("");
   return (
     <ScanContext.Provider

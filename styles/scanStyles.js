@@ -4,11 +4,17 @@ const scanStyles = StyleSheet.create({
     scanButton: {
         display: 'flex',
         alignItems: "center",
-        top: 200
+        // top: 100
     },
     scanButtonView: {
-        width: 70,
-        backgroundColor: "#1C2B39"
+        width: "auto",
+        height: "auto",
+        backgroundColor: "#1C2B39",
+        padding: 5
+    },
+    scanButtonText: {
+        fontSize: 30,
+        
     }
 })
 

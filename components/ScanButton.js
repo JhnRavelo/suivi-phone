@@ -9,7 +9,7 @@ const ScanButton = () => {
   return (
     <TouchableOpacity style={scanStyles.scanButton} onPress={()=>setScanned(false)} >
         <View style={[headerStyles.logoutButtonView, scanStyles.scanButtonView]}>
-            <Text style={headerStyles.logoutButtonText}>Scanner</Text>
+            <Text style={[headerStyles.logoutButtonText, scanStyles.scanButtonText]}>Scanner</Text>
         </View>
     </TouchableOpacity>
   )

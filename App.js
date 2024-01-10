@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./context/AuthContext";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
+import { ScanProvider } from "./context/ScanContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -21,9 +22,11 @@ const App = () => {
     <>
       {isReady && (
         <AuthProvider>
-          <NavigationContainer>
-            <NavigationStackLog />
-          </NavigationContainer>
+          <ScanProvider>
+            <NavigationContainer>
+              <NavigationStackLog />
+            </NavigationContainer>
+          </ScanProvider>
         </AuthProvider>
       )}
     </>

@@ -9,6 +9,7 @@ import useScan from "../hooks/useScan";
 import ScanButton from "../components/ScanButton";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import useScreen from "../hooks/useScreen";
+import scanStyles from "../styles/scanStyles";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
@@ -52,29 +53,22 @@ const Scan = ({ navigation }) => {
       <Header />
       <View style={styles.container}>
         {scanned === false && (
-          <BarCodeScanner
-            onBarCodeScanned={
-              scanned
-                ? undefined
-                : ({ data }) => {
-                    setScanInfo(data);
-                    setScanned(true);
-                    navigation.navigate("suivi");
-                  }
-            }
-            // style={StyleSheet.absoluteFill}
-            style={{
-              height: 350,
-              width: 50,
-              minWidth: 300,
-              top: -30,
-              left: 0,
-              zIndex: 10,
-            }}
-          />
+          <View style={scanStyles.qrCodeScanerView}>
+            <BarCodeScanner
+              onBarCodeScanned={
+                scanned
+                  ? undefined
+                  : ({ data }) => {
+                      setScanInfo(data);
+                      setScanned(true);
+                      navigation.navigate("suivi");
+                    }
+              }
+              style={scanStyles.qrCodeScaner}
+            />
+          </View>
         )}
         {scanned && <ScanButton />}
-
       </View>
     </LinearGradientBody>
   );

@@ -5,24 +5,24 @@ import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import LinearGradientBody from "../components/LinearGradienBodyt";
 import Header from "../components/Header";
 import useStyles from "../styles/main";
+import AppButton from "../components/Button";
 
-const dimensionRegex = /^\d+\*\d+$/
-
+const dimensionRegex = /^\d+\*\d+$/;
 
 const NewProductForm = () => {
   const styles = useStyles();
   const [dimension, setDimension] = useState();
   const [devis, setDevis] = useState();
-  const [location, setLocation] = useState()
-  const [detail, setDetail] = useState()
+  const [location, setLocation] = useState();
+  const [detail, setDetail] = useState();
   const [errors, setErrors] = useState();
 
   const validate = () => {
     let errors = {};
     if (!dimension) {
       errors.dimension = "Veuillez mettre l'hauteur et le largeur";
-    }else if(dimensionRegex.test(dimension)){
-      errors.dimension = "De la forme hauteur*largeur"
+    } else if (dimensionRegex.test(dimension)) {
+      errors.dimension = "De la forme hauteur*largeur";
     }
     setErrors(errors);
   };
@@ -86,8 +86,9 @@ const NewProductForm = () => {
                   errors={errors?.detail}
                   type="input"
                 />
-                
+
               </ScrollView>
+                <AppButton text="Enregistrer" />
             </View>
           </View>
           {/* <QRCode value={`email: ${auth.email}\nvaleur: 1`} size={250} logoMargin={10}/> */}

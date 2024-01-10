@@ -23,7 +23,7 @@ const DropDownTypeLists = () => {
     if (value || isFocus) {
       return (
         <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-          Type de menuiserie
+          Type de ménuiserie
         </Text>
       );
     }

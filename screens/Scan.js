@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import LinearGradientBody from "../components/LinearGradienBodyt";
 import Header from "../components/Header";
 import useStyles from "../styles/main";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import useScan from "../hooks/useScan";
-// import QRCodeScanner from "react-native-qrcode-scanner";
 import ScanButton from "../components/ScanButton";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import useScreen from "../hooks/useScreen";
@@ -52,7 +51,7 @@ const Scan = ({ navigation }) => {
     <LinearGradientBody>
       <Header />
       <View style={styles.container}>
-        {scanned === false && (
+        {(scanned === false && cameraPermission) && (
           <View style={scanStyles.qrCodeScanerView}>
             <BarCodeScanner
               onBarCodeScanned={

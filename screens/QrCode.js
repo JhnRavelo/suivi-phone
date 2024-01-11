@@ -27,7 +27,7 @@ const QrCode = ({ navigation }) => {
         const productTypesArray = res.data.productTypes.map((item) => {
           return { label: item.name, value: item.id };
         });
-        console.log(productTypesArray);
+
         setProductTypes(productTypesArray);
       }
     } catch (error) {

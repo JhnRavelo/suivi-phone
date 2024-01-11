@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import styles from "../styles/main";
-import LinearGradientBody from "../components/LinearGradienBodyt";
+import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import useStyles from "../styles/main";
 import useScan from "../hooks/useScan";

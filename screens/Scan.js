@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
-import LinearGradientBody from "../components/LinearGradienBodyt";
+import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import useStyles from "../styles/main";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -69,7 +69,7 @@ const Scan = ({ navigation }) => {
         )}
         {scanned && <ScanButton />}
       </View>
-    </LinearGradientBody>
+    </LinearGradientBody> 
   );
 };
 

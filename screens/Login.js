@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { axiosDefault } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import LinearGradientBody from "../components/LinearGradienBodyt";
+import LinearGradientBody from "../components/LinearGradienBody";
 import LoginInput from "../components/LoginInput";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import {StackActions} from '@react-navigation/native'

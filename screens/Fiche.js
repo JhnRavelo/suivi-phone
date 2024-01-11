@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
-import LinearGradientBody from "../components/LinearGradienBodyt";
+import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import useStyles from "../styles/main";
 import useScreen from "../hooks/useScreen";

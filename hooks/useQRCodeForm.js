@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import QRCodeGeneratorContext from '../context/QRCodeGeneratorContext'
 
-const useQRCodeGenerator = () => {
+const useQRCodeForm = () => {
   return useContext(QRCodeGeneratorContext)
 }
 
-export default useQRCodeGenerator
+export default useQRCodeForm

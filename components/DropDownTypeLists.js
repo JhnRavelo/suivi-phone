@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Image, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import styles from "../styles/dropDownListStyles";
-import useQRCodeGenerator from "../hooks/useQRCodeGenerator";
+import useQRCodeGenerator from "../hooks/useQRCodeForm";
 import CharpentIcon from "../assets/png/charpenterie.png";
+import useStyles from "../styles/main";
+import qrcodeStyles from "../styles/qrcodeStyles";
 
-const DropDownTypeLists = () => {
-  const [value, setValue] = useState(null);
+const DropDownTypeLists = ({ value, setValue, error }) => {
   const [isFocus, setIsFocus] = useState(false);
   const { productTypes } = useQRCodeGenerator();
+  const inputStyles = useStyles()
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -57,6 +59,7 @@ const DropDownTypeLists = () => {
           </View>
         )}
       />
+      {error && <Text style={[inputStyles.textError, qrcodeStyles.textError]} >{error}</Text>}
     </View>
   );
 };

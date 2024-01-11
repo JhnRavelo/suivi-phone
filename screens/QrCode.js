@@ -3,7 +3,7 @@ import { useRoute } from "@react-navigation/native";
 import NavigationStackQRCodeGenerator from "../navigation/NavigationStackQRCodeGenerator";
 import useScreen from "../hooks/useScreen";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
-import useQRCodeGenerator from "../hooks/useQRCodeGenerator";
+import useQRCodeGenerator from "../hooks/useQRCodeForm";
 
 const QrCode = ({ navigation }) => {
   const axiosPrivate = useAxiosPrivate();

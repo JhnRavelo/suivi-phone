@@ -6,6 +6,7 @@ import LinearGradientBody from "../components/LinearGradienBodyt";
 import Header from "../components/Header";
 import useStyles from "../styles/main";
 import AppButton from "../components/Button";
+import useQRCodeForm from "../hooks/useQRCodeForm";
 
 const dimensionRegex = /^\d+\*\d+$/;
 
@@ -14,17 +15,46 @@ const NewProductForm = () => {
   const [dimension, setDimension] = useState();
   const [devis, setDevis] = useState();
   const [location, setLocation] = useState();
-  const [detail, setDetail] = useState();
-  const [errors, setErrors] = useState();
+  const [detail, setDetail] = useState("");
+  const [type, setType] = useState();
+  const [errors, setErrors] = useState({});
+  const { setFormDataQRCode } = useQRCodeForm();
 
   const validate = () => {
-    let errors = {};
+    let error = {};
     if (!dimension) {
-      errors.dimension = "Veuillez mettre l'hauteur et le largeur";
-    } else if (dimensionRegex.test(dimension)) {
-      errors.dimension = "De la forme hauteur*largeur";
+      error.dimension = "Veuillez mettre l'hauteur et le largeur";
+    } else if (!dimensionRegex.test(dimension)) {
+      error.dimension = "De la forme hauteur*largeur";
     }
-    setErrors(errors);
+    if (!devis) {
+      error.devis = "Veuillez mettre le devis";
+    }
+    if (!location) {
+      error.location = "Veuillez mettre l'emplacement";
+    }
+    if (!type) {
+      error.type = "Veuillez choisir le type de ménuiserie";
+    }
+    setErrors(error);
+    return Object.keys(error).length === 0;
+  };
+
+  const handleClick = () => {
+    const isValid = validate();
+    let formData = new FormData();
+
+    if (isValid) {
+      formData.append("type", type);
+      formData.append("dimension", dimension);
+      formData.append("devis", devis);
+      formData.append("details", detail);
+      formData.append("location", location);
+
+      console.log(formData);
+
+      setFormDataQRCode(formData);
+    }
   };
 
   return (
@@ -48,8 +78,13 @@ const NewProductForm = () => {
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
+                style={{ maxHeight: 250, overflow: "hidden" }}
               >
-                <DropDownTypeLists />
+                <DropDownTypeLists
+                  value={type}
+                  setValue={setType}
+                  error={errors?.type}
+                />
                 <LoginInput
                   value={dimension}
                   icon={null}
@@ -86,9 +121,8 @@ const NewProductForm = () => {
                   errors={errors?.detail}
                   type="input"
                 />
-
               </ScrollView>
-                <AppButton text="Enregistrer" />
+              <AppButton text="Enregistrer" onPress={handleClick} />
             </View>
           </View>
           {/* <QRCode value={`email: ${auth.email}\nvaleur: 1`} size={250} logoMargin={10}/> */}

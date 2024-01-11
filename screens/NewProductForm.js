@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import LoginInput from "../components/LoginInput";
-import DropDownTypeLists from "../components/DropDownTypeLists";
-import useStyles from "../styles/main";
+import DropDownTypeLists from "../components/DropDownLists";
 import useQRCodeForm from "../hooks/useQRCodeForm";
 import FormContainer from "../components/FormContainer";
+import charpentIcon from "../assets/png/charpenterie.png";
 
 const dimensionRegex = /^\d+\*\d+$/;
 
-const NewProductForm = () => {
-  const styles = useStyles();
+const NewProductForm = ({ navigation }) => {
   const [dimension, setDimension] = useState();
   const [devis, setDevis] = useState();
   const [location, setLocation] = useState();
   const [detail, setDetail] = useState("");
   const [type, setType] = useState();
   const [errors, setErrors] = useState({});
-  const { setFormDataQRCode } = useQRCodeForm();
+  const { setFormDataQRCode, setDataQRCodeVerify, productTypes } =
+    useQRCodeForm();
 
   const validate = () => {
     let error = {};
@@ -45,10 +45,24 @@ const NewProductForm = () => {
       formData.append("type", type);
       formData.append("dimension", dimension);
       formData.append("devis", devis);
-      formData.append("details", detail);
+      formData.append("detail", detail);
       formData.append("location", location);
 
       setFormDataQRCode(formData);
+
+      const selectedProductType = productTypes.find(
+        (item) => item.value == type
+      );
+
+      setDataQRCodeVerify([
+        { label: "Type", value: selectedProductType?.label },
+        { label: "Hauteur et Largeur", value: dimension },
+        { label: "Dévis", value: devis },
+        { label: "Détails", value: detail },
+        { label: "Emplacement", value: location },
+      ]);
+
+      navigation.navigate("verifyProduct");
     }
   };
 
@@ -59,6 +73,8 @@ const NewProductForm = () => {
           value={type}
           setValue={setType}
           error={errors?.type}
+          icon={charpentIcon}
+          text="Sélectionnez le type de menuiserie"
         />
         <LoginInput
           value={dimension}

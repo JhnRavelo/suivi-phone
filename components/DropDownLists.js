@@ -3,11 +3,10 @@ import { Image, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import styles from "../styles/dropDownListStyles";
 import useQRCodeGenerator from "../hooks/useQRCodeForm";
-import CharpentIcon from "../assets/png/charpenterie.png";
 import useStyles from "../styles/main";
 import qrcodeStyles from "../styles/qrcodeStyles";
 
-const DropDownTypeLists = ({ value, setValue, error }) => {
+const DropDownLists = ({ value, setValue, error, icon, text }) => {
   const [isFocus, setIsFocus] = useState(false);
   const { productTypes } = useQRCodeGenerator();
   const inputStyles = useStyles()
@@ -38,7 +37,7 @@ const DropDownTypeLists = ({ value, setValue, error }) => {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? "Sélectionnez le type de menuiserie" : "..."}
+        placeholder={!isFocus ? text : "..."}
         searchPlaceholder="Search..."
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -50,7 +49,7 @@ const DropDownTypeLists = ({ value, setValue, error }) => {
         renderLeftIcon={() => (
           <View style={styles.leftIconView}>
             <Image
-              source={CharpentIcon}
+              source={icon}
               style={[
                 styles.iconStyle,
                 { tintColor: `${isFocus ? "blue" : "black"}` },
@@ -64,4 +63,4 @@ const DropDownTypeLists = ({ value, setValue, error }) => {
   );
 };
 
-export default DropDownTypeLists;
+export default DropDownLists;

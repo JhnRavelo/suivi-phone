@@ -4,7 +4,8 @@ const QRCodeGeneratorContext = createContext();
 
 const QRCodeGeneratorProvider = ({ children }) => {
   const [productTypes, setProductTypes] = useState([]);
-  const [formDataQRCode, setFormDataQRCode] = useState();
+  const [formDataQRCode, setFormDataQRCode] = useState({});
+  const [dataQRCodeVerify, setDataQRCodeVerify] = useState([]);
   return (
     <QRCodeGeneratorContext.Provider
       value={{
@@ -12,6 +13,8 @@ const QRCodeGeneratorProvider = ({ children }) => {
         setProductTypes,
         formDataQRCode,
         setFormDataQRCode,
+        dataQRCodeVerify,
+        setDataQRCodeVerify,
       }}
     >
       {children}

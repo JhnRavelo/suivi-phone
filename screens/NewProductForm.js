@@ -4,6 +4,7 @@ import DropDownTypeLists from "../components/DropDownLists";
 import useQRCodeForm from "../hooks/useQRCodeForm";
 import FormContainer from "../components/FormContainer";
 import charpentIcon from "../assets/png/charpenterie.png";
+import FormTitle from "../components/FormTitle";
 
 const dimensionRegex = /^\d+\*\d+$/;
 
@@ -39,14 +40,14 @@ const NewProductForm = ({ navigation }) => {
 
   const handleClick = () => {
     const isValid = validate();
-    let formData = new FormData();
+    let formData = {};
 
     if (isValid) {
-      formData.append("type", type);
-      formData.append("dimension", dimension);
-      formData.append("devis", devis);
-      formData.append("detail", detail);
-      formData.append("location", location);
+      formData.type = type;
+      formData.dimension = dimension;
+      formData.devis = devis;
+      formData.detail = detail;
+      formData.location = location;
 
       setFormDataQRCode(formData);
 
@@ -69,12 +70,15 @@ const NewProductForm = ({ navigation }) => {
   return (
     <>
       <FormContainer text="Enregistrer" onPress={handleClick}>
+        <FormTitle title="Nouveau Produit" />
         <DropDownTypeLists
           value={type}
           setValue={setType}
           error={errors?.type}
           icon={charpentIcon}
-          text="Sélectionnez le type de menuiserie"
+          text="Sélectionnez le type de ménuiserie"
+          data={productTypes}
+          label="Type de ménuiserie"
         />
         <LoginInput
           value={dimension}
@@ -113,7 +117,6 @@ const NewProductForm = ({ navigation }) => {
           type="input"
         />
       </FormContainer>
-      {/* <QRCode value={`email: ${auth.email}\nvaleur: 1`} size={250} logoMargin={10}/> */}
     </>
   );
 };

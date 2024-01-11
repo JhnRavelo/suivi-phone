@@ -8,7 +8,7 @@ const formTitleStyle = StyleSheet.create({
     justifyContent: "center",
     width: "auto",
     padding: 15,
-    marginBottom: 10,
+    marginBottom: -10,
   },
   titleText: { fontSize: 26, color: "#1C2B39", fontWeight: "900" },
 });

@@ -2,20 +2,18 @@ import React, { useState } from "react";
 import { Image, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import styles from "../styles/dropDownListStyles";
-import useQRCodeGenerator from "../hooks/useQRCodeForm";
 import useStyles from "../styles/main";
 import qrcodeStyles from "../styles/qrcodeStyles";
 
-const DropDownLists = ({ value, setValue, error, icon, text }) => {
+const DropDownLists = ({ value, setValue, error, icon, text, data, label }) => {
   const [isFocus, setIsFocus] = useState(false);
-  const { productTypes } = useQRCodeGenerator();
   const inputStyles = useStyles()
 
   const renderLabel = () => {
     if (value || isFocus) {
       return (
         <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Type de ménuiserie
+          {label}
         </Text>
       );
     }
@@ -32,7 +30,7 @@ const DropDownLists = ({ value, setValue, error, icon, text }) => {
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
         itemTextStyle={styles.itemTextStyle}
-        data={productTypes}
+        data={data}
         search
         maxHeight={300}
         labelField="label"

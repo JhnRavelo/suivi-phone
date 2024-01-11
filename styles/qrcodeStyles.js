@@ -8,7 +8,7 @@ const qrcodeStyles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 80,
   },
-  formScrollView: { maxHeight: 250, overflow: "hidden" },
+  formScrollView: { maxHeight: 300, overflow: "hidden" },
   input: { marginBottom: 5, fontSize: 14, width: "100%", paddingBottom: 2 },
   inputView: { marginRight: 20 },
   textError: { fontSize: 12 },

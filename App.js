@@ -5,6 +5,7 @@ import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import { ScanProvider } from "./context/ScanContext";
 import { ScreenProvider } from "./context/ScreenContext";
+import { QRCodeGeneratorProvider } from "./context/QRCodeGeneratorContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -25,9 +26,11 @@ const App = () => {
         <AuthProvider>
           <ScanProvider>
             <ScreenProvider>
-              <NavigationContainer>
-                <NavigationStackLog />
-              </NavigationContainer>
+              <QRCodeGeneratorProvider>
+                <NavigationContainer>
+                  <NavigationStackLog />
+                </NavigationContainer>
+              </QRCodeGeneratorProvider>
             </ScreenProvider>
           </ScanProvider>
         </AuthProvider>

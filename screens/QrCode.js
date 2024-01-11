@@ -1,24 +1,39 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
-import LinearGradientBody from "../components/LinearGradienBodyt";
-import Header from "../components/Header";
-import useStyles from "../styles/main";
-import QRCode from "react-native-qrcode-svg";
-import useAuth from "../hooks/useAuth";
 import { useRoute } from "@react-navigation/native";
 import NavigationStackQRCodeGenerator from "../navigation/NavigationStackQRCodeGenerator";
 import useScreen from "../hooks/useScreen";
+import useAxiosPrivate from "../hooks/usePrivateAxios";
+import useQRCodeGenerator from "../hooks/useQRCodeGenerator";
 
 const QrCode = ({ navigation }) => {
-  const styles = useStyles();
-  const { auth } = useAuth();
+  const axiosPrivate = useAxiosPrivate();
   const screenRoute = useRoute();
   const { setScreen } = useScreen();
+  const { setProductTypes } = useQRCodeGenerator();
   let screenName = screenRoute.name;
+
+  useEffect(() => {
+    fetchTypesOfProducts();
+  }, []);
 
   useEffect(() => {
     setScreen(screenName);
   }, [navigation]);
+
+  const fetchTypesOfProducts = async () => {
+    try {
+      const res = await axiosPrivate.get("/productType/getAll");
+      if (res.data?.success) {
+        const productTypesArray = res.data.productTypes.map((item) => {
+          return { label: item.name, value: item.id };
+        });
+        console.log(productTypesArray);
+        setProductTypes(productTypesArray);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return <NavigationStackQRCodeGenerator />;
 };

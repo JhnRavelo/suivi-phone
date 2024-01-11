@@ -30,6 +30,7 @@ const dropDownListStyles = StyleSheet.create({
         fontSize: 14,
       },
       selectedTextStyle: {
+        marginLeft: 26,
         fontSize: 14,
         color: "#A2A2A2",
         fontWeight: "700"

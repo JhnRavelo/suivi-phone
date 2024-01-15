@@ -128,7 +128,7 @@ const Login = ({ navigation }) => {
                 style={[styles.loginSubmit, styles.boxShadow]}
                 onPress={() => handleLogin()}
               >
-                <Text style={styles.buttonText}>Se Connecter</Text>
+                <Text style={styles.buttonText}>Connexion</Text>
                 <Image source={chevronRight} style={styles.buttonIcon} />
               </Pressable>
             </View>

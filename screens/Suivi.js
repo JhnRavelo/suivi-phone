@@ -7,6 +7,7 @@ import useStyles from "../styles/main";
 import useScan from "../hooks/useScan";
 import useScreen from "../hooks/useScreen";
 import { useRoute } from "@react-navigation/native";
+import TableSuivi from "./TableSuivi";
 
 const Suivi = ({ navigation }) => {
   const { scanInfo, setScanned, scanned } = useScan();
@@ -23,7 +24,7 @@ const Suivi = ({ navigation }) => {
     <LinearGradientBody>
       <Header />
       <View style={styles.container}>
-        <Text>{scanInfo ? scanInfo : ""}</Text>
+        <TableSuivi />
       </View>
     </LinearGradientBody>
   );

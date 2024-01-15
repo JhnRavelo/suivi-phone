@@ -1,12 +1,13 @@
 import React from 'react'
-import { Image, View } from 'react-native'
+import { Image, StatusBar, View } from 'react-native'
 import logoEurop from "../assets/png/logo_ea.png"
-import headerStyles from '../styles/header'
 import LogoutButton from './LogoutButton'
+import useHeaderStyles from '../styles/header'
 
 const Header = () => {
+  const headerStyles = useHeaderStyles()
   return (
-    <View>
+    <View style={headerStyles.headerContainer}>
         <Image  source={logoEurop} style={headerStyles.logo} />
         <LogoutButton />
     </View>

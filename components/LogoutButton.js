@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import headerStyles from "../styles/header";
 import useLogout from "../hooks/useLogout";
+import useHeaderStyles from "../styles/header";
 
 const LogoutButton = () => {
+  const headerStyles = useHeaderStyles()
   const logout = useLogout();
   return (
     <TouchableOpacity

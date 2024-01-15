@@ -1,11 +1,12 @@
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import headerStyles from "../styles/header";
 import scanStyles from "../styles/scanStyles";
 import useScan from "../hooks/useScan";
 import scanerIcon from "../assets/png/scan.png";
+import useHeaderStyles from "../styles/header";
 
 const ScanButton = () => {
+  const headerStyles = useHeaderStyles()
   const { setScanned } = useScan();
   return (
     <TouchableOpacity

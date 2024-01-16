@@ -7,12 +7,11 @@ import useStyles from "../styles/main";
 import useScan from "../hooks/useScan";
 import useScreen from "../hooks/useScreen";
 import { useRoute } from "@react-navigation/native";
-import TableSuivi from "./TableSuivi";
+import NavigationStackSuivi from "../navigation/NavigationStackSuivi";
 
 const Suivi = ({ navigation }) => {
   const { scanInfo, setScanned, scanned } = useScan();
   const styles = useStyles();
-  const [scanData, setScanData] = useState();
   const screenRoute = useRoute();
   const { setScreen } = useScreen();
   let screenName = screenRoute.name;
@@ -20,14 +19,7 @@ const Suivi = ({ navigation }) => {
     setScreen(screenName);
   }, [navigation]);
 
-  return (
-    <LinearGradientBody>
-      <Header />
-      <View style={styles.container}>
-        <TableSuivi />
-      </View>
-    </LinearGradientBody>
-  );
+  return <NavigationStackSuivi />;
 };
 
 export default Suivi;

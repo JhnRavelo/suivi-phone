@@ -68,15 +68,14 @@ const Scan = ({ navigation }) => {
                           "/suivi/getByProduct",
                           { email: arrayData[0], id: arrayData[1] }
                         );
-                        if(res.data.success){
-                          setSuivis(res.data.suivis)
+                        if (res.data.success) {
+                          setSuivis(res.data.suivis);
                           setScanInfo(data);
                           setScanned(true);
                           navigation.navigate("suivi");
                         }
-                        
                       } catch (error) {
-                        console.log(error)
+                        console.log(error);
                       }
                     }
               }

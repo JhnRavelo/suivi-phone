@@ -10,7 +10,12 @@ const formTitleStyle = StyleSheet.create({
     padding: 15,
     marginBottom: -10,
   },
-  titleText: { fontSize: 26, color: "#1C2B39", fontWeight: "900" },
+  titleText: {
+    fontSize: 26,
+    color: "#1C2B39",
+    fontWeight: "900",
+    fontFamily: "Lato-Regular",
+  },
 });
 
 export default formTitleStyle;

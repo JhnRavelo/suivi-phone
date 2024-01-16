@@ -1,23 +1,25 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
+import React from "react";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
 const useMultiLineStyles = () => {
-  return (
-    StyleSheet.create({
-        inputView: {
-            marginTop: 20,
-            alignItems: "center",
-            justifyContent: "center"
-        },
-        input: {
-            height: 100,
-            width: "80%",
-            borderWidth: 2,
-            textAlignVertical: "top",
-            padding: 5
-        }
-    })
-  )
-}
+  const { height, width } = useWindowDimensions();
+  return StyleSheet.create({
+    inputView: {
+      marginTop: 20,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    input: {
+      height: height > 700 ? 120 : 100,
+      width: "80%",
+      borderWidth: 2,
+      textAlignVertical: "top",
+      padding: 5,
+      fontFamily: "Lato-Regular",
+      fontSize: height > 700 ? 16 : 14,
+      color: "#1C2B39",
+    },
+  });
+};
 
-export default useMultiLineStyles
+export default useMultiLineStyles;

@@ -12,6 +12,7 @@ import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import useSuiviStyles from "../styles/suiviStyles";
 import deleteIcon from "../assets/png/effacer.png";
+import AppButton from "../components/Button";
 
 const data = [
   {
@@ -44,6 +45,36 @@ const data = [
     solution: "fqhudfhqushbjdqbjdqsjdq",
     id: 5,
   },
+  {
+    observation: "hgjk",
+    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
+    solution: "fqhudfhqushbjdqbjdqsjdq",
+    id: 6,
+  },
+  {
+    observation: "hgjk",
+    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
+    solution: "fqhudfhqushbjdqbjdqsjdq",
+    id: 7,
+  },
+  {
+    observation: "hgjk",
+    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
+    solution: "fqhudfhqushbjdqbjdqsjdq",
+    id: 8,
+  },
+  {
+    observation: "hgjk",
+    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
+    solution: "fqhudfhqushbjdqbjdqsjdq",
+    id: 9,
+  },
+  {
+    observation: "hgjk",
+    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
+    solution: "fqhudfhqushbjdqbjdqsjdq",
+    id: 10,
+  },
 ];
 
 const TableSuivi = () => {
@@ -51,7 +82,7 @@ const TableSuivi = () => {
   return (
     <LinearGradientBody>
       <Header />
-      <FormTitle title="Suivi" />
+      <FormTitle title="Tableau des suivis" />
       <View style={suiviStyles.tableContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={suiviStyles.listContainer}>
@@ -65,12 +96,13 @@ const TableSuivi = () => {
               <View style={[suiviStyles.tableHeaderView, { width: 180 }]}>
                 <Text style={[suiviStyles.tableHeaderText]}>Observation</Text>
               </View>
-              <View style={[suiviStyles.tableHeaderView, { width: 50 }]}>
+              <View style={[suiviStyles.tableHeaderView, { width: 70 }]}>
                 <Text style={[suiviStyles.tableHeaderText]}>Action</Text>
               </View>
             </View>
-            <View style={{ overflow: "hidden", height: 250 }}>
+            <View style={suiviStyles.flatListView}>
               <FlatList
+                showsVerticalScrollIndicator={false}
                 style={{ flex: 1 }}
                 data={data}
                 keyExtractor={(item) => item.id.toString()}
@@ -85,17 +117,8 @@ const TableSuivi = () => {
                     <Text style={[suiviStyles.tableCell, { width: 180 }]}>
                       {item.solution}
                     </Text>
-                    <TouchableOpacity
-                      style={{
-                        width: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Image
-                        source={deleteIcon}
-                        style={{ width: 25, height: 25, resizeMode: "contain" }}
-                      />
+                    <TouchableOpacity style={suiviStyles.buttonIcon}>
+                      <Image source={deleteIcon} style={suiviStyles.icon} />
                     </TouchableOpacity>
                   </View>
                 )}
@@ -104,6 +127,7 @@ const TableSuivi = () => {
           </View>
         </ScrollView>
       </View>
+      <AppButton text="Ajouter un suivi" style={suiviStyles.buttonAddSuivi} />
     </LinearGradientBody>
   );
 };

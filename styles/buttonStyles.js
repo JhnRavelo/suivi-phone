@@ -1,9 +1,15 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
-const buttonStyles = StyleSheet.create({
-  buttonContainer: { marginTop: 20, alignItems: "center" },
-  buttonView: { borderRadius: 7, padding: 10 },
-  buttonText: { fontSize: 26, fontFamily: "Lato-Regular" },
-});
+const useButtonStyles = () => {
+  const { height, width } = useWindowDimensions();
+  return StyleSheet.create({
+    buttonContainer: { marginTop: 20, alignItems: "center" },
+    buttonView: { borderRadius: 7, padding: 10 },
+    buttonText: {
+      fontSize: height > 700 ? 28 : 26,
+      fontFamily: "Lato-Regular",
+    },
+  });
+};
 
-export default buttonStyles;
+export default useButtonStyles;

@@ -6,9 +6,10 @@ import printIcon from "../assets/png/imprimante.png";
 import useAuth from "../hooks/useAuth";
 import useQRCodeForm from "../hooks/useQRCodeForm";
 import QRCode from "react-native-qrcode-svg";
-import { PermissionsAndroid, Platform, View } from "react-native";
+import { Platform, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 import * as FileSystem from "expo-file-system";
+// import {PermissionsAndroid} from 'react-native'
 
 const PrintQRCode = () => {
   const { auth } = useAuth();

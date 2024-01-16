@@ -101,6 +101,7 @@ const NavigationBottomTabHome = () => {
                     color: focused ? "#E4570F" : "#6F7DA3",
                     fontSize: 12,
                     fontFamily: "Lato-Regular",
+                    width: 50
                   }}
                 >
                   QR Code

@@ -1,10 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
 const useSuiviStyles = () => {
+  const { height, width } = useWindowDimensions();
   return StyleSheet.create({
     tableHeaderText: {
       color: "#1C2B39",
-      fontSize: 17,
+      fontSize: 18,
       fontWeight: "300",
       fontFamily: "Lato-Regular",
     },
@@ -19,7 +20,6 @@ const useSuiviStyles = () => {
     },
     tableHeaderView: {
       alignItems: "center",
-
     },
     tableHeader: {
       flexDirection: "row",
@@ -30,13 +30,19 @@ const useSuiviStyles = () => {
       textAlign: "center",
       justifyContent: "center",
     },
+    flatListView: {
+      overflow: "hidden",
+      height: height > 700 ? 500 : 250,
+    },
     tableRow: {
       flexDirection: "row",
       justifyContent: "space-between",
-      elevation: 2,
+    //   elevation: 4,
       paddingVertical: 10,
       backgroundColor: "#fff",
       paddingHorizontal: 10,
+      borderBottomWidth: 1,
+      borderColor: "#d1d1d1"
     },
     tableCell: {
       fontFamily: "Lato-Regular",
@@ -44,7 +50,20 @@ const useSuiviStyles = () => {
       flex: 1,
       color: "#1C2B39",
       paddingHorizontal: 5,
-      textAlign: "center"
+      textAlign: "center",
+    },
+    buttonAddSuivi: {
+      top: height > 700 ? -100 : -120,
+    },
+    buttonIcon: {
+      width: 70,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    icon: {
+      width: height > 700 ? 20 : 17,
+      height: height > 700 ? 20 : 17,
+      resizeMode: "contain",
     },
   });
 };

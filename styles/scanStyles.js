@@ -11,8 +11,8 @@ const useScanStyles = () => {
       width: "auto",
       height: "auto",
       backgroundColor: "#1C2B39",
-      padding: height > 700 ?12 :7,
-      top: height > 700 ? -30 : 0
+      padding: height > 700 ? 12 : 7,
+      top: height > 700 ? -30 : 0,
     },
     scanButtonText: {
       fontSize: height > 700 ? 34 : 30,

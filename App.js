@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ScanProvider } from "./context/ScanContext";
 import { ScreenProvider } from "./context/ScreenContext";
 import { QRCodeGeneratorProvider } from "./context/QRCodeGeneratorContext";
+import { SuiviProvider } from "./context/SuiviContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -27,9 +28,11 @@ const App = () => {
           <ScanProvider>
             <ScreenProvider>
               <QRCodeGeneratorProvider>
-                <NavigationContainer>
-                  <NavigationStackLog />
-                </NavigationContainer>
+                <SuiviProvider>
+                  <NavigationContainer>
+                    <NavigationStackLog />
+                  </NavigationContainer>
+                </SuiviProvider>
               </QRCodeGeneratorProvider>
             </ScreenProvider>
           </ScanProvider>

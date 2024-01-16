@@ -9,13 +9,17 @@ import ScanButton from "../components/ScanButton";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import useScreen from "../hooks/useScreen";
 import scanStyles from "../styles/scanStyles";
+import useSuivi from "../hooks/useSuivi";
+import useAxiosPrivate from "../hooks/usePrivateAxios";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
   const [cameraPermission, setCameraPermission] = useState(false);
   const { setScanned, scanned, setScanInfo } = useScan();
+  const { setSuivis } = useSuivi();
   const screenRoute = useRoute();
   const { setScreen, screen } = useScreen();
+  const axiosPrivate = useAxiosPrivate();
   let screenName = screenRoute.name;
 
   const unsubscribe = useCallback(() => {
@@ -51,16 +55,29 @@ const Scan = ({ navigation }) => {
     <LinearGradientBody>
       <Header />
       <View style={styles.container}>
-        {(scanned === false && cameraPermission) && (
+        {scanned === false && cameraPermission && (
           <View style={scanStyles.qrCodeScanerView}>
             <BarCodeScanner
               onBarCodeScanned={
                 scanned
                   ? undefined
-                  : ({ data }) => {
-                      setScanInfo(data);
-                      setScanned(true);
-                      navigation.navigate("suivi");
+                  : async ({ data }) => {
+                      let arrayData = data.split(",");
+                      try {
+                        const res = await axiosPrivate.post(
+                          "/suivi/getByProduct",
+                          { email: arrayData[0], id: arrayData[1] }
+                        );
+                        if(res.data.success){
+                          setSuivis(res.data.suivis)
+                          setScanInfo(data);
+                          setScanned(true);
+                          navigation.navigate("suivi");
+                        }
+                        
+                      } catch (error) {
+                        console.log(error)
+                      }
                     }
               }
               style={scanStyles.qrCodeScaner}
@@ -69,7 +86,7 @@ const Scan = ({ navigation }) => {
         )}
         {scanned && <ScanButton />}
       </View>
-    </LinearGradientBody> 
+    </LinearGradientBody>
   );
 };
 

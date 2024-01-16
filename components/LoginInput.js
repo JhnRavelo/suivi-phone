@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Text, TextInput, View } from "react-native";
 import useStyles from "../styles/main";
-import qrcodeStyles from "../styles/qrcodeStyles";
+import useQrcodeStyles from "../styles/qrcodeStyles";
 
 const LoginInput = ({
   icon,
@@ -13,6 +13,7 @@ const LoginInput = ({
   type,
 }) => {
   const styles = useStyles();
+  const qrcodeStyles = useQrcodeStyles()
   return (
     <View
       style={

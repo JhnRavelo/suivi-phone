@@ -3,11 +3,12 @@ import { Image, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import styles from "../styles/dropDownListStyles";
 import useStyles from "../styles/main";
-import qrcodeStyles from "../styles/qrcodeStyles";
+import useQrcodeStyles from "../styles/qrcodeStyles";
 
 const DropDownLists = ({ value, setValue, error, icon, text, data, label }) => {
   const [isFocus, setIsFocus] = useState(false);
   const inputStyles = useStyles()
+  const qrcodeStyles = useQrcodeStyles()
 
   const renderLabel = () => {
     if (value || isFocus) {

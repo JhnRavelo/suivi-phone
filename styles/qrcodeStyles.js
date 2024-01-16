@@ -1,17 +1,20 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
-const qrcodeStyles = StyleSheet.create({
-  formContainer: {
-    backgroundColor: "#fff",
-    width: 350,
-    height: 400,
-    borderRadius: 8,
-    marginBottom: 80,
-  },
-  formScrollView: { maxHeight: 300, overflow: "hidden" },
-  input: { marginBottom: 5, fontSize: 14, width: "100%", paddingBottom: 2 },
-  inputView: { marginRight: 20 },
-  textError: { fontSize: 12 },
-});
+const useQrcodeStyles = () => {
+  const {width, height} = useWindowDimensions()
+  return StyleSheet.create({
+    formContainer: {
+      backgroundColor: "#fff",
+      width: height > 700 ? 380 : 350,
+      height: height > 700 ? 450 : 400,
+      borderRadius: 8,
+      marginBottom: 80,
+    },
+    formScrollView: { maxHeight: 300, overflow: "hidden" },
+    input: { marginBottom: 5, fontSize: 14, width: "100%", paddingBottom: 2 },
+    inputView: { marginRight: 20 },
+    textError: { fontSize: 12 },
+  });
+};
 
-export default qrcodeStyles;
+export default useQrcodeStyles;

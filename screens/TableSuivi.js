@@ -2,7 +2,6 @@ import {
   FlatList,
   Image,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -77,8 +76,11 @@ const data = [
   },
 ];
 
-const TableSuivi = () => {
+const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
+  const handleClick = () => {
+    navigation.navigate("addproblem");
+  };
   return (
     <LinearGradientBody>
       <Header />
@@ -127,7 +129,11 @@ const TableSuivi = () => {
           </View>
         </ScrollView>
       </View>
-      <AppButton text="Ajouter un suivi" style={suiviStyles.buttonAddSuivi} />
+      <AppButton
+        text="Ajouter un suivi"
+        style={suiviStyles.buttonAddSuivi}
+        onPress={handleClick}
+      />
     </LinearGradientBody>
   );
 };

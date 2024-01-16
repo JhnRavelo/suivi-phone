@@ -1,13 +1,15 @@
 import React from "react";
 import useStyles from "../styles/main";
-import qrcodeStyles from "../styles/qrcodeStyles";
-import { KeyboardAvoidingView, ScrollView, View } from "react-native";
+import useQrcodeStyles from "../styles/qrcodeStyles";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import Header from "./Header";
 import LinearGradientBody from "./LinearGradienBody";
 import AppButton from "./Button";
+import ButtonStep from "./ButtonStep";
 
-const FormContainer = ({ children, text, onPress }) => {
+const FormContainer = ({ children, text, onPress, screen, index }) => {
     const styles = useStyles()
+    const qrcodeStyles = useQrcodeStyles()
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -24,7 +26,7 @@ const FormContainer = ({ children, text, onPress }) => {
             >
               {children}
             </ScrollView>
-            <AppButton text={text} onPress={onPress} />
+            {screen==="step"? <ButtonStep index={index} /> :<AppButton text={text} onPress={onPress} />}
           </View>
         </View>
       </LinearGradientBody>

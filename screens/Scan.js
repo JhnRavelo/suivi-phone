@@ -11,6 +11,7 @@ import useScreen from "../hooks/useScreen";
 import useScanStyles from "../styles/scanStyles";
 import useSuivi from "../hooks/useSuivi";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
+import useFiche from "../hooks/useFiche";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
@@ -20,6 +21,7 @@ const Scan = ({ navigation }) => {
   const { setSuivis } = useSuivi();
   const screenRoute = useRoute();
   const { setScreen, screen } = useScreen();
+  const {setFiche} = useFiche()
   const axiosPrivate = useAxiosPrivate();
   let screenName = screenRoute.name;
 
@@ -71,6 +73,7 @@ const Scan = ({ navigation }) => {
                         );
                         if (res.data.success) {
                           setSuivis(res.data.suivis);
+                          setFiche(res.data.product)
                           setScanInfo(data);
                           setScanned(true);
                           navigation.navigate("suivi");

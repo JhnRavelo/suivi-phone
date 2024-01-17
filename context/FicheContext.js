@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 
 const FicheContext = createContext();
 
-const FicheProcider = ({ children }) => {
+const FicheProvider = ({ children }) => {
   const [fiche, setFiche] = useState();
   return (
     <FicheContext.Provider value={{ fiche, setFiche }}>
@@ -11,6 +11,6 @@ const FicheProcider = ({ children }) => {
   );
 };
 
-export {FicheProcider}
+export { FicheProvider };
 
 export default FicheContext;

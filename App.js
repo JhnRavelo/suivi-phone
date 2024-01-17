@@ -7,6 +7,7 @@ import { ScanProvider } from "./context/ScanContext";
 import { ScreenProvider } from "./context/ScreenContext";
 import { QRCodeGeneratorProvider } from "./context/QRCodeGeneratorContext";
 import { SuiviProvider } from "./context/SuiviContext";
+import { FicheProvider } from "./context/FicheContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -29,9 +30,11 @@ const App = () => {
             <ScreenProvider>
               <QRCodeGeneratorProvider>
                 <SuiviProvider>
-                  <NavigationContainer>
-                    <NavigationStackLog />
-                  </NavigationContainer>
+                  <FicheProvider>
+                    <NavigationContainer>
+                      <NavigationStackLog />
+                    </NavigationContainer>
+                  </FicheProvider>
                 </SuiviProvider>
               </QRCodeGeneratorProvider>
             </ScreenProvider>

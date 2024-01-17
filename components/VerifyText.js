@@ -1,16 +1,25 @@
 import React from "react";
 import { Text, View } from "react-native";
+import useVerifyTextStyles from "../styles/verifyTextStyles";
 
-const VerifyText = ({ items }) => {
+const VerifyText = ({
+  items,
+  containerStyle,
+  contentStyle,
+  labelStyle,
+  textStyle,
+}) => {
+  const verifyStyles = useVerifyTextStyles();
   return (
-    <View style={{ display: "flex", flexDirection: "column" }}>
+    <View style={[verifyStyles.verifyTextContainer, containerStyle]}>
       {items.map((item, index) => (
-        <View
-          style={{ display: "flex", flexDirection: "row", gap: 20 , padding: 5, paddingLeft: 25}}
-          key={index}
-        >
-          <Text style={{ flex: 0, width: 100 , color: "#E4570F", fontSize: 14, fontWeight: 'bold'}}>{item.label} :</Text>
-          <Text style={{ flex: 1 , fontSize: 14,}}>{item.value}</Text>
+        <View style={[verifyStyles.verifyTextView, contentStyle]} key={index}>
+          <Text style={[verifyStyles.verifyTextTitle, labelStyle]}>
+            {`${item.label} :`}
+          </Text>
+          <Text style={[verifyStyles.verifyTextValue, textStyle]}>
+            {item.value}
+          </Text>
         </View>
       ))}
     </View>

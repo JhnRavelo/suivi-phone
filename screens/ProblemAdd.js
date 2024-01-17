@@ -106,6 +106,9 @@ const ProblemAdd = () => {
                 { label: "Solution", value: solution },
                 { label: "Observation", value: obsvr },
               ]}
+              containerStyle={{marginTop: 5,}}
+              contentStyle={{paddingTop: 15,}}
+              labelStyle={{fontSize: 16,}}
             />
           </ProgressStep>
         </ProgressSteps>

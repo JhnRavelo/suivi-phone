@@ -24,8 +24,8 @@ const useScanStyles = () => {
       marginBottom: height > 700 ? -8 : -10,
     },
     qrCodeScanerView: {
-      width: 400,
-      height: 400,
+      width: height > 700 ? 320 : 280,
+      height: height > 700 ? 320 : 280,
       overflow: "hidden",
       alignItems: "center",
       top: -40,

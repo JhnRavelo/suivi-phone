@@ -10,76 +10,15 @@ import FormTitle from "../components/FormTitle";
 import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import useSuiviStyles from "../styles/suiviStyles";
+import useSuivi from "../hooks/useSuivi"
 import deleteIcon from "../assets/png/effacer.png";
 import AppButton from "../components/Button";
 
-const data = [
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 1,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 2,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 3,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 4,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 5,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 6,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 7,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 8,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 9,
-  },
-  {
-    observation: "hgjk",
-    problem: "klqd,fgqgjkqsndknfkvlqnsdqslddsqdfg",
-    solution: "fqhudfhqushbjdqbjdqsjdq",
-    id: 10,
-  },
-];
-
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
+  const {suivis} = useSuivi()
   const handleClick = () => {
-    navigation.navigate("addproblem");
+    navigation.navigate("addsuivi");
   };
   return (
     <LinearGradientBody>
@@ -106,7 +45,7 @@ const TableSuivi = ({ navigation }) => {
               <FlatList
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1 }}
-                data={data}
+                data={suivis}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                   <View style={suiviStyles.tableRow}>
@@ -130,7 +69,7 @@ const TableSuivi = ({ navigation }) => {
         </ScrollView>
       </View>
       <AppButton
-        text="Ajouter un suivi"
+        text="Ajout de suivi"
         style={suiviStyles.buttonAddSuivi}
         onPress={handleClick}
       />

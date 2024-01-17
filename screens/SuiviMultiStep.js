@@ -6,7 +6,7 @@ import { View } from "react-native";
 import useSuiviStyles from "../styles/suiviStyles";
 import VerifyText from "../components/VerifyText";
 
-const ProblemAdd = () => {
+const SuiviMultiStep = () => {
   const suiviStyles = useSuiviStyles();
   const [problem, setProblem] = useState(null);
   const [obsvr, setObsvr] = useState("");
@@ -117,4 +117,4 @@ const ProblemAdd = () => {
   );
 };
 
-export default ProblemAdd;
+export default SuiviMultiStep;

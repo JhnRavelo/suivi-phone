@@ -8,12 +8,13 @@ import useScan from "../hooks/useScan";
 import ScanButton from "../components/ScanButton";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import useScreen from "../hooks/useScreen";
-import scanStyles from "../styles/scanStyles";
+import useScanStyles from "../styles/scanStyles";
 import useSuivi from "../hooks/useSuivi";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
+  const scanStyles = useScanStyles()
   const [cameraPermission, setCameraPermission] = useState(false);
   const { setScanned, scanned, setScanInfo } = useScan();
   const { setSuivis } = useSuivi();

@@ -6,10 +6,12 @@ import Header from "./Header";
 import LinearGradientBody from "./LinearGradienBody";
 import AppButton from "./Button";
 import ButtonStep from "./ButtonStep";
+import useSuiviStyles from "../styles/suiviStyles";
 
 const FormContainer = ({ children, text, onPress, screen, index }) => {
-    const styles = useStyles()
-    const qrcodeStyles = useQrcodeStyles()
+  const styles = useStyles();
+  const qrcodeStyles = useQrcodeStyles();
+  const suiviStyles = useSuiviStyles();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -22,11 +24,19 @@ const FormContainer = ({ children, text, onPress, screen, index }) => {
             <ScrollView
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              style={qrcodeStyles.formScrollView}
+              style={
+                screen === "step"
+                  ? [qrcodeStyles.formScrollView, suiviStyles.formScrollView]
+                  : qrcodeStyles.formScrollView
+              }
             >
               {children}
             </ScrollView>
-            {screen==="step"? <ButtonStep index={index} /> :<AppButton text={text} onPress={onPress} />}
+            {screen === "step" ? (
+              <ButtonStep index={index} />
+            ) : (
+              <AppButton text={text} onPress={onPress} />
+            )}
           </View>
         </View>
       </LinearGradientBody>

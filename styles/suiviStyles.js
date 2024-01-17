@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 
 const useSuiviStyles = () => {
@@ -37,12 +38,12 @@ const useSuiviStyles = () => {
     tableRow: {
       flexDirection: "row",
       justifyContent: "space-between",
-    //   elevation: 4,
+      //   elevation: 4,
       paddingVertical: 10,
       backgroundColor: "#fff",
       paddingHorizontal: 10,
       borderBottomWidth: 1,
-      borderColor: "#d1d1d1"
+      borderColor: "#d1d1d1",
     },
     tableCell: {
       fontFamily: "Lato-Regular",
@@ -64,6 +65,27 @@ const useSuiviStyles = () => {
       width: height > 700 ? 20 : 17,
       height: height > 700 ? 20 : 17,
       resizeMode: "contain",
+    },
+    progressStep: {
+      maxHeight: height > 700 ? 450 : 400,
+      height: height > 700 ? 450 : 400,
+    },
+    formScrollView: {
+      maxHeight: "100%",
+    },
+    nextprevButton: {
+      backgroundColor: "#1C2B39",
+      height: "auto",
+      width: "auto",
+      padding: 3,
+      borderRadius: 3,
+      elevation: 2,
+    },
+    nexprevText: {
+      fontFamily: "Lato-Regular",
+      fontSize: 18,
+      fontWeight: "500",
+      color: "white",
     },
   });
 };

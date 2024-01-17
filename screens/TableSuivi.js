@@ -50,13 +50,13 @@ const TableSuivi = ({ navigation }) => {
                 renderItem={({ item }) => (
                   <View style={suiviStyles.tableRow}>
                     <Text style={[suiviStyles.tableCell, { width: 150 }]}>
-                      {item.observation}
-                    </Text>
-                    <Text style={[suiviStyles.tableCell, { width: 150 }]}>
                       {item.problem}
                     </Text>
-                    <Text style={[suiviStyles.tableCell, { width: 180 }]}>
+                    <Text style={[suiviStyles.tableCell, { width: 150 }]}>
                       {item.solution}
+                    </Text>
+                    <Text style={[suiviStyles.tableCell, { width: 180 }]}>
+                      {item.observation}
                     </Text>
                     <TouchableOpacity style={suiviStyles.buttonIcon}>
                       <Image source={deleteIcon} style={suiviStyles.icon} />

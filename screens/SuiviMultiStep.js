@@ -5,14 +5,23 @@ import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { View } from "react-native";
 import useSuiviStyles from "../styles/suiviStyles";
 import VerifyText from "../components/VerifyText";
+import useAxiosPrivate from "../hooks/usePrivateAxios";
+import useScan from "../hooks/useScan";
+import useSuivi from "../hooks/useSuivi";
+import { StackActions } from "@react-navigation/native";
+import useAuth from "../hooks/useAuth";
 
-const SuiviMultiStep = () => {
+const SuiviMultiStep = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
   const [problem, setProblem] = useState(null);
   const [obsvr, setObsvr] = useState("");
   const [solution, setSolution] = useState("");
   const [errors, setErrors] = useState({});
   const [nextStep, setNextStep] = useState(true);
+  const { scanInfo } = useScan();
+  const { setSuivis } = useSuivi();
+  const {auth} = useAuth()
+  const axiosPrivate = useAxiosPrivate();
 
   const validate = (value, message, error) => {
     let errorObject = {};
@@ -24,6 +33,25 @@ const SuiviMultiStep = () => {
       errorObject[error] = "";
       setErrors(errorObject);
       setNextStep(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    console.log(auth)
+    try {
+      let productId = scanInfo.split(",")[1];
+      const res = await axiosPrivate.post("/suivi/addSuivi", {
+        productId,
+        problem,
+        observation: obsvr,
+        solution,
+      });
+      if (res.data.success) {
+        setSuivis(res.data.suivis);
+        navigation.dispatch(StackActions.replace("tablesuivi"));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -99,6 +127,7 @@ const SuiviMultiStep = () => {
             nextBtnTextStyle={suiviStyles.nexprevText}
             previousBtnStyle={suiviStyles.nextprevButton}
             previousBtnTextStyle={suiviStyles.nexprevText}
+            onSubmit={() => handleSubmit()}
           >
             <VerifyText
               items={[
@@ -106,9 +135,9 @@ const SuiviMultiStep = () => {
                 { label: "Solution", value: solution },
                 { label: "Observation", value: obsvr },
               ]}
-              containerStyle={{marginTop: 5,}}
-              contentStyle={{paddingTop: 15,}}
-              labelStyle={{fontSize: 16,}}
+              containerStyle={{ marginTop: 5 }}
+              contentStyle={{ paddingTop: 15 }}
+              labelStyle={{ fontSize: 16 }}
             />
           </ProgressStep>
         </ProgressSteps>

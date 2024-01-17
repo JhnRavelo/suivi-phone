@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import useStyles from "../styles/main";
 import useScreen from "../hooks/useScreen";
 import { useRoute } from "@react-navigation/native";
+import FormTitle from "../components/FormTitle";
 
 const Fiche = ({ navigation }) => {
   const styles = useStyles();
@@ -17,9 +18,9 @@ const Fiche = ({ navigation }) => {
   return (
     <LinearGradientBody>
       <Header />
-      <View style={styles.container}>
-        <Text>Fiche</Text>
-      </View>
+      {/* <View style={styles.container}> */}
+        <FormTitle title="Fiche Technique"/>
+      {/* </View> */}
     </LinearGradientBody>
   );
 };

@@ -10,13 +10,13 @@ import FormTitle from "../components/FormTitle";
 import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import useSuiviStyles from "../styles/suiviStyles";
-import useSuivi from "../hooks/useSuivi"
+import useSuivi from "../hooks/useSuivi";
 import deleteIcon from "../assets/png/effacer.png";
 import AppButton from "../components/Button";
 
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
-  const {suivis} = useSuivi()
+  const { suivis } = useSuivi();
   const handleClick = () => {
     navigation.navigate("addsuivi");
   };

@@ -15,13 +15,13 @@ import useFiche from "../hooks/useFiche";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
-  const scanStyles = useScanStyles()
+  const scanStyles = useScanStyles();
   const [cameraPermission, setCameraPermission] = useState(false);
   const { setScanned, scanned, setScanInfo } = useScan();
   const { setSuivis } = useSuivi();
   const screenRoute = useRoute();
   const { setScreen, screen } = useScreen();
-  const {setFiche} = useFiche()
+  const { setFiche } = useFiche();
   const axiosPrivate = useAxiosPrivate();
   let screenName = screenRoute.name;
 
@@ -66,20 +66,22 @@ const Scan = ({ navigation }) => {
                   ? undefined
                   : async ({ data }) => {
                       let arrayData = data.split(",");
-                      try {
-                        const res = await axiosPrivate.post(
-                          "/suivi/getByProduct",
-                          { email: arrayData[0], id: arrayData[1] }
-                        );
-                        if (res.data.success) {
-                          setSuivis(res.data.suivis);
-                          setFiche(res.data.product)
-                          setScanInfo(data);
-                          setScanned(true);
-                          navigation.navigate("suivi");
+                      if (!scanned) {
+                        try {
+                          const res = await axiosPrivate.post(
+                            "/suivi/getByProduct",
+                            { email: arrayData[0], id: arrayData[1] }
+                          );
+                          if (res.data.success) {
+                            setSuivis(res.data.suivis);
+                            setFiche(res.data.product);
+                            setScanInfo(data);
+                            setScanned(true);
+                            navigation.navigate("suivi");
+                          }
+                        } catch (error) {
+                          console.log(error, "SCAN");
                         }
-                      } catch (error) {
-                        console.log(error);
                       }
                     }
               }

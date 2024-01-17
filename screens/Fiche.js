@@ -23,9 +23,10 @@ const Fiche = ({ navigation }) => {
       <FormTitle title="Fiche Technique" />
       <VerifyText
         items={fiche}
-        labelStyle={{ width: 150 }}
+        labelStyle={{ width: 150, fontSize: 14, }}
         containerStyle={{ marginTop: 20}}
         contentStyle={{marginBottom: 20,}}
+        textStyle={{fontSize: 14,}}
       />
       {/* </View> */}
     </LinearGradientBody>

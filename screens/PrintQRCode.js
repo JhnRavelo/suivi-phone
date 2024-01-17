@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import FormContainer from "../components/FormContainer";
 import FormTitle from "../components/FormTitle";
 import DropDownLists from "../components/DropDownLists";
@@ -9,10 +9,11 @@ import QRCode from "react-native-qrcode-svg";
 import { Platform, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 import * as FileSystem from "expo-file-system";
-// import {PermissionsAndroid} from 'react-native'
+import {PermissionsAndroid} from 'react-native'
 
 const PrintQRCode = () => {
   const { auth } = useAuth();
+  const [printer, setPrinter] = useState()
   const { productAdded } = useQRCodeForm();
   const viewShotRef = useRef(null);
 
@@ -61,6 +62,8 @@ const PrintQRCode = () => {
         icon={printIcon}
         text="Sélectionnez l'imprimante"
         label="Imprimante"
+        value={printer}
+        setValue={setPrinter}
       />
       <View style={{ alignItems: "center", marginTop: 10 }}>
         <ViewShot options={{ format: "png", quality: 1.0 }} ref={viewShotRef}>

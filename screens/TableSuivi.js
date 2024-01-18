@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Image,
   ScrollView,
@@ -13,13 +14,42 @@ import useSuiviStyles from "../styles/suiviStyles";
 import useSuivi from "../hooks/useSuivi";
 import deleteIcon from "../assets/png/effacer.png";
 import AppButton from "../components/Button";
+import useAxiosPrivate from "../hooks/usePrivateAxios";
+import useScan from "../hooks/useScan";
 
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
-  const { suivis } = useSuivi();
+  const { suivis, setSuivis } = useSuivi();
+  const { scanInfo } = useScan();
+  const axiosPrivate = useAxiosPrivate();
   const handleClick = () => {
     navigation.navigate("addsuivi");
   };
+
+  const handleDelete = (item) => {
+    Alert.alert("Suppression", "Voulez-vous vraiment supprimez ?", [
+      {
+        text: "Annuler",
+      },
+      {
+        text: "OK",
+        onPress: async () => {
+          try {
+            const res = await axiosPrivate.post("/suivi/delete", {
+              deleteId: item.id,
+              productId: scanInfo.split(",")[1],
+            });
+            if (res.data.success) {
+              setSuivis(res.data.suivis);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        },
+      },
+    ]);
+  };
+
   return (
     <LinearGradientBody>
       <Header />
@@ -80,8 +110,13 @@ const TableSuivi = ({ navigation }) => {
                         {item.createdAt.split(" ")[0]}
                       </Text>
                     </View>
-                    <View style={[suiviStyles.tableCellView, {width: 60}]}>
-                      <TouchableOpacity style={suiviStyles.buttonIcon}>
+                    <View style={[suiviStyles.tableCellView, { width: 60 }]}>
+                      <TouchableOpacity
+                        style={suiviStyles.buttonIcon}
+                        onPress={() => {
+                          handleDelete(item);
+                        }}
+                      >
                         <Image source={deleteIcon} style={suiviStyles.icon} />
                       </TouchableOpacity>
                     </View>

@@ -20,13 +20,7 @@ const PrintQRCode = () => {
   const handleDownloadQrCode = async () => {
     try {
       const date = new Date();
-      if (Platform.OS === "android") {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-        );
-        if (granted !== PermissionsAndroid.RESULTS.GRANTED)
-          alert("Permission denied");
-      }
+      console.log(Platform.OS)
       await viewShotRef.current.capture().then(async (uri) => {
         const fileName =
           "qrcode-" +

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 
 const useSuiviStyles = () => {
@@ -33,12 +32,10 @@ const useSuiviStyles = () => {
     },
     tableRow: {
       flexDirection: "row",
-      // justifyContent: "space-between",
-      // elevation: 2,
       paddingVertical: 10,
       backgroundColor: "#fff",
-      // borderBottomWidth: 1,
-      // borderColor: "#d1d1d1",
+      borderBottomWidth: 1,
+      borderColor: "#d1d1d1",
     },
     tableCellView:{
       marginHorizontal: 10,

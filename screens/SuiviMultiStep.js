@@ -9,7 +9,6 @@ import useAxiosPrivate from "../hooks/usePrivateAxios";
 import useScan from "../hooks/useScan";
 import useSuivi from "../hooks/useSuivi";
 import { StackActions } from "@react-navigation/native";
-import useAuth from "../hooks/useAuth";
 
 const SuiviMultiStep = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -20,7 +19,6 @@ const SuiviMultiStep = ({ navigation }) => {
   const [nextStep, setNextStep] = useState(true);
   const { scanInfo } = useScan();
   const { setSuivis } = useSuivi();
-  const {auth} = useAuth()
   const axiosPrivate = useAxiosPrivate();
 
   const validate = (value, message, error) => {

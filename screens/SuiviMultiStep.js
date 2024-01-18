@@ -37,7 +37,6 @@ const SuiviMultiStep = ({ navigation }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(auth)
     try {
       let productId = scanInfo.split(",")[1];
       const res = await axiosPrivate.post("/suivi/addSuivi", {

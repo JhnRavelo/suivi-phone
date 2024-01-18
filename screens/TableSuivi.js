@@ -37,9 +37,15 @@ const TableSuivi = ({ navigation }) => {
               <View style={[suiviStyles.tableHeaderView, { width: 180 }]}>
                 <Text style={[suiviStyles.tableHeaderText]}>Observation</Text>
               </View>
-              <View style={[suiviStyles.tableHeaderView, { width: 70 }]}>
-                <Text style={[suiviStyles.tableHeaderText]}>Action</Text>
+              <View style={[suiviStyles.tableHeaderView, { width: 90 }]}>
+                <Text style={[suiviStyles.tableHeaderText]}>Technicien</Text>
               </View>
+              <View style={[suiviStyles.tableHeaderView, { width: 100 }]}>
+                <Text style={[suiviStyles.tableHeaderText]}>Date</Text>
+              </View>
+              {/* <View style={[suiviStyles.tableHeaderView, { width: 70 }]}>
+                <Text style={[suiviStyles.tableHeaderText]}>Action</Text>
+              </View> */}
             </View>
             <View style={suiviStyles.flatListView}>
               <FlatList
@@ -58,9 +64,15 @@ const TableSuivi = ({ navigation }) => {
                     <Text style={[suiviStyles.tableCell, { width: 180 }]}>
                       {item.observation}
                     </Text>
-                    <TouchableOpacity style={suiviStyles.buttonIcon}>
+                    <Text style={[suiviStyles.tableCell, { width: 90 }]}>
+                      {item?.user?.name}
+                    </Text>
+                    <Text style={[suiviStyles.tableCell, { width: 100 }]}>
+                      {item.createdAt.split(" ")[0]}
+                    </Text>
+                    {/* <TouchableOpacity style={suiviStyles.buttonIcon}>
                       <Image source={deleteIcon} style={suiviStyles.icon} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                 )}
               />

@@ -20,7 +20,8 @@ const useSuiviStyles = () => {
       flex: 1,
     },
     tableHeaderView: {
-      alignItems: "center",
+      alignItems: "flex-start",
+      marginRight: 25
     },
     tableHeader: {
       flexDirection: "row",
@@ -28,8 +29,8 @@ const useSuiviStyles = () => {
       paddingVertical: 10,
       backgroundColor: "#D9D9D9",
       //   flex: 1,
-      textAlign: "center",
-      justifyContent: "center",
+      // textAlign: "center",
+      // justifyContent: "center",
     },
     flatListView: {
       overflow: "hidden",
@@ -51,7 +52,8 @@ const useSuiviStyles = () => {
       flex: 1,
       color: "#1C2B39",
       paddingHorizontal: 5,
-      textAlign: "center",
+      textAlign: "justify",
+      marginRight: 10
     },
     buttonAddSuivi: {
       top: height > 700 ? -100 : -120,

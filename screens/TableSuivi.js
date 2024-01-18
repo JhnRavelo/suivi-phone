@@ -43,9 +43,9 @@ const TableSuivi = ({ navigation }) => {
               <View style={[suiviStyles.tableHeaderView, { width: 100 }]}>
                 <Text style={[suiviStyles.tableHeaderText]}>Date</Text>
               </View>
-              {/* <View style={[suiviStyles.tableHeaderView, { width: 70 }]}>
+              <View style={[suiviStyles.tableHeaderView, { width: 60 }]}>
                 <Text style={[suiviStyles.tableHeaderText]}>Action</Text>
-              </View> */}
+              </View>
             </View>
             <View style={suiviStyles.flatListView}>
               <FlatList
@@ -55,24 +55,36 @@ const TableSuivi = ({ navigation }) => {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                   <View style={suiviStyles.tableRow}>
-                    <Text style={[suiviStyles.tableCell, { width: 150 }]}>
-                      {item.problem}
-                    </Text>
-                    <Text style={[suiviStyles.tableCell, { width: 150 }]}>
-                      {item.solution}
-                    </Text>
-                    <Text style={[suiviStyles.tableCell, { width: 180 }]}>
-                      {item.observation}
-                    </Text>
-                    <Text style={[suiviStyles.tableCell, { width: 90 }]}>
-                      {item?.user?.name}
-                    </Text>
-                    <Text style={[suiviStyles.tableCell, { width: 100 }]}>
-                      {item.createdAt.split(" ")[0]}
-                    </Text>
-                    {/* <TouchableOpacity style={suiviStyles.buttonIcon}>
-                      <Image source={deleteIcon} style={suiviStyles.icon} />
-                    </TouchableOpacity> */}
+                    <View style={[suiviStyles.tableCellView, { width: 150 }]}>
+                      <Text style={[suiviStyles.tableCell]}>
+                        {item.problem}
+                      </Text>
+                    </View>
+                    <View style={[suiviStyles.tableCellView, { width: 150 }]}>
+                      <Text style={[suiviStyles.tableCell]}>
+                        {item.solution}
+                      </Text>
+                    </View>
+                    <View style={[suiviStyles.tableCellView, { width: 180 }]}>
+                      <Text style={[suiviStyles.tableCell]}>
+                        {item.observation}
+                      </Text>
+                    </View>
+                    <View style={[suiviStyles.tableCellView, { width: 90 }]}>
+                      <Text style={[suiviStyles.tableCell]}>
+                        {item?.user?.name}
+                      </Text>
+                    </View>
+                    <View style={[suiviStyles.tableCellView, { width: 100 }]}>
+                      <Text style={[suiviStyles.tableCell]}>
+                        {item.createdAt.split(" ")[0]}
+                      </Text>
+                    </View>
+                    <View style={[suiviStyles.tableCellView, {width: 60}]}>
+                      <TouchableOpacity style={suiviStyles.buttonIcon}>
+                        <Image source={deleteIcon} style={suiviStyles.icon} />
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 )}
               />

@@ -17,20 +17,15 @@ const useSuiviStyles = () => {
       marginTop: -20,
     },
     listContainer: {
-      flex: 1,
+      flex:1
     },
     tableHeaderView: {
-      alignItems: "flex-start",
-      marginRight: 25
+      marginHorizontal: 10
     },
     tableHeader: {
       flexDirection: "row",
-      paddingHorizontal: 10,
       paddingVertical: 10,
       backgroundColor: "#D9D9D9",
-      //   flex: 1,
-      // textAlign: "center",
-      // justifyContent: "center",
     },
     flatListView: {
       overflow: "hidden",
@@ -38,28 +33,27 @@ const useSuiviStyles = () => {
     },
     tableRow: {
       flexDirection: "row",
-      justifyContent: "space-between",
-      //   elevation: 4,
+      // justifyContent: "space-between",
+      // elevation: 2,
       paddingVertical: 10,
       backgroundColor: "#fff",
-      paddingHorizontal: 10,
-      borderBottomWidth: 1,
-      borderColor: "#d1d1d1",
+      // borderBottomWidth: 1,
+      // borderColor: "#d1d1d1",
+    },
+    tableCellView:{
+      marginHorizontal: 10,
     },
     tableCell: {
       fontFamily: "Lato-Regular",
       fontSize: 14,
-      flex: 1,
+      // flex: 1,
       color: "#1C2B39",
-      paddingHorizontal: 5,
       textAlign: "justify",
-      marginRight: 10
     },
     buttonAddSuivi: {
       top: height > 700 ? -100 : -120,
     },
     buttonIcon: {
-      width: 70,
       alignItems: "center",
       justifyContent: "center",
     },

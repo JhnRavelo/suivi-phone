@@ -9,11 +9,11 @@ import QRCode from "react-native-qrcode-svg";
 import { Platform, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 import * as FileSystem from "expo-file-system";
-import {PermissionsAndroid} from 'react-native'
+import { PermissionsAndroid } from "react-native";
 
 const PrintQRCode = () => {
   const { auth } = useAuth();
-  const [printer, setPrinter] = useState()
+  const [printer, setPrinter] = useState();
   const { productAdded } = useQRCodeForm();
   const viewShotRef = useRef(null);
 
@@ -65,13 +65,20 @@ const PrintQRCode = () => {
         value={printer}
         setValue={setPrinter}
       />
-      <View style={{ alignItems: "center", marginTop: 10 }}>
+      <View
+        style={{
+          alignItems: "center",
+          marginTop: 5,
+        }}
+      >
         <ViewShot options={{ format: "png", quality: 1.0 }} ref={viewShotRef}>
-          <QRCode
-            value={`${auth.email},${productAdded}`}
-            size={175}
-            logoMargin={10}
-          />
+          <View style={{backgroundColor: "white", padding: 8}}>
+            <QRCode
+              value={`${auth.email},${productAdded}`}
+              size={175}
+              logoMargin={10}
+            />
+          </View>
         </ViewShot>
       </View>
     </FormContainer>

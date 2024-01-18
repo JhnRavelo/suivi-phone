@@ -25,7 +25,7 @@ const VerifyProductForm = ({ navigation }) => {
   return (
     <FormContainer text="Vérifier" onPress={handleClick}>
       <FormTitle title="Vérification" />
-      <VerifyText items={dataQRCodeVerify} />
+      <VerifyText items={dataQRCodeVerify} containerStyle={{marginTop: 20, paddingVertical: 10,}}/>
     </FormContainer>
   );
 };

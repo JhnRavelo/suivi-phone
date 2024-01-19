@@ -1,14 +1,17 @@
-import React, { Component, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormContainer from "../components/FormContainer";
 import MultiLineInput from "../components/MultiLineInput";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import useSuiviStyles from "../styles/suiviStyles";
 import VerifyText from "../components/VerifyText";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import useScan from "../hooks/useScan";
 import useSuivi from "../hooks/useSuivi";
 import { StackActions } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import AppButton from "../components/Button";
+import { axiosDefault } from "../api/axios";
 
 const SuiviMultiStep = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -17,6 +20,8 @@ const SuiviMultiStep = ({ navigation }) => {
   const [solution, setSolution] = useState("");
   const [errors, setErrors] = useState({});
   const [nextStep, setNextStep] = useState(true);
+  const [images, setImages] = useState(null);
+  const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
   const { scanInfo } = useScan();
   const { setSuivis } = useSuivi();
   const axiosPrivate = useAxiosPrivate();
@@ -43,14 +48,76 @@ const SuiviMultiStep = ({ navigation }) => {
         observation: obsvr,
         solution,
       });
+
       if (res.data.success) {
-        setSuivis(res.data.suivis);
+        const formData = new FormData();
+        formData.append("id", res.data.id);
+        formData.append("productId", productId);
+        if (images?.length) {
+          for (let i = 0; i < images.length; i++) {
+            formData.append(`images`, {
+              uri: images[i].uri,
+              type: "image/png",
+              name: `image${i}.png`,
+            });
+          }
+        }
+
+        const result = await axiosDefault.put("/suivi/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        setSuivis(result.data.suivis);
         navigation.dispatch(StackActions.replace("tablesuivi"));
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleImagesPicker = () => {
+    Alert.alert(
+      "Pièces Jointes",
+      "Veuillez choisir votre méthode de sélection",
+      [
+        {
+          text: "Gallery",
+          onPress: async () => {
+            console.log("Gallery");
+            if (hasGalleryPermission) {
+              let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsMultipleSelection: true,
+                quality: 1,
+              });
+              if (!result.canceled) {
+                setImages(result.assets);
+              }
+            }
+          },
+        },
+        {
+          text: "Appareil Photos",
+          onPress: () => {
+            console.log("Photos");
+          },
+        },
+        {
+          text: "Annuler",
+        },
+      ]
+    );
+  };
+
+  useEffect(() => {
+    (async () => {
+      const galleryStatus =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setHasGalleryPermission(galleryStatus);
+    })();
+  }, []);
 
   return (
     <FormContainer screen="step">
@@ -114,6 +181,13 @@ const SuiviMultiStep = ({ navigation }) => {
               placeholder="Observation"
               value={obsvr}
               onChange={setObsvr}
+            />
+            <AppButton
+              text="pièces jointes"
+              textStyle={{ fontSize: 13 }}
+              viewStyle={{ padding: 6, borderRadius: 4 }}
+              style={{ alignItems: "flex-end", marginRight: 35, marginTop: 5 }}
+              onPress={handleImagesPicker}
             />
           </ProgressStep>
           <ProgressStep

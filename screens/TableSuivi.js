@@ -97,8 +97,35 @@ const TableSuivi = ({ navigation }) => {
                     </View>
                     <View style={[suiviStyles.tableCellView, { width: 180 }]}>
                       <Text style={[suiviStyles.tableCell]}>
-                        {item.observation}
+                        {item?.observation?.includes(";")
+                          ? item?.observation?.split(";")[0]
+                          : item.observation}
                       </Text>
+                      {item?.observation?.includes(";") &&
+                        item?.observation?.split(";")[1] != "null" && (
+                          <View
+                            style={{
+                              width: 150,
+                              display: "flex",
+                              flexDirection: "row",
+                              flexWrap: "wrap",
+                              alignItems: "center",
+                              alignSelf: "center",
+                              gap: 10,
+                            }}
+                          >
+                            {item.observation
+                              .split(";")[1]
+                              .split(",")
+                              .map((img, index) => (
+                                <Image
+                                  key={index}
+                                  source={{ uri: img }}
+                                  style={{ width: 70, height: 70 }}
+                                />
+                              ))}
+                          </View>
+                        )}
                     </View>
                     <View style={[suiviStyles.tableCellView, { width: 90 }]}>
                       <Text style={[suiviStyles.tableCell]}>
@@ -127,11 +154,13 @@ const TableSuivi = ({ navigation }) => {
           </View>
         </ScrollView>
       </View>
-      <AppButton
-        text="Ajout de suivi"
-        style={suiviStyles.buttonAddSuivi}
-        onPress={handleClick}
-      />
+      {suivis.length != 0 && (
+        <AppButton
+          text="Ajout de suivi"
+          style={suiviStyles.buttonAddSuivi}
+          onPress={handleClick}
+        />
+      )}
     </LinearGradientBody>
   );
 };

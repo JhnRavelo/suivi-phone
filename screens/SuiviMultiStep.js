@@ -12,6 +12,7 @@ import { StackActions } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import AppButton from "../components/Button";
 import { axiosDefault } from "../api/axios";
+import AppCamera from "../components/AppCamera";
 
 const SuiviMultiStep = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -22,6 +23,7 @@ const SuiviMultiStep = ({ navigation }) => {
   const [nextStep, setNextStep] = useState(true);
   const [images, setImages] = useState(null);
   const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
+  const [takePicture, setTakePicture] = useState();
   const { scanInfo } = useScan();
   const { setSuivis } = useSuivi();
   const axiosPrivate = useAxiosPrivate();
@@ -61,6 +63,12 @@ const SuiviMultiStep = ({ navigation }) => {
               name: `image${i}.png`,
             });
           }
+        } else {
+          formData.append("image", {
+            uri: images.uri,
+            type: "image/png",
+            name: "image.png",
+          });
         }
 
         const result = await axiosDefault.put("/suivi/upload", formData, {
@@ -101,7 +109,7 @@ const SuiviMultiStep = ({ navigation }) => {
         {
           text: "Appareil Photos",
           onPress: () => {
-            console.log("Photos");
+            setTakePicture(true);
           },
         },
         {
@@ -120,100 +128,109 @@ const SuiviMultiStep = ({ navigation }) => {
   }, []);
 
   return (
-    <FormContainer screen="step">
-      <View style={suiviStyles.progressStep}>
-        <ProgressSteps>
-          <ProgressStep
-            label="Problème"
-            nextBtnText="Suivant"
-            nextBtnStyle={suiviStyles.nextprevButton}
-            nextBtnTextStyle={suiviStyles.nexprevText}
-            onNext={() => {
-              return validate(
-                problem,
-                "Veuillez remplir le problème",
-                "problem"
-              );
-            }}
-            errors={nextStep}
-          >
-            <MultiLineInput
-              placeholder="Problème"
-              value={problem}
-              onChange={setProblem}
-              error={errors.problem}
-            />
-          </ProgressStep>
-          <ProgressStep
-            label="Solution"
-            nextBtnText="Suivant"
-            previousBtnText="Retour"
-            nextBtnStyle={suiviStyles.nextprevButton}
-            nextBtnTextStyle={suiviStyles.nexprevText}
-            previousBtnStyle={suiviStyles.nextprevButton}
-            previousBtnTextStyle={suiviStyles.nexprevText}
-            onNext={() => {
-              return validate(
-                solution,
-                "Veuillez remplir la solution",
-                "solution"
-              );
-            }}
-            errors={nextStep}
-          >
-            <MultiLineInput
-              placeholder="Solution"
-              value={solution}
-              onChange={setSolution}
-              error={errors.solution}
-            />
-          </ProgressStep>
-          <ProgressStep
-            label="Observation"
-            nextBtnText="Suivant"
-            previousBtnText="Retour"
-            nextBtnStyle={suiviStyles.nextprevButton}
-            nextBtnTextStyle={suiviStyles.nexprevText}
-            previousBtnStyle={suiviStyles.nextprevButton}
-            previousBtnTextStyle={suiviStyles.nexprevText}
-          >
-            <MultiLineInput
-              placeholder="Observation"
-              value={obsvr}
-              onChange={setObsvr}
-            />
-            <AppButton
-              text="pièces jointes"
-              textStyle={{ fontSize: 13 }}
-              viewStyle={{ padding: 6, borderRadius: 4 }}
-              style={{ alignItems: "flex-end", marginRight: 35, marginTop: 5 }}
-              onPress={handleImagesPicker}
-            />
-          </ProgressStep>
-          <ProgressStep
-            label="Vérification"
-            finishBtnText="Envoyer"
-            previousBtnText="Retour"
-            nextBtnStyle={suiviStyles.nextprevButton}
-            nextBtnTextStyle={suiviStyles.nexprevText}
-            previousBtnStyle={suiviStyles.nextprevButton}
-            previousBtnTextStyle={suiviStyles.nexprevText}
-            onSubmit={() => handleSubmit()}
-          >
-            <VerifyText
-              items={[
-                { label: "Problème", value: problem },
-                { label: "Solution", value: solution },
-                { label: "Observation", value: obsvr },
-              ]}
-              containerStyle={{ marginTop: 5 }}
-              contentStyle={{ paddingTop: 15 }}
-              labelStyle={{ fontSize: 16 }}
-            />
-          </ProgressStep>
-        </ProgressSteps>
-      </View>
-    </FormContainer>
+    <>
+      <FormContainer screen="step">
+        <View style={suiviStyles.progressStep}>
+          <ProgressSteps>
+            <ProgressStep
+              label="Problème"
+              nextBtnText="Suivant"
+              nextBtnStyle={suiviStyles.nextprevButton}
+              nextBtnTextStyle={suiviStyles.nexprevText}
+              onNext={() => {
+                return validate(
+                  problem,
+                  "Veuillez remplir le problème",
+                  "problem"
+                );
+              }}
+              errors={nextStep}
+            >
+              <MultiLineInput
+                placeholder="Problème"
+                value={problem}
+                onChange={setProblem}
+                error={errors.problem}
+              />
+            </ProgressStep>
+            <ProgressStep
+              label="Solution"
+              nextBtnText="Suivant"
+              previousBtnText="Retour"
+              nextBtnStyle={suiviStyles.nextprevButton}
+              nextBtnTextStyle={suiviStyles.nexprevText}
+              previousBtnStyle={suiviStyles.nextprevButton}
+              previousBtnTextStyle={suiviStyles.nexprevText}
+              onNext={() => {
+                return validate(
+                  solution,
+                  "Veuillez remplir la solution",
+                  "solution"
+                );
+              }}
+              errors={nextStep}
+            >
+              <MultiLineInput
+                placeholder="Solution"
+                value={solution}
+                onChange={setSolution}
+                error={errors.solution}
+              />
+            </ProgressStep>
+            <ProgressStep
+              label="Observation"
+              nextBtnText="Suivant"
+              previousBtnText="Retour"
+              nextBtnStyle={suiviStyles.nextprevButton}
+              nextBtnTextStyle={suiviStyles.nexprevText}
+              previousBtnStyle={suiviStyles.nextprevButton}
+              previousBtnTextStyle={suiviStyles.nexprevText}
+            >
+              <MultiLineInput
+                placeholder="Observation"
+                value={obsvr}
+                onChange={setObsvr}
+              />
+              <AppButton
+                text="pièces jointes"
+                textStyle={{ fontSize: 13 }}
+                viewStyle={{ padding: 6, borderRadius: 4 }}
+                style={{
+                  alignItems: "flex-end",
+                  marginRight: 35,
+                  marginTop: 5,
+                }}
+                onPress={handleImagesPicker}
+              />
+            </ProgressStep>
+            <ProgressStep
+              label="Vérification"
+              finishBtnText="Envoyer"
+              previousBtnText="Retour"
+              nextBtnStyle={suiviStyles.nextprevButton}
+              nextBtnTextStyle={suiviStyles.nexprevText}
+              previousBtnStyle={suiviStyles.nextprevButton}
+              previousBtnTextStyle={suiviStyles.nexprevText}
+              onSubmit={() => handleSubmit()}
+            >
+              <VerifyText
+                items={[
+                  { label: "Problème", value: problem },
+                  { label: "Solution", value: solution },
+                  { label: "Observation", value: obsvr },
+                ]}
+                containerStyle={{ marginTop: 5 }}
+                contentStyle={{ paddingTop: 15 }}
+                labelStyle={{ fontSize: 16 }}
+              />
+            </ProgressStep>
+          </ProgressSteps>
+        </View>
+      </FormContainer>
+      {takePicture && (
+        <AppCamera setValue={setImages} setTakeCamera={setTakePicture} />
+      )}
+    </>
   );
 };
 

@@ -121,7 +121,11 @@ const TableSuivi = ({ navigation }) => {
                                 <Image
                                   key={index}
                                   source={{ uri: img }}
-                                  style={{ width: 70, height: 70 }}
+                                  style={{
+                                    width: 70,
+                                    height: 70,
+                                    resizeMode: "cover",
+                                  }}
                                 />
                               ))}
                           </View>

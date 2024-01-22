@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View, useWindowDimensions } from "react-native";
 import userIcon from "../assets/png/utilisateur.png";
 import cadenaIcon from "../assets/png/cadenas.png";
 import chevronRight from "../assets/png/chevron-droit.png";
@@ -10,9 +10,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LinearGradientBody from "../components/LinearGradienBody";
 import LoginInput from "../components/LoginInput";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
-import {StackActions} from '@react-navigation/native'
-import logo from "../assets/png/Logo_Euro.png"
+import { StackActions } from "@react-navigation/native";
+import logo from "../assets/png/Logo_Euro.png";
 import useStyles from "../styles/main";
+import AppLoader from "../components/AppLoader";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -20,9 +21,11 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const { setAuth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
-  const styles = useStyles()
+  const styles = useStyles();
+  const {height, width} = useWindowDimensions()
 
   const validate = () => {
     let error = {};
@@ -61,9 +64,7 @@ const Login = ({ navigation }) => {
             accessToken: res.data.accessToken,
           });
           await AsyncStorage.setItem("jwt", res.data.refreshToken);
-          navigation.dispatch(
-            StackActions.replace("home")
-          );
+          navigation.dispatch(StackActions.replace("home"));
         }
       } catch (error) {
         setErrors({
@@ -76,6 +77,7 @@ const Login = ({ navigation }) => {
 
   useEffect(() => {
     verifyUser();
+    console.log(width, height)
   }, []);
 
   const verifyUser = async () => {
@@ -91,9 +93,7 @@ const Login = ({ navigation }) => {
               email: user.data.email,
             };
           });
-          navigation.dispatch(
-            StackActions.replace("home")
-          );
+          navigation.dispatch(StackActions.replace("home"));
         }
       }
     } catch (error) {
@@ -102,49 +102,58 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <LinearGradientBody>
-      <View style={styles.container}>
-        <View style={[styles.screen, styles.boxShadow]}>
-          <View style={styles.screenContent}>
-            <View style={styles.login}>
-              <Image source={logo} style={styles.logoLogin} />
-              <LoginInput
-                value={email}
-                icon={userIcon}
-                onChange={setEmail}
-                placeholder="Adresse email"
-                errors={errors?.email}
-                secure={false}
+    <>
+      <LinearGradientBody>
+        <View style={styles.container}>
+          <View style={[styles.screen, styles.boxShadow]}>
+            <View style={styles.screenContent}>
+              <View style={styles.login}>
+                <Image source={logo} style={styles.logoLogin} />
+                <LoginInput
+                  value={email}
+                  icon={userIcon}
+                  onChange={setEmail}
+                  placeholder="Adresse email"
+                  errors={errors?.email}
+                  secure={false}
+                />
+                <LoginInput
+                  value={password}
+                  icon={cadenaIcon}
+                  onChange={setPassword}
+                  placeholder="Mot de passe"
+                  errors={errors?.password}
+                  secure={true}
+                />
+                <TouchableOpacity
+                  style={[styles.loginSubmit, styles.boxShadow]}
+                  onPress={() => handleLogin()}
+                >
+                  <Text style={styles.buttonText}>Connexion</Text>
+                  <Image source={chevronRight} style={styles.buttonIcon} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.screenBg}>
+              <View
+                style={[styles.screenBgShape, styles.screenBgShape1]}
+              ></View>
+              <View
+                style={[styles.screenBgShape, styles.screenBgShape2]}
+              ></View>
+              <LinearGradient
+                colors={["#2157A1", "#3799B8"]}
+                style={[styles.screenBgShape, styles.screenBgShape3]}
               />
-              <LoginInput
-                value={password}
-                icon={cadenaIcon}
-                onChange={setPassword}
-                placeholder="Mot de passe"
-                errors={errors?.password}
-                secure={true}
-              />
-              <TouchableOpacity
-                style={[styles.loginSubmit, styles.boxShadow]}
-                onPress={() => handleLogin()}
-              >
-                <Text style={styles.buttonText}>Connexion</Text>
-                <Image source={chevronRight} style={styles.buttonIcon} />
-              </TouchableOpacity>
+              <View
+                style={[styles.screenBgShape, styles.screenBgShape4]}
+              ></View>
             </View>
           </View>
-          <View style={styles.screenBg}>
-            <View style={[styles.screenBgShape, styles.screenBgShape1]}></View>
-            <View style={[styles.screenBgShape, styles.screenBgShape2]}></View>
-            <LinearGradient
-              colors={["#2157A1", "#3799B8"]}
-              style={[styles.screenBgShape, styles.screenBgShape3]}
-            />
-            <View style={[styles.screenBgShape, styles.screenBgShape4]}></View>
-          </View>
         </View>
-      </View>
-    </LinearGradientBody>
+      </LinearGradientBody>
+      <AppLoader />
+    </>
   );
 };
 

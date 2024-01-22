@@ -9,7 +9,6 @@ import QRCode from "react-native-qrcode-svg";
 import { Platform, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 import * as FileSystem from "expo-file-system";
-import { PermissionsAndroid } from "react-native";
 
 const PrintQRCode = () => {
   const { auth } = useAuth();

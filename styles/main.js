@@ -25,8 +25,6 @@ const useStyles = () => {
     screen: {
       marginTop: StatusBar.currentHeight + 20,
       position: "relative",
-      // height: height > 700 ? 600 : 450,
-      // width: 360,
       height: hp(100),
       width: wp(100),
       elevation: 1,
@@ -38,11 +36,8 @@ const useStyles = () => {
       height: "100%",
     },
     login: {
-      // width: 320,
       padding: height > 700 ? 10 : 30,
-      // paddingTop: height > 700 ? 170 : 150,
       width: wp(90),
-      // height: hp(50),
       paddingTop: hp(35),
     },
     loginField: {

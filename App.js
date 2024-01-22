@@ -13,7 +13,7 @@ const App = () => {
   const [isReady, setIsReady] = useState(false);
   useEffect(() => {
     fetchFont();
-  },[]);
+  }, []);
 
   const fetchFont = async () => {
     await Font.loadAsync({

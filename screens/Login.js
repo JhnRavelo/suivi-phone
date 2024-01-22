@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View, useWindowDimensions } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import userIcon from "../assets/png/utilisateur.png";
 import cadenaIcon from "../assets/png/cadenas.png";
 import chevronRight from "../assets/png/chevron-droit.png";
@@ -13,7 +13,7 @@ import useAxiosPrivate from "../hooks/usePrivateAxios";
 import { StackActions } from "@react-navigation/native";
 import logo from "../assets/png/Logo_Euro.png";
 import useStyles from "../styles/main";
-import AppLoader from "../components/AppLoader";
+import CircleLoading from "../components/CircleLoading";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -21,11 +21,10 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
   const { setAuth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
   const styles = useStyles();
-  const {height, width} = useWindowDimensions()
+  const [loading, setLoading] = useState()
 
   const validate = () => {
     let error = {};
@@ -48,12 +47,14 @@ const Login = ({ navigation }) => {
     const valid = validate();
     if (valid) {
       try {
+        setLoading(true)
         const res = await axiosDefault.post("/auth", { email, password });
         if (!res.data.success) {
           setErrors({
             password: "Connexion Invalide",
             email: "Connexion Invalide",
           });
+          setLoading(false)
         } else {
           setEmail("");
           setPassword("");
@@ -64,9 +65,11 @@ const Login = ({ navigation }) => {
             accessToken: res.data.accessToken,
           });
           await AsyncStorage.setItem("jwt", res.data.refreshToken);
+          setLoading(false)
           navigation.dispatch(StackActions.replace("home"));
         }
       } catch (error) {
+        setLoading(false)
         setErrors({
           password: "Problème serveur",
           email: "Problème serveur",
@@ -77,13 +80,13 @@ const Login = ({ navigation }) => {
 
   useEffect(() => {
     verifyUser();
-    console.log(width, height)
   }, []);
 
   const verifyUser = async () => {
     try {
       const user = await AsyncStorage.getItem("jwt");
       if (user) {
+        setLoading(true)
         const user = await axiosPrivate.get("/auth/user");
         if (user.data.success) {
           setAuth((prev) => {
@@ -94,9 +97,12 @@ const Login = ({ navigation }) => {
             };
           });
           navigation.dispatch(StackActions.replace("home"));
+        }else {
+          setLoading(false)
         }
       }
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };
@@ -152,7 +158,7 @@ const Login = ({ navigation }) => {
           </View>
         </View>
       </LinearGradientBody>
-      <AppLoader />
+      {loading && <CircleLoading />}
     </>
   );
 };

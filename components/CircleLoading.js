@@ -1,6 +1,5 @@
-import { View } from "react-native";
-import React from "react";
-
+import { View, StyleSheet } from "react-native";
+import React, {useEffect} from "react";
 import Animated, {
   Easing,
   useAnimatedProps,
@@ -11,13 +10,14 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { Circle, G, Svg } from "react-native-svg";
+import useAppLoaderStyles from "../styles/appLoaderStyles"
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 const CircleLoading = () => {
   const CIRCUMFERENCE = 250;
   const R = CIRCUMFERENCE / (2 * Math.PI);
-  const STROKE_WIDTH = 6;
+  const STROKE_WIDTH = 7;
   const HALF_CIRCLE = R + STROKE_WIDTH;
   const DIAMETRE = HALF_CIRCLE * 2;
   const progress = useSharedValue(0);

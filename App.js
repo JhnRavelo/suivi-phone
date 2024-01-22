@@ -25,21 +25,23 @@ const App = () => {
   return (
     <>
       {isReady && (
-        <AuthProvider>
-          <ScanProvider>
-            <ScreenProvider>
-              <QRCodeGeneratorProvider>
-                <SuiviProvider>
-                  <FicheProvider>
-                    <NavigationContainer>
-                      <NavigationStackLog />
-                    </NavigationContainer>
-                  </FicheProvider>
-                </SuiviProvider>
-              </QRCodeGeneratorProvider>
-            </ScreenProvider>
-          </ScanProvider>
-        </AuthProvider>
+        <>
+          <AuthProvider>
+            <ScanProvider>
+              <ScreenProvider>
+                <QRCodeGeneratorProvider>
+                  <SuiviProvider>
+                    <FicheProvider>
+                      <NavigationContainer>
+                        <NavigationStackLog />
+                      </NavigationContainer>
+                    </FicheProvider>
+                  </SuiviProvider>
+                </QRCodeGeneratorProvider>
+              </ScreenProvider>
+            </ScanProvider>
+          </AuthProvider>
+        </>
       )}
     </>
   );

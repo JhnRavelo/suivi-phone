@@ -8,7 +8,6 @@ return StyleSheet.create({
         justifyContent: "center",
         zIndex: 1,
         backgroundColor: "rgba(0,0,0,0.4)",
-        // flex: 1
     }
 })
 }

@@ -12,6 +12,7 @@ import useScanStyles from "../styles/scanStyles";
 import useSuivi from "../hooks/useSuivi";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import useFiche from "../hooks/useFiche";
+import { useLoading } from "../hooks/useLoading";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
@@ -23,6 +24,7 @@ const Scan = ({ navigation }) => {
   const { setScreen, screen } = useScreen();
   const { setFiche } = useFiche();
   const axiosPrivate = useAxiosPrivate();
+  const { setLoading } = useLoading();
   let screenName = screenRoute.name;
 
   const unsubscribe = useCallback(() => {
@@ -68,19 +70,23 @@ const Scan = ({ navigation }) => {
                       let arrayData = data.split(",");
                       if (!scanned) {
                         try {
+                          setLoading(true);
                           const res = await axiosPrivate.post(
                             "/suivi/getByProduct",
                             { email: arrayData[0], id: arrayData[1] }
                           );
                           if (res.data.success) {
+                            setLoading(false);
                             setSuivis(res.data.suivis);
                             setFiche(res.data.product);
                             setScanInfo(data);
                             setScanned(true);
                             navigation.navigate("suivi");
+                          } else {
+                            setLoading(false);
                           }
                         } catch (error) {
-                          console.log(error, "SCAN");
+                          setLoading(false);
                         }
                       }
                     }

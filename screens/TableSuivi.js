@@ -16,18 +16,20 @@ import deleteIcon from "../assets/png/effacer.png";
 import AppButton from "../components/Button";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import useScan from "../hooks/useScan";
+import { useLoading } from "../hooks/useLoading";
 
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
   const { suivis, setSuivis } = useSuivi();
   const { scanInfo } = useScan();
   const axiosPrivate = useAxiosPrivate();
+  const { setLoading } = useLoading();
   const handleClick = () => {
     navigation.navigate("addsuivi");
   };
 
   const handleDelete = (item) => {
-    Alert.alert("Suppression", "Voulez-vous vraiment supprimez ?", [
+    Alert.alert("Suppression", "Voulez-vous vraiment le supprimez ?", [
       {
         text: "Annuler",
       },
@@ -35,14 +37,19 @@ const TableSuivi = ({ navigation }) => {
         text: "OK",
         onPress: async () => {
           try {
+            setLoading(true);
             const res = await axiosPrivate.post("/suivi/delete", {
               deleteId: item.id,
               productId: scanInfo.split(",")[1],
             });
             if (res.data.success) {
+              setLoading(false);
               setSuivis(res.data.suivis);
+            } else {
+              setLoading(false);
             }
           } catch (error) {
+            setLoading(false);
             console.log(error);
           }
         },

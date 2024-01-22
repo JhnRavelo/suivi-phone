@@ -12,6 +12,7 @@ import { StackActions } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import AppButton from "../components/Button";
 import { axiosDefault } from "../api/axios";
+import { useLoading } from "../hooks/useLoading";
 
 const SuiviMultiStep = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -23,6 +24,7 @@ const SuiviMultiStep = ({ navigation }) => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
   const { scanInfo } = useScan();
   const { setSuivis, images, setImages } = useSuivi();
+  const { setLoading } = useLoading();
   const axiosPrivate = useAxiosPrivate();
 
   const validate = (value, message, error) => {
@@ -40,6 +42,7 @@ const SuiviMultiStep = ({ navigation }) => {
 
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       let productId = scanInfo.split(",")[1];
       const res = await axiosPrivate.post("/suivi/addSuivi", {
         productId,
@@ -75,9 +78,13 @@ const SuiviMultiStep = ({ navigation }) => {
         });
 
         setSuivis(result.data.suivis);
+        setLoading(false);
         navigation.dispatch(StackActions.replace("tablesuivi"));
+      } else {
+        setLoading(false);
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -106,7 +113,7 @@ const SuiviMultiStep = ({ navigation }) => {
         {
           text: "Appareil Photos",
           onPress: () => {
-            navigation.navigate("photo")
+            navigation.navigate("photo");
           },
         },
         {

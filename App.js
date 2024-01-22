@@ -8,6 +8,7 @@ import { ScreenProvider } from "./context/ScreenContext";
 import { QRCodeGeneratorProvider } from "./context/QRCodeGeneratorContext";
 import { SuiviProvider } from "./context/SuiviContext";
 import { FicheProvider } from "./context/FicheContext";
+import { LoadingProvider } from "./context/LoadingContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <>
       {isReady && (
-        <>
+        <LoadingProvider>
           <AuthProvider>
             <ScanProvider>
               <ScreenProvider>
@@ -41,7 +42,7 @@ const App = () => {
               </ScreenProvider>
             </ScanProvider>
           </AuthProvider>
-        </>
+        </LoadingProvider>
       )}
     </>
   );

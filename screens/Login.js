@@ -14,6 +14,7 @@ import { StackActions } from "@react-navigation/native";
 import logo from "../assets/png/Logo_Euro.png";
 import useStyles from "../styles/main";
 import CircleLoading from "../components/CircleLoading";
+import { useLoading } from "../hooks/useLoading";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -24,7 +25,7 @@ const Login = ({ navigation }) => {
   const { setAuth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
   const styles = useStyles();
-  const [loading, setLoading] = useState()
+  const {loading, setLoading} = useLoading()
 
   const validate = () => {
     let error = {};
@@ -56,6 +57,7 @@ const Login = ({ navigation }) => {
           });
           setLoading(false)
         } else {
+          setLoading(false)
           setEmail("");
           setPassword("");
           setErrors({});
@@ -65,7 +67,6 @@ const Login = ({ navigation }) => {
             accessToken: res.data.accessToken,
           });
           await AsyncStorage.setItem("jwt", res.data.refreshToken);
-          setLoading(false)
           navigation.dispatch(StackActions.replace("home"));
         }
       } catch (error) {
@@ -96,6 +97,7 @@ const Login = ({ navigation }) => {
               email: user.data.email,
             };
           });
+          setLoading(false)
           navigation.dispatch(StackActions.replace("home"));
         }else {
           setLoading(false)

@@ -28,7 +28,7 @@ const useSuiviStyles = () => {
     },
     flatListView: {
       overflow: "hidden",
-      height: height > 700 ? 500 : 250,
+      height: height > 700 ? 450 : 250,
     },
     tableRow: {
       flexDirection: "row",

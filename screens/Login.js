@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import userIcon from "../assets/png/utilisateur.png";
 import cadenaIcon from "../assets/png/cadenas.png";
 import chevronRight from "../assets/png/chevron-droit.png";
@@ -124,13 +124,13 @@ const Login = ({ navigation }) => {
                 errors={errors?.password}
                 secure={true}
               />
-              <Pressable
+              <TouchableOpacity
                 style={[styles.loginSubmit, styles.boxShadow]}
                 onPress={() => handleLogin()}
               >
                 <Text style={styles.buttonText}>Connexion</Text>
                 <Image source={chevronRight} style={styles.buttonIcon} />
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.screenBg}>

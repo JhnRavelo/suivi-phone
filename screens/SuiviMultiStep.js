@@ -12,7 +12,6 @@ import { StackActions } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import AppButton from "../components/Button";
 import { axiosDefault } from "../api/axios";
-import AppCamera from "../components/AppCamera";
 
 const SuiviMultiStep = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -21,11 +20,9 @@ const SuiviMultiStep = ({ navigation }) => {
   const [solution, setSolution] = useState("");
   const [errors, setErrors] = useState({});
   const [nextStep, setNextStep] = useState(true);
-  const [images, setImages] = useState(null);
   const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
-  const [takePicture, setTakePicture] = useState();
   const { scanInfo } = useScan();
-  const { setSuivis } = useSuivi();
+  const { setSuivis, images, setImages } = useSuivi();
   const axiosPrivate = useAxiosPrivate();
 
   const validate = (value, message, error) => {
@@ -109,7 +106,7 @@ const SuiviMultiStep = ({ navigation }) => {
         {
           text: "Appareil Photos",
           onPress: () => {
-            setTakePicture(true);
+            navigation.navigate("photo")
           },
         },
         {
@@ -227,9 +224,6 @@ const SuiviMultiStep = ({ navigation }) => {
           </ProgressSteps>
         </View>
       </FormContainer>
-      {takePicture && (
-        <AppCamera setValue={setImages} setTakeCamera={setTakePicture} />
-      )}
     </>
   );
 };

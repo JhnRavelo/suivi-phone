@@ -5,28 +5,40 @@ import useQRCodeForm from "../hooks/useQRCodeForm";
 import FormTitle from "../components/FormTitle";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import { StackActions } from "@react-navigation/native";
+import { useLoading } from "../hooks/useLoading";
 
 const VerifyProductForm = ({ navigation }) => {
   const { dataQRCodeVerify, formDataQRCode, setProductAdded } = useQRCodeForm();
+  const { setLoading } = useLoading();
   const axiosPrivate = useAxiosPrivate();
 
   const handleClick = async () => {
     try {
+      setLoading(true);
       const res = await axiosPrivate.post("/product", formDataQRCode);
       if (res.data.success) {
+        setLoading(false);
         setProductAdded(res.data.product);
         navigation.dispatch(StackActions.replace("printQRCode"));
+      } else {
+        setLoading(false);
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
 
   return (
-    <FormContainer text="Vérifier" onPress={handleClick}>
-      <FormTitle title="Vérification" />
-      <VerifyText items={dataQRCodeVerify} containerStyle={{marginTop: 20, paddingVertical: 10,}}/>
-    </FormContainer>
+    <>
+      <FormContainer text="Vérifier" onPress={handleClick}>
+        <FormTitle title="Vérification" />
+        <VerifyText
+          items={dataQRCodeVerify}
+          containerStyle={{ marginTop: 20, paddingVertical: 10 }}
+        />
+      </FormContainer>
+    </>
   );
 };
 

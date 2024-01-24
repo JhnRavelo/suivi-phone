@@ -36,8 +36,8 @@ const TableSuivi = ({ navigation }) => {
       {
         text: "OK",
         onPress: async () => {
+          setLoading(true);
           try {
-            setLoading(true);
             const res = await axiosPrivate.post("/suivi/delete", {
               deleteId: item.id,
               productId: scanInfo.split(",")[1],
@@ -90,7 +90,9 @@ const TableSuivi = ({ navigation }) => {
                 style={{ flex: 1 }}
                 data={suivis}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
+                renderItem={({ item }) => {
+                  console.log(item?.observation?.split(";")[0])
+                  return(
                   <View style={suiviStyles.tableRow}>
                     <View style={[suiviStyles.tableCellView, { width: 150 }]}>
                       <Text style={[suiviStyles.tableCell]}>
@@ -103,13 +105,18 @@ const TableSuivi = ({ navigation }) => {
                       </Text>
                     </View>
                     <View style={[suiviStyles.tableCellView, { width: 180 }]}>
-                      <Text style={[suiviStyles.tableCell]}>
-                        {item?.observation?.includes(";")
-                          ? item?.observation?.split(";")[0]
-                          : item.observation}
-                      </Text>
+                      {((item?.observation?.includes(";") &&
+                        item?.observation?.split(";")[0]!="") ||
+                        item?.observation!="") && (
+                        <Text style={[suiviStyles.tableCell]}>
+                          {item?.observation?.includes(";")
+                            ? item?.observation?.split(";")[0]
+                            : item.observation}
+                        </Text>
+                      )}
                       {item?.observation?.includes(";") &&
-                        item?.observation?.split(";")[1] != "null" && (
+                        item?.observation?.split(";")[1] != "null" &&
+                        item?.observation?.split(";")[1] && (
                           <View
                             style={{
                               width: 150,
@@ -159,7 +166,7 @@ const TableSuivi = ({ navigation }) => {
                       </TouchableOpacity>
                     </View>
                   </View>
-                )}
+                )}}
               />
             </View>
           </View>

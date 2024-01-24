@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Camera } from "expo-camera";
-import { Image, Pressable, TouchableOpacity } from "react-native";
+import { Button, Image, Pressable, TouchableOpacity, View } from "react-native";
 import photoIcon from "../assets/png/appareil-photo-reflex-numerique.png";
 import useSuivi from "../hooks/useSuivi";
 import { useLoading } from "../hooks/useLoading";
@@ -9,20 +9,23 @@ import CircleLoading from "./CircleLoading";
 const AppCamera = ({ navigation }) => {
   const [hasCameraPermission, setHasCameraPermission] = useState(true);
   const cameraRef = useRef();
-  const { setImages } = useSuivi();
+  const { setImages, images } = useSuivi();
   const { setLoading, loading } = useLoading();
+  const [hasTaken, setHasTaken] = useState(false);
 
   const handleTakePicture = async () => {
     if (hasCameraPermission) {
-      setLoading(true);
-      let newPhoto = await cameraRef.current.takePictureAsync({
-        quality: 1,
+      let options = {
+        quality: 0,
         base64: true,
         exif: false,
-      });
-      setImages(newPhoto);
+        skipProcessing: true,
+      };
+      setLoading(true);
+      let newPhoto = await cameraRef.current.takePictureAsync(options);
       setLoading(false);
-      navigation.navigate("addsuivi");
+      setImages(newPhoto);
+      setHasTaken(true);
     }
   };
 
@@ -34,22 +37,59 @@ const AppCamera = ({ navigation }) => {
   }, []);
   return (
     <>
-      <Camera
-        style={{
-          flex: 1,
-          alignItems: "center",
-          // justifyContent: "center",
-          // zIndex: 10,
-        }}
-        ref={cameraRef}
-      >
-        <TouchableOpacity onPress={handleTakePicture} style={{ top: "80%" }}>
+      {hasTaken && (
+        <>
           <Image
-            source={photoIcon}
-            style={{ width: 70, height: 70, tintColor: "#E4570F" }}
+            style={{ alignSelf: "stretch", flex: 1, margin: 5 }}
+            source={{ uri: "data:image/jpg;base64," + images.base64 }}
           />
-        </TouchableOpacity>
-      </Camera>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              marginBottom: 5,
+            }}
+          >
+            <Button
+              title="Enregistrer"
+              onPress={() => {
+                navigation.navigate("addsuivi");
+              }}
+            />
+            <Button
+              title="Annuler"
+              onPress={() => {
+                setImages(undefined);
+                navigation.navigate("addsuivi");
+              }}
+            />
+            <Button
+              title="Prendre un autre"
+              onPress={() => {
+                setHasTaken(false);
+              }}
+            />
+          </View>
+        </>
+      )}
+      {!hasTaken && (
+        <Camera
+          autoFocus={false}
+          style={{
+            flex: 1,
+            alignItems: "center"
+          }}
+          ref={cameraRef}
+        >
+          <TouchableOpacity onPress={handleTakePicture} style={{ top: "80%" }}>
+            <Image
+              source={photoIcon}
+              style={{ width: 70, height: 70, tintColor: "#E4570F" }}
+            />
+          </TouchableOpacity>
+        </Camera>
+      )}
       {loading && <CircleLoading />}
     </>
   );

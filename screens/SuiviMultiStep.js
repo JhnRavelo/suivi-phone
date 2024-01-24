@@ -59,15 +59,15 @@ const SuiviMultiStep = ({ navigation }) => {
           for (let i = 0; i < images.length; i++) {
             formData.append(`images`, {
               uri: images[i].uri,
-              type: "image/png",
-              name: `image${i}.png`,
+              type: "image/jpeg",
+              name: `image${i}.jpeg`,
             });
           }
-        } else {
+        } else if (!images?.length && images) {
           formData.append("image", {
             uri: images.uri,
-            type: "image/png",
-            name: "image.png",
+            type: "image/jpeg",
+            name: "image.jpeg",
           });
         }
 

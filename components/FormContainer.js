@@ -5,7 +5,6 @@ import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import Header from "./Header";
 import LinearGradientBody from "./LinearGradienBody";
 import AppButton from "./Button";
-import ButtonStep from "./ButtonStep";
 import useSuiviStyles from "../styles/suiviStyles";
 
 const FormContainer = ({ children, text, onPress, screen, index }) => {
@@ -32,9 +31,7 @@ const FormContainer = ({ children, text, onPress, screen, index }) => {
             >
               {children}
             </ScrollView>
-            {screen === "step" ? (
-              <ButtonStep index={index} />
-            ) : (
+            {screen !== "step" && (
               <AppButton text={text} onPress={onPress} />
             )}
           </View>

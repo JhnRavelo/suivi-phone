@@ -20,7 +20,7 @@ import { useLoading } from "../hooks/useLoading";
 
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
-  const { suivis, setSuivis } = useSuivi();
+  const { suivis, setSuivis, setUpdateRow } = useSuivi();
   const { scanInfo } = useScan();
   const axiosPrivate = useAxiosPrivate();
   const { setLoading } = useLoading();
@@ -57,6 +57,11 @@ const TableSuivi = ({ navigation }) => {
     ]);
   };
 
+  const handleUpdate = (item) => {
+    setUpdateRow(item)
+    navigation.navigate("updatesuivi")
+  }
+
   return (
     <LinearGradientBody>
       <Header />
@@ -91,82 +96,99 @@ const TableSuivi = ({ navigation }) => {
                 data={suivis}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => {
-                  console.log(item?.observation?.split(";")[0])
-                  return(
-                  <View style={suiviStyles.tableRow}>
-                    <View style={[suiviStyles.tableCellView, { width: 150 }]}>
-                      <Text style={[suiviStyles.tableCell]}>
-                        {item.problem}
-                      </Text>
-                    </View>
-                    <View style={[suiviStyles.tableCellView, { width: 150 }]}>
-                      <Text style={[suiviStyles.tableCell]}>
-                        {item.solution}
-                      </Text>
-                    </View>
-                    <View style={[suiviStyles.tableCellView, { width: 180 }]}>
-                      {((item?.observation?.includes(";") &&
-                        item?.observation?.split(";")[0]!="") ||
-                        item?.observation!="") && (
-                        <Text style={[suiviStyles.tableCell]}>
-                          {item?.observation?.includes(";")
-                            ? item?.observation?.split(";")[0]
-                            : item.observation}
-                        </Text>
-                      )}
-                      {item?.observation?.includes(";") &&
-                        item?.observation?.split(";")[1] != "null" &&
-                        item?.observation?.split(";")[1] && (
-                          <View
-                            style={{
-                              width: 150,
-                              display: "flex",
-                              flexDirection: "row",
-                              flexWrap: "wrap",
-                              alignItems: "center",
-                              alignSelf: "center",
-                              gap: 10,
+                  return (
+                    <TouchableOpacity key={item.id} onPress={()=>handleUpdate(item)}>
+                      <View style={suiviStyles.tableRow}>
+                        <View
+                          style={[suiviStyles.tableCellView, { width: 150 }]}
+                        >
+                          <Text style={[suiviStyles.tableCell]}>
+                            {item.problem}
+                          </Text>
+                        </View>
+                        <View
+                          style={[suiviStyles.tableCellView, { width: 150 }]}
+                        >
+                          <Text style={[suiviStyles.tableCell]}>
+                            {item.solution}
+                          </Text>
+                        </View>
+                        <View
+                          style={[suiviStyles.tableCellView, { width: 180 }]}
+                        >
+                          {((item?.observation?.includes(";") &&
+                            item?.observation?.split(";")[0] != "") ||
+                            item?.observation != "") && (
+                            <Text style={[suiviStyles.tableCell]}>
+                              {item?.observation?.includes(";")
+                                ? item?.observation?.split(";")[0]
+                                : item.observation}
+                            </Text>
+                          )}
+                          {item?.observation?.includes(";") &&
+                            item?.observation?.split(";")[1] != "null" &&
+                            item?.observation?.split(";")[1] && (
+                              <View
+                                style={{
+                                  width: 150,
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  flexWrap: "wrap",
+                                  alignItems: "center",
+                                  alignSelf: "center",
+                                  gap: 10,
+                                }}
+                              >
+                                {item.observation
+                                  .split(";")[1]
+                                  .split(",")
+                                  .map((img, index) => (
+                                    <Image
+                                      key={index}
+                                      source={{ uri: img }}
+                                      style={{
+                                        width: 70,
+                                        height: 70,
+                                        resizeMode: "cover",
+                                      }}
+                                    />
+                                  ))}
+                              </View>
+                            )}
+                        </View>
+                        <View
+                          style={[suiviStyles.tableCellView, { width: 90 }]}
+                        >
+                          <Text style={[suiviStyles.tableCell]}>
+                            {item?.user?.name}
+                          </Text>
+                        </View>
+                        <View
+                          style={[suiviStyles.tableCellView, { width: 100 }]}
+                        >
+                          <Text style={[suiviStyles.tableCell]}>
+                            {item.createdAt.split(" ")[0]}
+                          </Text>
+                        </View>
+                        <View
+                          style={[suiviStyles.tableCellView, { width: 60 }]}
+                        >
+                          <TouchableOpacity
+                            style={suiviStyles.buttonIcon}
+                            onPress={() => {
+                              handleDelete(item);
                             }}
                           >
-                            {item.observation
-                              .split(";")[1]
-                              .split(",")
-                              .map((img, index) => (
-                                <Image
-                                  key={index}
-                                  source={{ uri: img }}
-                                  style={{
-                                    width: 70,
-                                    height: 70,
-                                    resizeMode: "cover",
-                                  }}
-                                />
-                              ))}
-                          </View>
-                        )}
-                    </View>
-                    <View style={[suiviStyles.tableCellView, { width: 90 }]}>
-                      <Text style={[suiviStyles.tableCell]}>
-                        {item?.user?.name}
-                      </Text>
-                    </View>
-                    <View style={[suiviStyles.tableCellView, { width: 100 }]}>
-                      <Text style={[suiviStyles.tableCell]}>
-                        {item.createdAt.split(" ")[0]}
-                      </Text>
-                    </View>
-                    <View style={[suiviStyles.tableCellView, { width: 60 }]}>
-                      <TouchableOpacity
-                        style={suiviStyles.buttonIcon}
-                        onPress={() => {
-                          handleDelete(item);
-                        }}
-                      >
-                        <Image source={deleteIcon} style={suiviStyles.icon} />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                )}}
+                            <Image
+                              source={deleteIcon}
+                              style={suiviStyles.icon}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                }}
               />
             </View>
           </View>

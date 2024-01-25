@@ -6,7 +6,7 @@ import useSuivi from "../hooks/useSuivi";
 import { useLoading } from "../hooks/useLoading";
 import CircleLoading from "./CircleLoading";
 
-const AppCamera = ({ navigation }) => {
+const AppCamera = ({ navigation, screen }) => {
   const [hasCameraPermission, setHasCameraPermission] = useState(true);
   const cameraRef = useRef();
   const { setImages, images } = useSuivi();
@@ -54,14 +54,14 @@ const AppCamera = ({ navigation }) => {
             <Button
               title="Enregistrer"
               onPress={() => {
-                navigation.navigate("addsuivi");
+                navigation.goBack();
               }}
             />
             <Button
               title="Annuler"
               onPress={() => {
                 setImages(undefined);
-                navigation.navigate("addsuivi");
+                navigation.goBack();
               }}
             />
             <Button

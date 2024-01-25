@@ -20,10 +20,11 @@ const MultiStep = ({
   probleme,
   observation,
   solutions,
+  id,
 }) => {
   const suiviStyles = useSuiviStyles();
   const [problem, setProblem] = useState(probleme);
-  const [obsvr, setObsvr] = useState(observation);
+  const [obsvr, setObsvr] = useState(observation?.split(";")[0]);
   const [solution, setSolution] = useState(solutions);
   const [errors, setErrors] = useState({});
   const [nextStep, setNextStep] = useState(true);
@@ -47,8 +48,8 @@ const MultiStep = ({
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       let productId = scanInfo.split(",")[1];
       const res = await axiosPrivate.post("/suivi/addSuivi", {
         productId,
@@ -58,34 +59,41 @@ const MultiStep = ({
       });
 
       if (res.data.success) {
-        const formData = new FormData();
-        formData.append("id", res.data.id);
-        formData.append("productId", productId);
-        if (images?.length) {
-          for (let i = 0; i < images.length; i++) {
-            formData.append(`images`, {
-              uri: images[i].uri,
+        if (!images) {
+          setLoading(false);
+          setSuivis(res.data.suivis);
+          navigation.dispatch(StackActions.replace("tablesuivi"));
+        } else {
+          const formData = new FormData();
+          formData.append("id", res.data.id);
+          formData.append("productId", productId);
+          if (images?.length) {
+            for (let i = 0; i < images.length; i++) {
+              formData.append(`images`, {
+                uri: images[i].uri,
+                type: "image/jpeg",
+                name: `image${i}.jpeg`,
+              });
+            }
+          } else if (!images?.length && images) {
+            formData.append("image", {
+              uri: images.uri,
               type: "image/jpeg",
-              name: `image${i}.jpeg`,
+              name: "image.jpeg",
             });
           }
-        } else if (!images?.length && images) {
-          formData.append("image", {
-            uri: images.uri,
-            type: "image/jpeg",
-            name: "image.jpeg",
+
+          const result = await axiosDefault.put("/suivi/upload", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           });
+
+          setSuivis(result.data.suivis);
+          setLoading(false);
+          setImages(null);
+          navigation.dispatch(StackActions.replace("tablesuivi"));
         }
-
-        const result = await axiosDefault.put("/suivi/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        setSuivis(result.data.suivis);
-        setLoading(false);
-        navigation.dispatch(StackActions.replace("tablesuivi"));
       } else {
         setLoading(false);
       }
@@ -96,7 +104,65 @@ const MultiStep = ({
   };
 
   const handleUpdate = async () => {
-    console.log("Update");
+    setLoading(true);
+    try {
+      let productId = scanInfo.split(",")[1];
+
+      const res = await axiosPrivate.put("/suivi/updateSuivi", {
+        productId,
+        problem,
+        observation: obsvr,
+        solution,
+        id: id,
+      });
+
+      if (!res.data.success) {
+        setLoading(false);
+      } else {
+        if (!images) {
+          setLoading(false);
+          setSuivis(res.data.suivis);
+          navigation.dispatch(StackActions.replace("tablesuivi"));
+        } else {
+          const formData = new FormData();
+          formData.append("id", id);
+          formData.append("productId", productId);
+          if (images && images?.length) {
+            for (let i = 0; i < images.length; i++) {
+              formData.append(`images`, {
+                uri: images[i].uri,
+                type: "image/jpeg",
+                name: `image${i}.jpeg`,
+              });
+            }
+          } else if (!images?.length && images) {
+            formData.append("image", {
+              uri: images.uri,
+              type: "image/jpeg",
+              name: "image.jpeg",
+            });
+          }
+
+          const result = await axiosDefault.put(
+            "/suivi/updateUpload",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          if (!result.data.success) return setLoading(false);
+          setSuivis(result.data.suivis);
+          setLoading(false);
+          setImages(null);
+          navigation.dispatch(StackActions.replace("tablesuivi"));
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   const handleImagesPicker = () => {
@@ -107,7 +173,6 @@ const MultiStep = ({
         {
           text: "Gallery",
           onPress: async () => {
-            console.log("Gallery");
             if (hasGalleryPermission) {
               let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -116,7 +181,6 @@ const MultiStep = ({
               });
               if (!result.canceled) {
                 setImages(result.assets);
-                console.log(result.assets.length);
               }
             }
           },
@@ -231,38 +295,47 @@ const MultiStep = ({
                 }}
               >
                 {screen == "update" &&
-                item?.observation?.includes(";") &&
-                item?.observation?.split(";")[1] != "null" &&
-                item?.observation?.split(";")[1] &&
+                observation?.includes(";") &&
+                observation?.split(";")[1] != "null" &&
+                observation?.split(";")[1] &&
                 !images &&
                 !images?.length ? (
-                  item?.observation
+                  observation
                     ?.split(";")[1]
+                    .split(",")
                     .map((img, index) => (
                       <Image
                         key={index}
                         source={{ uri: img }}
-                        style={{ resizeMode: "cover", width: 150, height: 150 }}
+                        style={{
+                          resizeMode: "cover",
+                          width: 160,
+                          height: 160,
+                        }}
                       />
                     ))
                 ) : images?.length ? (
                   <>
-                  {images.map((img, index) => (
-                    <Image
-                      key={index}
-                      source={{
-                        uri: img.uri,
-                      }}
-                      style={{ resizeMode: "cover", width: 150, height: 150 }}
-                    />
-                  ))}
+                    {images.map((img, index) => (
+                      <Image
+                        key={index}
+                        source={{
+                          uri: img.uri,
+                        }}
+                        style={{
+                          resizeMode: "cover",
+                          width: 160,
+                          height: 160,
+                        }}
+                      />
+                    ))}
                   </>
                 ) : !images?.length && images ? (
                   <Image
                     source={{
                       uri: `data:image/jpg;base64,` + images.base64,
                     }}
-                    style={{ resizeMode: "cover", width: 150, height: 150 }}
+                    style={{ resizeMode: "cover", width: 160, height: 160 }}
                   />
                 ) : null}
               </View>

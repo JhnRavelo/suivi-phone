@@ -23,7 +23,6 @@ const useStyles = () => {
       flex: 1,
     },
     screen: {
-      // marginTop: 20,
       position: "relative",
       height: hp(100),
       width: wp(100),
@@ -114,8 +113,6 @@ const useStyles = () => {
       position: "absolute",
     },
     screenBgShape1: {
-      // height: height > 700 ? 800 : 550,
-      // width: height > 700 ? 800 : 550,
       height: height > 700 ? hp(140) : hp(150),
       width: height > 700 ? wp(180) : wp(150),
       backgroundColor: "#ffffff",

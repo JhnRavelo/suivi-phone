@@ -13,8 +13,8 @@ const VerifyProductForm = ({ navigation }) => {
   const axiosPrivate = useAxiosPrivate();
 
   const handleClick = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await axiosPrivate.post("/product", formDataQRCode);
       if (res.data.success) {
         setLoading(false);

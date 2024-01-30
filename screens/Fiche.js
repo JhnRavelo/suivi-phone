@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
 import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import useScreen from "../hooks/useScreen";
@@ -19,16 +18,14 @@ const Fiche = ({ navigation }) => {
   return (
     <LinearGradientBody>
       <Header />
-      {/* <View style={styles.container}> */}
       <FormTitle title="Fiche Technique" />
       <VerifyText
         items={fiche}
-        labelStyle={{ width: 150, fontSize: 14, }}
-        containerStyle={{ marginTop: 20}}
-        contentStyle={{marginBottom: 20,}}
-        textStyle={{fontSize: 14,}}
+        labelStyle={{ width: 150, fontSize: 14 }}
+        containerStyle={{ marginTop: 20 }}
+        contentStyle={{ marginBottom: 20 }}
+        textStyle={{ fontSize: 14 }}
       />
-      {/* </View> */}
     </LinearGradientBody>
   );
 };

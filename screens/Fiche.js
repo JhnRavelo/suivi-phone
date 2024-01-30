@@ -6,14 +6,17 @@ import { useRoute } from "@react-navigation/native";
 import FormTitle from "../components/FormTitle";
 import useFiche from "../hooks/useFiche";
 import VerifyText from "../components/VerifyText";
+import { useWindowDimensions } from "react-native";
 
 const Fiche = ({ navigation }) => {
   const screenRoute = useRoute();
   const { setScreen } = useScreen();
   const { fiche } = useFiche();
+  const {width, height} = useWindowDimensions()
   let screenName = screenRoute.name;
   useEffect(() => {
     setScreen(screenName);
+    console.log(width, height)
   }, [navigation]);
   return (
     <LinearGradientBody>

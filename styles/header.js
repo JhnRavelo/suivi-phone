@@ -5,7 +5,7 @@ const useHeaderStyles = () => {
   const { width, height } = useWindowDimensions();
   return StyleSheet.create({
     headerContainer: {
-      marginTop: height > 700 ? StatusBar.currentHeight : 0,
+      // marginTop: height > 700 ? StatusBar.currentHeight : 0,
       display: 'flex',
       flexDirection: "column",
       justifyContent: "center"

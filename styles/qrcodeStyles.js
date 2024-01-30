@@ -1,7 +1,7 @@
 import { StyleSheet, useWindowDimensions } from "react-native";
 
 const useQrcodeStyles = () => {
-  const {width, height} = useWindowDimensions()
+  const { width, height } = useWindowDimensions();
   return StyleSheet.create({
     formContainer: {
       backgroundColor: "#fff",
@@ -10,7 +10,11 @@ const useQrcodeStyles = () => {
       borderRadius: 8,
       marginBottom: 80,
     },
-    formScrollView: { maxHeight: height > 700 ? 420 : 305, overflow: "hidden" },
+    formScrollView: {
+      maxHeight: height > 700 ? 350 : 305,
+      overflow: "hidden",
+      height: height > 700 ? 350 : 305,
+    },
     input: { marginBottom: 5, fontSize: 14, width: "100%", paddingBottom: 2 },
     inputView: { marginRight: 20 },
     textError: { fontSize: 12 },

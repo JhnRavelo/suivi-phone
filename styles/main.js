@@ -23,7 +23,7 @@ const useStyles = () => {
       flex: 1,
     },
     screen: {
-      marginTop: StatusBar.currentHeight + 20,
+      // marginTop: 20,
       position: "relative",
       height: hp(100),
       width: wp(100),

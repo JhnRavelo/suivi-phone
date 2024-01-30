@@ -9,6 +9,7 @@ import { QRCodeGeneratorProvider } from "./context/QRCodeGeneratorContext";
 import { SuiviProvider } from "./context/SuiviContext";
 import { FicheProvider } from "./context/FicheContext";
 import { LoadingProvider } from "./context/LoadingContext";
+import { StatusBar } from "react-native";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -26,23 +27,26 @@ const App = () => {
   return (
     <>
       {isReady && (
-        <LoadingProvider>
-          <AuthProvider>
-            <ScanProvider>
-              <ScreenProvider>
-                <QRCodeGeneratorProvider>
-                  <SuiviProvider>
-                    <FicheProvider>
-                      <NavigationContainer>
-                        <NavigationStackLog />
-                      </NavigationContainer>
-                    </FicheProvider>
-                  </SuiviProvider>
-                </QRCodeGeneratorProvider>
-              </ScreenProvider>
-            </ScanProvider>
-          </AuthProvider>
-        </LoadingProvider>
+        <>
+          <StatusBar barStyle={"default"} backgroundColor={"blue"}/>
+          <LoadingProvider>
+            <AuthProvider>
+              <ScanProvider>
+                <ScreenProvider>
+                  <QRCodeGeneratorProvider>
+                    <SuiviProvider>
+                      <FicheProvider>
+                        <NavigationContainer>
+                          <NavigationStackLog />
+                        </NavigationContainer>
+                      </FicheProvider>
+                    </SuiviProvider>
+                  </QRCodeGeneratorProvider>
+                </ScreenProvider>
+              </ScanProvider>
+            </AuthProvider>
+          </LoadingProvider>
+        </>
       )}
     </>
   );

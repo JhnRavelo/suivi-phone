@@ -1,14 +1,17 @@
 {
   "expo": {
-    "name": "suivi",
+    "name": "EA-Suivi",
     "slug": "suivi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/png/icon.png",
+    "icon": {
+      "image": "./assets/png/Logo_Euro.png",
+      "resizeMode": "cover"
+    },
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/png/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/png/Logo_Euro.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -22,18 +25,31 @@
         "WRITE_EXTERNAL_STORAGE"
       ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/png/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/png/Logo_Euro.png",
+        "backgroundColor": "#ffffff",
+        "resizeMode": "cover",
+        "witdh": "90px",
+        "height": "90px"
       },
       "package": "com.anonymous.suivi"
     },
     "web": {
-      "favicon": "./assets/png/favicon.png"
+      "favicon": "./assets/png/Logo_Euro.png"
     },
     "extra": {
       "eas": {
         "projectId": "a762e1b4-dda4-48ea-a589-df4b9bfb4ee5"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ]
   }
 }

@@ -5,18 +5,21 @@ import useQRCodeForm from "../hooks/useQRCodeForm";
 import FormContainer from "../components/FormContainer";
 import charpentIcon from "../assets/png/charpenterie.png";
 import FormTitle from "../components/FormTitle";
+import useLocation from "../hooks/useLocation";
 
 const dimensionRegex = /^\d+\*\d+$/;
 
 const NewProductForm = ({ navigation }) => {
   const [dimension, setDimension] = useState();
   const [devis, setDevis] = useState();
-  const [location, setLocation] = useState();
   const [detail, setDetail] = useState("");
   const [type, setType] = useState();
+  const [client, setClient] = useState();
+  const [chantier, setChantier] = useState();
   const [errors, setErrors] = useState({});
   const { setFormDataQRCode, setDataQRCodeVerify, productTypes } =
     useQRCodeForm();
+  const { location } = useLocation();
 
   const validate = () => {
     let error = {};
@@ -28,9 +31,6 @@ const NewProductForm = ({ navigation }) => {
     if (!devis) {
       error.devis = "Veuillez mettre le devis";
     }
-    if (!location) {
-      error.location = "Veuillez mettre l'emplacement";
-    }
     if (!type) {
       error.type = "Veuillez choisir le type de ménuiserie";
     }
@@ -39,15 +39,17 @@ const NewProductForm = ({ navigation }) => {
   };
 
   const handleClick = () => {
+    console.log(location)
     const isValid = validate();
     let formData = {};
-
     if (isValid) {
       formData.type = type;
       formData.dimension = dimension;
       formData.devis = devis;
       formData.detail = detail;
       formData.location = location;
+      formData.client = client;
+      formData.chantier = chantier;
 
       setFormDataQRCode(formData);
 
@@ -61,6 +63,8 @@ const NewProductForm = ({ navigation }) => {
         { label: "Dévis", value: devis },
         { label: "Détails", value: detail },
         { label: "Emplacement", value: location },
+        { label: "Client", value: client },
+        { label: "Chantier", value: chantier },
       ]);
 
       navigation.navigate("verifyProduct");
@@ -99,21 +103,28 @@ const NewProductForm = ({ navigation }) => {
           type="input"
         />
         <LoginInput
-          value={location}
-          icon={null}
-          secure={false}
-          onChange={setLocation}
-          placeholder="Emplacement"
-          errors={errors?.location}
-          type="input"
-        />
-        <LoginInput
           value={detail}
           icon={null}
           secure={false}
           onChange={setDetail}
           placeholder="Détails"
           errors={errors?.detail}
+          type="input"
+        />
+        <LoginInput
+          value={chantier}
+          icon={null}
+          secure={false}
+          onChange={setChantier}
+          placeholder="Chantier"
+          type="input"
+        />
+        <LoginInput
+          value={client}
+          icon={null}
+          secure={false}
+          onChange={setClient}
+          placeholder="Client"
           type="input"
         />
       </FormContainer>

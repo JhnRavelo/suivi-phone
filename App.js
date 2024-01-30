@@ -10,6 +10,7 @@ import { SuiviProvider } from "./context/SuiviContext";
 import { FicheProvider } from "./context/FicheContext";
 import { LoadingProvider } from "./context/LoadingContext";
 import { StatusBar } from "react-native";
+import { LocationProvider } from "./context/LocationContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -28,7 +29,7 @@ const App = () => {
     <>
       {isReady && (
         <>
-          <StatusBar barStyle={"default"} backgroundColor={"blue"}/>
+          <StatusBar barStyle={"default"} backgroundColor={"blue"} />
           <LoadingProvider>
             <AuthProvider>
               <ScanProvider>
@@ -36,9 +37,11 @@ const App = () => {
                   <QRCodeGeneratorProvider>
                     <SuiviProvider>
                       <FicheProvider>
-                        <NavigationContainer>
-                          <NavigationStackLog />
-                        </NavigationContainer>
+                        <LocationProvider>
+                          <NavigationContainer>
+                            <NavigationStackLog />
+                          </NavigationContainer>
+                        </LocationProvider>
                       </FicheProvider>
                     </SuiviProvider>
                   </QRCodeGeneratorProvider>

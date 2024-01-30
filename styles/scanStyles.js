@@ -33,7 +33,7 @@ const useScanStyles = () => {
       borderWidth: 5,
     },
     qrCodeScaner: {
-      height: 900,
+      height: height > 700 ? 700 : 900,
       width: 600,
       minWidth: 600,
       left: 0,

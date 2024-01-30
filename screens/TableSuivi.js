@@ -186,7 +186,7 @@ const TableSuivi = ({ navigation }) => {
           </View>
         </ScrollView>
       </View>
-      {suivis.length != 0 && (
+      {scanInfo && (
         <AppButton
           text="Ajout de suivi"
           style={suiviStyles.buttonAddSuivi}

@@ -4,7 +4,7 @@ const ScanContext = createContext();
 
 const ScanProvider = ({ children }) => {
   const [scanned, setScanned] = useState(true);
-  const [scanInfo, setScanInfo] = useState("");
+  const [scanInfo, setScanInfo] = useState(null);
   return (
     <ScanContext.Provider
       value={{ scanned, setScanned, scanInfo, setScanInfo }}

@@ -5,17 +5,16 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": {
-      "image": "./assets/png/Logo_Euro.png",
-      "resizeMode": "cover"
+      "image": "./assets/png/icon-euro.png"
     },
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/png/Logo_Euro.png",
-      "resizeMode": "cover",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/**/*"
     ],
     "ios": {
       "supportsTablet": true
@@ -25,11 +24,8 @@
         "WRITE_EXTERNAL_STORAGE"
       ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/png/Logo_Euro.png",
-        "backgroundColor": "#ffffff",
-        "resizeMode": "cover",
-        "witdh": "90px",
-        "height": "90px"
+        "backgroundImage": "./assets/png/icon-euro",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.suivi"
     },

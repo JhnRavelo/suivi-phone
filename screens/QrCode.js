@@ -51,7 +51,6 @@ const QrCode = ({ navigation }) => {
         latitude: currentLocation.coords.latitude,
       });
       let address = currentAddress[0];
-      console.log(address.city)
       setLocation(`${address.country}-${address.city}-${address.region}`);
     }
   };

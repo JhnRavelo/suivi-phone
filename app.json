@@ -4,13 +4,10 @@
     "slug": "suivi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": {
-      "image": "./assets/png/Logo_Euro.png",
-      "resizeMode": "cover"
-    },
+    "icon": "./assets/png/sigle EA carré.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/png/Logo_Euro.png",
+      "image": "./assets/png/sigle EA carré.png",
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
@@ -25,11 +22,9 @@
         "WRITE_EXTERNAL_STORAGE"
       ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/png/Logo_Euro.png",
+        "foregroundImage": "./assets/png/sigle EA carré.png",
         "backgroundColor": "#ffffff",
-        "resizeMode": "cover",
-        "witdh": "90px",
-        "height": "90px"
+        "resizeMode": "cover"
       },
       "package": "com.anonymous.suivi"
     },

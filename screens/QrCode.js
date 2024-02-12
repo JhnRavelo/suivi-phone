@@ -12,13 +12,16 @@ const QrCode = ({ navigation }) => {
   const screenRoute = useRoute();
   const { setScreen } = useScreen();
   const { setProductTypes } = useQRCodeGenerator();
-  const { setLocation } = useLocation();
+  const { setLocation, location } = useLocation();
   let screenName = screenRoute.name;
 
   useEffect(() => {
     fetchTypesOfProducts();
-    hasLocationAdress()
   }, []);
+
+  useEffect(() => {
+    hasLocationAdress();
+  }, [location]);
 
   useEffect(() => {
     setScreen(screenName);
@@ -28,9 +31,11 @@ const QrCode = ({ navigation }) => {
     try {
       const res = await axiosPrivate.get("/productType/getAll");
       if (res.data?.success) {
-        const productTypesArray = res.data.productTypes.map((item) => {
-          return { label: item.name, value: item.id };
-        });
+        const productTypesArray = res.data.productTypes.map(
+          (item) => {
+            return { label: item.name, value: item.id };
+          }
+        );
 
         setProductTypes(productTypesArray);
       }
@@ -40,19 +45,24 @@ const QrCode = ({ navigation }) => {
   };
 
   const hasLocationAdress = async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } =
+      await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       alert("Vous n'avez pas de permission sur la localiastion");
     } else {
       await Location.enableNetworkProviderAsync();
-      let currentLocation = await Location.getCurrentPositionAsync({});
+      let currentLocation = await Location.getCurrentPositionAsync(
+        {}
+      );
       let currentAddress = await Location.reverseGeocodeAsync({
         longitude: currentLocation.coords.longitude,
         latitude: currentLocation.coords.latitude,
       });
       let address = currentAddress[0];
-      console.log(address.city)
-      setLocation(`${address.country}-${address.city}-${address.region}`);
+      console.log(address.city);
+      setLocation(
+        `${address.country}-${address.city}-${address.region}`
+      );
     }
   };
 

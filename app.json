@@ -4,15 +4,15 @@
     "slug": "suivi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/png/sigle EA carré.png",
+    "icon": "./assets/png/sigle.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/png/sigle EA carré.png",
-      "resizeMode": "cover",
+      "image": "./assets/png/sigle.png",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/**/*"
     ],
     "ios": {
       "supportsTablet": true
@@ -22,9 +22,8 @@
         "WRITE_EXTERNAL_STORAGE"
       ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/png/sigle EA carré.png",
-        "backgroundColor": "#ffffff",
-        "resizeMode": "cover"
+        "foregroundImage": "./assets/png/sigle.png",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.suivi"
     },

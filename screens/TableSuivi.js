@@ -91,75 +91,7 @@ const TableSuivi = ({ navigation }) => {
                       row.push({ label: value, width: 100 });
                     }
                   });
-                  // const observationArray = item?.observation?.split(";");
                   return (
-                    // <View style={suiviStyles.tableRow}>
-                    //   <TouchableOpacity
-                    //     key={item.id}
-                    //     onPress={() => handleUpdate(item)}
-                    //     style={{ flexDirection: "row" }}
-                    //   >
-                    //     <View
-                    //       style={[suiviStyles.tableCellView, { width: 150 }]}
-                    //     >
-                    //       <Text style={[suiviStyles.tableCell]}>
-                    //         {item.problem}
-                    //       </Text>
-                    //     </View>
-                    //     <View
-                    //       style={[suiviStyles.tableCellView, { width: 150 }]}
-                    //     >
-                    //       <Text style={[suiviStyles.tableCell]}>
-                    //         {item.solution}
-                    //       </Text>
-                    //     </View>
-                    //     <View
-                    //       style={[suiviStyles.tableCellView, { width: 180 }]}
-                    //     >
-                    //       {item?.observation?.includes(";") &&
-                    //         observationArray[0] && (
-                    //           <Text
-                    //             style={[
-                    //               suiviStyles.tableCell,
-                    //               { marginBottom: 5 },
-                    //             ]}
-                    //           >
-                    //             {observationArray[0]}
-                    //           </Text>
-                    //         )}
-                    //       <Gallery
-                    //         observation={item?.observation}
-                    //         screen="update"
-                    //         imgStyle={suiviStyles.imgStyle}
-                    //         imgContainerStyle={suiviStyles.imgContainer}
-                    //       />
-                    //     </View>
-                    //     <View
-                    //       style={[suiviStyles.tableCellView, { width: 90 }]}
-                    //     >
-                    //       <Text style={[suiviStyles.tableCell]}>
-                    //         {item?.user}
-                    //       </Text>
-                    //     </View>
-                    //     <View
-                    //       style={[suiviStyles.tableCellView, { width: 100 }]}
-                    //     >
-                    //       <Text style={[suiviStyles.tableCell]}>
-                    //         {item.createdAt}
-                    //       </Text>
-                    //     </View>
-                    //   </TouchableOpacity>
-                    //   <View style={[suiviStyles.tableCellView, { width: 60 }]}>
-                    //     <ReactButton
-                    //       touchableStyle={suiviStyles.buttonIcon}
-                    //       onPress={() => {
-                    //         handleDelete(item);
-                    //       }}
-                    //       icon={deleteIcon}
-                    //       iconStyle={suiviStyles.icon}
-                    //     />
-                    //   </View>
-                    // </View>
                     <Table
                       type="row"
                       data={row}

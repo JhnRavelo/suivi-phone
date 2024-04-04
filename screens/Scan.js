@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import useStyles from "../styles/main";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import useScan from "../hooks/useScan";
-import ScanButton from "../components/ScanButton";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import useScreen from "../hooks/useScreen";
 import useScanStyles from "../styles/scanStyles";
@@ -13,6 +12,10 @@ import useSuivi from "../hooks/useSuivi";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import useFiche from "../hooks/useFiche";
 import { useLoading } from "../hooks/useLoading";
+import useProblem from "../hooks/useProblem";
+import ReactButton from "../components/ReactButton";
+import scanerIcon from "../assets/png/scan.png";
+import useHeaderStyles from "../styles/header";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
@@ -20,11 +23,13 @@ const Scan = ({ navigation }) => {
   const [cameraPermission, setCameraPermission] = useState(false);
   const { setScanned, scanned, setScanInfo } = useScan();
   const { setSuivis } = useSuivi();
+  const { setProblems } = useProblem();
   const screenRoute = useRoute();
   const { setScreen, screen } = useScreen();
-  const { setFiche } = useFiche();
+  const { setFiche, setPdf } = useFiche();
   const axiosPrivate = useAxiosPrivate();
   const { setLoading } = useLoading();
+  const headerStyles = useHeaderStyles();
   let screenName = screenRoute.name;
 
   const unsubscribe = useCallback(() => {
@@ -79,13 +84,16 @@ const Scan = ({ navigation }) => {
                             setLoading(false);
                             setSuivis(res.data.suivis);
                             setFiche(res.data.product);
+                            setPdf(res.data.pdf);
                             setScanInfo(data);
+                            setProblems(res.data.problems);
                             setScanned(true);
                             navigation.navigate("suivi");
                           } else {
                             setLoading(false);
                           }
                         } catch (error) {
+                          setScanned(true);
                           setLoading(false);
                         }
                       }
@@ -95,7 +103,23 @@ const Scan = ({ navigation }) => {
             />
           </View>
         )}
-        {scanned && <ScanButton />}
+        {scanned && (
+          <ReactButton
+            onPress={() => setScanned(false)}
+            touchableStyle={scanStyles.scanButton}
+            viewStyle={[
+              headerStyles.logoutButtonView,
+              scanStyles.scanButtonView,
+            ]}
+            iconStyle={scanStyles.scanButtonIcon}
+            textStyle={[
+              headerStyles.logoutButtonText,
+              scanStyles.scanButtonText,
+            ]}
+            text="Scanner"
+            icon={scanerIcon}
+          />
+        )}
       </View>
     </LinearGradientBody>
   );

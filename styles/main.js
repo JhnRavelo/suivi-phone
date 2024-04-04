@@ -80,11 +80,13 @@ const useStyles = () => {
       borderWidth: 1,
       borderStyle: "solid",
       borderColor: "#D4D3E8",
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
       width: "80%",
       elevation: 5,
+    },
+    buttonView: {
+      display: "flex",
+      flexDirection: "row-reverse",
+      alignItems: "center",
     },
     buttonText: {
       position: "relative",
@@ -92,9 +94,9 @@ const useStyles = () => {
       color: "#E94A12",
       textTransform: "uppercase",
       fontSize: height > 700 ? 24 : 18,
+      marginLeft: "auto",
     },
     buttonIcon: {
-      marginLeft: "auto",
       tintColor: "#E94A12",
       width: height > 700 ? 38 : 30,
       height: height > 700 ? 38 : 30,

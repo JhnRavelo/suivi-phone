@@ -1,17 +1,25 @@
-import React from 'react'
-import { Image, StatusBar, View } from 'react-native'
-import logoEurop from "../assets/png/logo_ea.png"
-import LogoutButton from './LogoutButton'
-import useHeaderStyles from '../styles/header'
+import React from "react";
+import { Image, View } from "react-native";
+import logoEurop from "../assets/png/logo_ea.png";
+import useHeaderStyles from "../styles/header";
+import ReactButton from "./ReactButton";
+import useLogout from "../hooks/useLogout";
 
 const Header = () => {
-  const headerStyles = useHeaderStyles()
+  const headerStyles = useHeaderStyles();
+  const logout = useLogout();
   return (
     <View style={headerStyles.headerContainer}>
-        <Image  source={logoEurop} style={headerStyles.logo} />
-        <LogoutButton />
+      <Image source={logoEurop} style={headerStyles.logo} />
+      <ReactButton
+        touchableStyle={headerStyles.logoutButton}
+        viewStyle={headerStyles.logoutButtonView}
+        textStyle={headerStyles.logoutButtonText}
+        text="Déconnexion"
+        onPress={() => logout()}
+      />
     </View>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -15,6 +15,7 @@ import logo from "../assets/png/Logo_Euro.png";
 import useStyles from "../styles/main";
 import CircleLoading from "../components/CircleLoading";
 import { useLoading } from "../hooks/useLoading";
+import ReactButton from "../components/ReactButton";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -25,7 +26,7 @@ const Login = ({ navigation }) => {
   const { setAuth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
   const styles = useStyles();
-  const {loading, setLoading} = useLoading()
+  const { loading, setLoading } = useLoading();
 
   const validate = () => {
     let error = {};
@@ -48,16 +49,16 @@ const Login = ({ navigation }) => {
     const valid = validate();
     if (valid) {
       try {
-        setLoading(true)
+        setLoading(true);
         const res = await axiosDefault.post("/auth", { email, password });
         if (!res.data.success) {
           setErrors({
             password: "Connexion Invalide",
             email: "Connexion Invalide",
           });
-          setLoading(false)
+          setLoading(false);
         } else {
-          setLoading(false)
+          setLoading(false);
           setEmail("");
           setPassword("");
           setErrors({});
@@ -70,7 +71,7 @@ const Login = ({ navigation }) => {
           navigation.dispatch(StackActions.replace("home"));
         }
       } catch (error) {
-        setLoading(false)
+        setLoading(false);
         setErrors({
           password: "Problème serveur",
           email: "Problème serveur",
@@ -87,7 +88,7 @@ const Login = ({ navigation }) => {
     try {
       const user = await AsyncStorage.getItem("jwt");
       if (user) {
-        setLoading(true)
+        setLoading(true);
         const user = await axiosPrivate.get("/auth/user");
         if (user.data.success) {
           setAuth((prev) => {
@@ -97,14 +98,14 @@ const Login = ({ navigation }) => {
               email: user.data.email,
             };
           });
-          setLoading(false)
+          setLoading(false);
           navigation.dispatch(StackActions.replace("home"));
-        }else {
-          setLoading(false)
+        } else {
+          setLoading(false);
         }
       }
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.log(error);
     }
   };
@@ -133,13 +134,15 @@ const Login = ({ navigation }) => {
                   errors={errors?.password}
                   secure={true}
                 />
-                <TouchableOpacity
-                  style={[styles.loginSubmit, styles.boxShadow]}
+                <ReactButton
+                  touchableStyle={[styles.loginSubmit, styles.boxShadow]}
                   onPress={() => handleLogin()}
-                >
-                  <Text style={styles.buttonText}>Connexion</Text>
-                  <Image source={chevronRight} style={styles.buttonIcon} />
-                </TouchableOpacity>
+                  textStyle={styles.buttonText}
+                  icon={chevronRight}
+                  iconStyle={styles.buttonIcon}
+                  text="Connexion"
+                  viewStyle={styles.buttonView}
+                />
               </View>
             </View>
             <View style={styles.screenBg}>

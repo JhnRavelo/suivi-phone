@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Camera } from "expo-camera";
-import { Button, Image, Pressable, TouchableOpacity, View } from "react-native";
+import { Button, Image, SafeAreaView, TouchableOpacity, View } from "react-native";
 import photoIcon from "../assets/png/appareil-photo-reflex-numerique.png";
 import useSuivi from "../hooks/useSuivi";
 import { useLoading } from "../hooks/useLoading";
 import CircleLoading from "./CircleLoading";
 
-const AppCamera = ({ navigation, screen }) => {
+const AppCamera = ({ navigation }) => {
   const [hasCameraPermission, setHasCameraPermission] = useState(true);
   const cameraRef = useRef();
   const { setImages, images } = useSuivi();
@@ -36,7 +36,7 @@ const AppCamera = ({ navigation, screen }) => {
     })();
   }, []);
   return (
-    <>
+    <SafeAreaView style={{flex: 1,}}>
       {hasTaken && (
         <>
           <Image
@@ -91,7 +91,7 @@ const AppCamera = ({ navigation, screen }) => {
         </Camera>
       )}
       {loading && <CircleLoading />}
-    </>
+    </SafeAreaView>
   );
 };
 

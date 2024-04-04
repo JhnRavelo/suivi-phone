@@ -6,17 +6,26 @@ const useRefresh = () => {
   const { setAuth } = useAuth();
   const refresh = async () => {
     const refreshToken = await AsyncStorage.getItem("jwt");
-    const response = await axiosDefault.post("/refresh", { refreshToken });
-    await AsyncStorage.removeItem("jwt")
-    setAuth((prev) => {
-      return {
-        ...prev,
-        accessToken: response.data.accessToken,
-      };
-    });
-    await AsyncStorage.setItem("jwt", response.data.refreshToken);
-
-    return response.data.accessToken;
+    try {
+      if(refreshToken){
+        const response = await axiosDefault.post("/refresh", { refreshToken });
+        await AsyncStorage.removeItem("jwt")
+        setAuth((prev) => {
+          return {
+            ...prev,
+            accessToken: response.data.accessToken,
+          };
+        });
+        await AsyncStorage.setItem("jwt", response.data.refreshToken);
+    
+        return response.data.accessToken;
+      }else {
+        await AsyncStorage.removeItem("jwt")
+      }  
+    } catch (error) {
+      await AsyncStorage.removeItem("jwt")
+      console.log(error)
+    }
   };
 
   return refresh;

@@ -23,9 +23,9 @@ const useLogout = () => {
     try {
       setLoading(true);
       const refreshToken = await AsyncStorage.getItem("jwt");
+      await AsyncStorage.removeItem("jwt");
       const res = await axiosPrivate.post("/auth/logout", { refreshToken });
       if (res.data.success) {
-        await AsyncStorage.removeItem("jwt");
         setAuth({});
         setFiche([]);
         setFormDataQRCode({});

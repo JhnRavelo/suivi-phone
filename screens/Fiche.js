@@ -1,23 +1,29 @@
 import React, { useEffect } from "react";
-import LinearGradientBody from "../components/LinearGradienBody";
-import Header from "../components/Header";
 import useScreen from "../hooks/useScreen";
 import { useRoute } from "@react-navigation/native";
+import LinearGradientBody from "../components/LinearGradienBody";
+import Header from "../components/Header";
 import FormTitle from "../components/FormTitle";
 import useFiche from "../hooks/useFiche";
 import VerifyText from "../components/VerifyText";
-import { useWindowDimensions } from "react-native";
+import pdfIcon from "../assets/png/pdf.png";
+import ReactButton from "../components/ReactButton";
+import useButtonStyles from "../styles/buttonStyles";
 
 const Fiche = ({ navigation }) => {
   const screenRoute = useRoute();
   const { setScreen } = useScreen();
-  const { fiche } = useFiche();
-  const {width, height} = useWindowDimensions()
   let screenName = screenRoute.name;
   useEffect(() => {
     setScreen(screenName);
-    console.log(width, height)
   }, [navigation]);
+  const { fiche } = useFiche();
+  const buttonStyles = useButtonStyles()
+
+  const onPress = () => {
+    navigation.navigate("pdf");
+  };
+
   return (
     <LinearGradientBody>
       <Header />
@@ -28,6 +34,21 @@ const Fiche = ({ navigation }) => {
         containerStyle={{ marginTop: 20 }}
         contentStyle={{ marginBottom: 20 }}
         textStyle={{ fontSize: 14 }}
+      />
+      <ReactButton
+        onPress={() => onPress()}
+        touchableStyle={[
+          buttonStyles.buttonContainer,
+          {
+            width: 50,
+            height: 50,
+            marginLeft: "40%",
+          },
+        ]}
+        icon={pdfIcon}
+        iconStyle={{ tintColor: "#fff", width: 25, height: 25 }}
+        viewStyle={buttonStyles.buttonView}
+        textStyle={buttonStyles.buttonText}
       />
     </LinearGradientBody>
   );

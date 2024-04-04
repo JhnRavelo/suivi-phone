@@ -15,7 +15,8 @@
       "assets/**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.suivi"
     },
     "android": {
       "permissions": [
@@ -36,6 +37,8 @@
       }
     },
     "plugins": [
+      "@config-plugins/react-native-blob-util",
+      "@config-plugins/react-native-pdf",
       [
         "expo-build-properties",
         {

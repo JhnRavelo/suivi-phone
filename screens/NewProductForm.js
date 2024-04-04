@@ -6,6 +6,8 @@ import FormContainer from "../components/FormContainer";
 import charpentIcon from "../assets/png/charpenterie.png";
 import FormTitle from "../components/FormTitle";
 import useLocation from "../hooks/useLocation";
+import useGetLocation from "../hooks/useGetLocation";
+import { useLoading } from "../hooks/useLoading";
 
 const dimensionRegex = /^\d+\*\d+$/;
 
@@ -16,10 +18,12 @@ const NewProductForm = ({ navigation }) => {
   const [type, setType] = useState();
   const [client, setClient] = useState();
   const [chantier, setChantier] = useState();
+  const { setLoading } = useLoading();
   const [errors, setErrors] = useState({});
   const { setFormDataQRCode, setDataQRCodeVerify, productTypes } =
     useQRCodeForm();
-  const { location } = useLocation();
+  const { statusLocation } = useLocation();
+  const getLocation = useGetLocation(statusLocation, setLoading);
 
   const validate = () => {
     let error = {};
@@ -38,10 +42,10 @@ const NewProductForm = ({ navigation }) => {
     return Object.keys(error).length === 0;
   };
 
-  const handleClick = () => {
-    console.log(location)
+  const handleClick = async () => {
     const isValid = validate();
     let formData = {};
+    const location = await getLocation();
     if (isValid) {
       formData.type = type;
       formData.dimension = dimension;
@@ -72,63 +76,61 @@ const NewProductForm = ({ navigation }) => {
   };
 
   return (
-    <>
-      <FormContainer text="Enregistrer" onPress={handleClick}>
-        <FormTitle title="Nouveau Produit" />
-        <DropDownTypeLists
-          value={type}
-          setValue={setType}
-          error={errors?.type}
-          icon={charpentIcon}
-          text="Sélectionnez le type de ménuiserie"
-          data={productTypes}
-          label="Type de ménuiserie"
-        />
-        <LoginInput
-          value={dimension}
-          icon={null}
-          secure={false}
-          onChange={setDimension}
-          placeholder="Hauteur et Largeur"
-          errors={errors?.dimension}
-          type="input"
-        />
-        <LoginInput
-          value={devis}
-          icon={null}
-          secure={false}
-          onChange={setDevis}
-          placeholder="Devis"
-          errors={errors?.devis}
-          type="input"
-        />
-        <LoginInput
-          value={detail}
-          icon={null}
-          secure={false}
-          onChange={setDetail}
-          placeholder="Détails"
-          errors={errors?.detail}
-          type="input"
-        />
-        <LoginInput
-          value={chantier}
-          icon={null}
-          secure={false}
-          onChange={setChantier}
-          placeholder="Chantier"
-          type="input"
-        />
-        <LoginInput
-          value={client}
-          icon={null}
-          secure={false}
-          onChange={setClient}
-          placeholder="Client"
-          type="input"
-        />
-      </FormContainer>
-    </>
+    <FormContainer text="Enregistrer" onPress={handleClick}>
+      <FormTitle title="Nouveau Produit" />
+      <DropDownTypeLists
+        value={type}
+        setValue={setType}
+        error={errors?.type}
+        icon={charpentIcon}
+        text="Sélectionnez le type de ménuiserie"
+        data={productTypes}
+        label="Type de ménuiserie"
+      />
+      <LoginInput
+        value={dimension}
+        icon={null}
+        secure={false}
+        onChange={setDimension}
+        placeholder="Hauteur et Largeur"
+        errors={errors?.dimension}
+        type="input"
+      />
+      <LoginInput
+        value={devis}
+        icon={null}
+        secure={false}
+        onChange={setDevis}
+        placeholder="Devis"
+        errors={errors?.devis}
+        type="input"
+      />
+      <LoginInput
+        value={detail}
+        icon={null}
+        secure={false}
+        onChange={setDetail}
+        placeholder="Détails"
+        errors={errors?.detail}
+        type="input"
+      />
+      <LoginInput
+        value={chantier}
+        icon={null}
+        secure={false}
+        onChange={setChantier}
+        placeholder="Chantier"
+        type="input"
+      />
+      <LoginInput
+        value={client}
+        icon={null}
+        secure={false}
+        onChange={setClient}
+        placeholder="Client"
+        type="input"
+      />
+    </FormContainer>
   );
 };
 

@@ -8,7 +8,14 @@ const SuiviProvider = ({ children }) => {
   const [updateRow, setUpdateRow] = useState(null);
   return (
     <SuiviContext.Provider
-      value={{ suivis, setSuivis, images, setImages, updateRow, setUpdateRow }}
+      value={{
+        suivis,
+        setSuivis,
+        images,
+        setImages,
+        updateRow,
+        setUpdateRow,
+      }}
     >
       {children}
     </SuiviContext.Provider>

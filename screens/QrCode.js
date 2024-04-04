@@ -12,16 +12,16 @@ const QrCode = ({ navigation }) => {
   const screenRoute = useRoute();
   const { setScreen } = useScreen();
   const { setProductTypes } = useQRCodeGenerator();
-  const { setLocation, location } = useLocation();
+  const { setStatusLocation } = useLocation();
   let screenName = screenRoute.name;
 
   useEffect(() => {
     fetchTypesOfProducts();
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      setStatusLocation(status);
+    })();
   }, []);
-
-  useEffect(() => {
-    hasLocationAdress();
-  }, [location]);
 
   useEffect(() => {
     setScreen(screenName);
@@ -41,28 +41,6 @@ const QrCode = ({ navigation }) => {
       }
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const hasLocationAdress = async () => {
-    const { status } =
-      await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      alert("Vous n'avez pas de permission sur la localiastion");
-    } else {
-      await Location.enableNetworkProviderAsync();
-      let currentLocation = await Location.getCurrentPositionAsync(
-        {}
-      );
-      let currentAddress = await Location.reverseGeocodeAsync({
-        longitude: currentLocation.coords.longitude,
-        latitude: currentLocation.coords.latitude,
-      });
-      let address = currentAddress[0];
-      setLocation(
-        `${address.country}-${address.city}-${address.region}`
-      );
-      console.log(address)
     }
   };
 

@@ -8,7 +8,7 @@ const UpdateSuivi = ({ navigation }) => {
     <MultiStep
       probleme={updateRow.problem}
       solutions={updateRow.solution}
-      observation={updateRow.observation}
+      obser={updateRow.observation}
       screen="update"
       navigation={navigation}
       id={updateRow.id}

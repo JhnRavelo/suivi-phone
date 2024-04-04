@@ -16,10 +16,10 @@ const useSuiviStyles = () => {
       marginTop: -20,
     },
     listContainer: {
-      flex:1
+      flex: 1,
     },
     tableHeaderView: {
-      marginHorizontal: 10
+      marginHorizontal: 10,
     },
     tableHeader: {
       flexDirection: "row",
@@ -37,15 +37,22 @@ const useSuiviStyles = () => {
       borderBottomWidth: 1,
       borderColor: "#d1d1d1",
     },
-    tableCellView:{
+    tableCellView: {
       marginHorizontal: 10,
     },
     tableCell: {
       fontFamily: "Lato-Regular",
       fontSize: 14,
-      // flex: 1,
       color: "#1C2B39",
       textAlign: "justify",
+    },
+    imgContainer: {
+      marginTop: 0,
+    },
+    imgStyle: {
+      width: 70,
+      height: 70,
+      resizeMode: "cover",
     },
     buttonAddSuivi: {
       top: height > 700 ? -100 : -120,

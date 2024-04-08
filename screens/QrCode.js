@@ -31,7 +31,7 @@ const QrCode = ({ navigation }) => {
     try {
       const res = await axiosPrivate.get("/productType/getAll");
       if (res.data?.success) {
-        const productTypesArray = res.data.productTypes.map(
+        const productTypesArray = res.data.types.map(
           (item) => {
             return { label: item.name, value: item.id };
           }

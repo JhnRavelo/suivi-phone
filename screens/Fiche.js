@@ -9,6 +9,7 @@ import VerifyText from "../components/VerifyText";
 import pdfIcon from "../assets/png/pdf.png";
 import ReactButton from "../components/ReactButton";
 import useButtonStyles from "../styles/buttonStyles";
+import { View } from "react-native";
 
 const Fiche = ({ navigation }) => {
   const screenRoute = useRoute();
@@ -18,7 +19,7 @@ const Fiche = ({ navigation }) => {
     setScreen(screenName);
   }, [navigation]);
   const { fiche } = useFiche();
-  const buttonStyles = useButtonStyles()
+  const buttonStyles = useButtonStyles();
 
   const onPress = () => {
     navigation.navigate("pdf");
@@ -28,27 +29,28 @@ const Fiche = ({ navigation }) => {
     <LinearGradientBody>
       <Header />
       <FormTitle title="Fiche Technique" />
+      <View style={{ display: "flex", alignItems: "center" }}>
+        <ReactButton
+          onPress={() => onPress()}
+          touchableStyle={[
+            buttonStyles.buttonContainer,
+            {
+              width: 50,
+              height: 50,
+            },
+          ]}
+          icon={pdfIcon}
+          iconStyle={{ tintColor: "#fff", width: 25, height: 25 }}
+          viewStyle={buttonStyles.buttonView}
+          textStyle={buttonStyles.buttonText}
+        />
+      </View>
       <VerifyText
         items={fiche}
         labelStyle={{ width: 150, fontSize: 14 }}
-        containerStyle={{ marginTop: 20 }}
-        contentStyle={{ marginBottom: 20 }}
+        containerStyle={{ marginTop: 10 }}
+        contentStyle={{ marginBottom: 10 }}
         textStyle={{ fontSize: 14 }}
-      />
-      <ReactButton
-        onPress={() => onPress()}
-        touchableStyle={[
-          buttonStyles.buttonContainer,
-          {
-            width: 50,
-            height: 50,
-            marginLeft: "40%",
-          },
-        ]}
-        icon={pdfIcon}
-        iconStyle={{ tintColor: "#fff", width: 25, height: 25 }}
-        viewStyle={buttonStyles.buttonView}
-        textStyle={buttonStyles.buttonText}
       />
     </LinearGradientBody>
   );

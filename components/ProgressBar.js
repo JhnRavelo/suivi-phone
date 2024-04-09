@@ -1,7 +1,7 @@
 import { View, Pressable, Animated } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
-const ProgressBar = ({ nbrPages, currentPage, setCurrentPage }) => {
+const ProgressBar = ({ nbrPages, currentPage, setCurrentPage, setIsScroll }) => {
   const [width, setWitdh] = useState(0);
   const animatedValue = useRef(new Animated.Value(-1000)).current;
   const reactive = useRef(new Animated.Value(-1000)).current;
@@ -10,6 +10,7 @@ const ProgressBar = ({ nbrPages, currentPage, setCurrentPage }) => {
     const { locationX } = event.nativeEvent;
     let page = Math.floor(locationX / (width / nbrPages)) + 1;
     setCurrentPage(page);
+    setIsScroll(false)
     reactive.setValue(-width + (width * page) / nbrPages);
   };
 
@@ -26,7 +27,7 @@ const ProgressBar = ({ nbrPages, currentPage, setCurrentPage }) => {
   }, []);
 
   return (
-    <View style={{ padding: 20, bottom: 30 }}>
+    <View style={{ padding: 20 }}>
       <Pressable onPress={(e) => handlePressablePress(e)}>
         <View
           onLayout={(e) => {

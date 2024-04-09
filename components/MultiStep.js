@@ -32,12 +32,12 @@ const MultiStep = ({
 }) => {
   const suiviStyles = useSuiviStyles();
   const [problemId, setProblemId] = useState(idProblem);
-  const [problem, setProblem] = useState(probleme);
+  const [problem, setProblem] = useState(probleme.split(":")[probleme.split(":").length -1]);
   const [observation, setObservation] = useState(obser?.split(";")[0]);
   const [solution, setSolution] = useState(solutions);
   const [errors, setErrors] = useState({});
   const [nextStep, setNextStep] = useState(true);
-  const [gallery, setGallery] = useState(obser)
+  const [gallery, setGallery] = useState(obser);
   const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
   const { scanInfo } = useScan();
   const { setSuivis, images, setImages } = useSuivi();
@@ -78,6 +78,7 @@ const MultiStep = ({
       if (images) imgInFormData(images, newForm);
       if (id) {
         newForm.append("id", id);
+        newForm.append("gallery", gallery)
         res = await axiosPrivate.put("/suivi", newForm, {
           headers: { "Content-Type": "multipart/form-data" },
         });
@@ -128,24 +129,18 @@ const MultiStep = ({
         {
           text: "Annuler",
         },
-        {
-          text: "Effacer",
-          onPress: () => {
-            setImages(null);
-          },
-        },
       ]
     );
   };
 
   const handleDeleteImg = () => {
-    if(images){
-      setImages(null)
+    if (images) {
+      setImages(null);
     }
-    if(gallery?.includes(";") && gallery?.split(";")[1]){
-      setGallery(";")
+    if (gallery?.includes(";") && gallery?.split(";")[1]) {
+      setGallery(";");
     }
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -251,8 +246,8 @@ const MultiStep = ({
                   ]}
                   textStyle={[buttonStyles.buttonText, { fontSize: 13 }]}
                 />
-                {images ||
-                  (obser?.includes(";") && obser?.split(";")[1] && (
+                {(images ||
+                  (obser?.includes(";") && obser?.split(";")[1])) ? (
                     <ReactButton
                       onPress={() => handleDeleteImg()}
                       icon={deleteIcon}
@@ -266,7 +261,7 @@ const MultiStep = ({
                         { marginLeft: 35 },
                       ]}
                     />
-                  ))}
+                  ) : null}
               </View>
               <Gallery screen={screen} images={images} observation={gallery} />
             </ProgressStep>

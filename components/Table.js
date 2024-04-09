@@ -53,7 +53,6 @@ const Table = ({
   icon,
   iconStyle,
   buttonStyle,
-  key,
   galleryContainerStyle,
   galleryImgStyle,
 }) => {
@@ -70,7 +69,6 @@ const Table = ({
           <TouchableOpacity
             style={{ flexDirection: "row" }}
             onPress={handleUpdate}
-            key={key}
           >
             {
               <List
@@ -92,11 +90,6 @@ const Table = ({
           </View>
         </>
       )}
-      {/* {data.map((item, index) => (
-        <View style={[tableViewStyle, { width: item.width }]} key={index}>
-          <Text style={tableTextStyle}>{item.label}</Text>
-        </View>
-      ))} */}
     </View>
   );
 };

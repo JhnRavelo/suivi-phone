@@ -60,7 +60,7 @@ const AppCamera = ({ navigation }) => {
             <Button
               title="Annuler"
               onPress={() => {
-                setImages(undefined);
+                setImages(null);
                 navigation.goBack();
               }}
             />

@@ -12,11 +12,6 @@ const ReadPdf = () => {
   const [isScroll, setIsScroll] = useState(true);
   const { pdf } = useFiche();
 
-  const onlineSrc = {
-    uri: `http://samples.leanpub.com/thereactnativebook-sample.pdf`,
-    cache: true,
-  };
-
   useEffect(() => {
     if (!isScroll) {
       pdfRef.current.setPage(currentPage);
@@ -35,7 +30,7 @@ const ReadPdf = () => {
       <Pdf
         trustAllCerts={false}
         ref={pdfRef}
-        source={onlineSrc}
+        source={{ uri: pdf, cache: true }}
         onLoadComplete={(numberOfPages, filePath) => {
           setNbrPages(numberOfPages);
         }}
@@ -61,7 +56,6 @@ const ReadPdf = () => {
       >
         <Text
           style={{
-            // bottom: 50,
             textAlign: "center",
             fontFamily: "Lato-Regular",
           }}

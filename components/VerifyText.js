@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import useVerifyTextStyles from "../styles/verifyTextStyles";
 
 const VerifyText = ({
@@ -11,7 +11,7 @@ const VerifyText = ({
 }) => {
   const verifyStyles = useVerifyTextStyles();
   return (
-    <View style={[verifyStyles.verifyTextContainer, containerStyle]}>
+    <ScrollView style={[verifyStyles.verifyTextContainer, containerStyle]}>
       {items.map((item, index) => (
         <View style={[verifyStyles.verifyTextView, contentStyle]} key={index}>
           <Text style={[verifyStyles.verifyTextTitle, labelStyle]}>
@@ -22,7 +22,7 @@ const VerifyText = ({
           </Text>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 

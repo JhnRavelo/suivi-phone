@@ -9,6 +9,7 @@ import QRCode from "react-native-qrcode-svg";
 import { Platform, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 import * as FileSystem from "expo-file-system";
+import logo from "../assets/png/Logo_Euro.png";
 
 const PrintQRCode = () => {
   const { auth } = useAuth();
@@ -19,11 +20,12 @@ const PrintQRCode = () => {
   const handleDownloadQrCode = async () => {
     try {
       const date = new Date();
-      console.log(Platform.OS)
       await viewShotRef.current.capture().then(async (uri) => {
         const fileName =
           "qrcode-" +
-          `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+          `${date.getDate()}-${
+            date.getMonth() + 1
+          }-${date.getFullYear()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
         if (Platform.OS === "android") {
           const permissions =
             await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
@@ -65,11 +67,13 @@ const PrintQRCode = () => {
         }}
       >
         <ViewShot options={{ format: "png", quality: 1.0 }} ref={viewShotRef}>
-          <View style={{backgroundColor: "white", padding: 8}}>
+          <View style={{ backgroundColor: "white", padding: 8 }}>
             <QRCode
               value={`${auth.email},${productAdded}`}
               size={175}
-              logoMargin={10}
+              logoMargin={0}
+              logo={logo}
+              logoSize={40}
             />
           </View>
         </ViewShot>

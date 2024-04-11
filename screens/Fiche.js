@@ -18,7 +18,7 @@ const Fiche = ({ navigation }) => {
   useEffect(() => {
     setScreen(screenName);
   }, [navigation]);
-  const { fiche } = useFiche();
+  const { fiche, pdf } = useFiche();
   const buttonStyles = useButtonStyles();
 
   const onPress = () => {
@@ -30,7 +30,7 @@ const Fiche = ({ navigation }) => {
       <Header />
       <FormTitle title="Fiche Technique" />
       <View style={{ display: "flex", alignItems: "center" }}>
-        <ReactButton
+        {pdf && <ReactButton
           onPress={() => onPress()}
           touchableStyle={[
             buttonStyles.buttonContainer,
@@ -43,7 +43,7 @@ const Fiche = ({ navigation }) => {
           iconStyle={{ tintColor: "#fff", width: 25, height: 25 }}
           viewStyle={buttonStyles.buttonView}
           textStyle={buttonStyles.buttonText}
-        />
+        />}
       </View>
       <VerifyText
         items={fiche}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, View } from "react-native";
 import userIcon from "../assets/png/utilisateur.png";
 import cadenaIcon from "../assets/png/cadenas.png";
 import chevronRight from "../assets/png/chevron-droit.png";
@@ -76,6 +76,7 @@ const Login = ({ navigation }) => {
           password: "Problème serveur",
           email: "Problème serveur",
         });
+        console.log("ERROR SUBMIT", error)
       }
     }
   };
@@ -106,7 +107,8 @@ const Login = ({ navigation }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      await AsyncStorage.removeItem("jwt")
+      console.log("ERROR VERIFY USER", error);
     }
   };
 

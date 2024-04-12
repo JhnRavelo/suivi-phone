@@ -15,7 +15,7 @@ import { useLoading } from "../hooks/useLoading";
 import useProblem from "../hooks/useProblem";
 import ReactButton from "../components/ReactButton";
 import scanerIcon from "../assets/png/scan.png";
-import useHeaderStyles from "../styles/header";
+import useHeaderStyles from "../styles/headerStyles";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();

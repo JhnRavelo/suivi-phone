@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
-import useFormTitleStyle from "../styles/formTitleStyle";
+import useFormTitleStyles from "../styles/formTitleStyles";
 
 const FormTitle = ({ title }) => {
-  const formTitleStyle = useFormTitleStyle()
+  const formTitleStyles = useFormTitleStyles()
   return (
-    <View style={formTitleStyle.titleView}>
-      <Text style={formTitleStyle.titleText}>{title}</Text>
+    <View style={formTitleStyles.titleView}>
+      <Text style={formTitleStyles.titleText}>{title}</Text>
     </View>
   );
 };

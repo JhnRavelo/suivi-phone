@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Image, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import styles from "../styles/dropDownListStyles";
+import useDropDownListStyles from "../styles/dropDownListStyles";
 import useStyles from "../styles/main";
 import useQrcodeStyles from "../styles/qrcodeStyles";
 
@@ -9,6 +9,7 @@ const DropDownLists = ({ value, setValue, error, icon, text, data, label }) => {
   const [isFocus, setIsFocus] = useState(false);
   const inputStyles = useStyles()
   const qrcodeStyles = useQrcodeStyles()
+  const styles = useDropDownListStyles()
 
   const renderLabel = () => {
     if (value || isFocus) {

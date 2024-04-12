@@ -1,7 +1,6 @@
-import React from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 
-const useFormTitleStyle = () => {
+const useFormTitleStyles = () => {
   const { width, height } = useWindowDimensions();
   return StyleSheet.create({
     titleView: {
@@ -21,4 +20,4 @@ const useFormTitleStyle = () => {
   });
 };
 
-export default useFormTitleStyle;
+export default useFormTitleStyles;

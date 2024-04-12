@@ -70,24 +70,20 @@ const Table = ({
             style={{ flexDirection: "row" }}
             onPress={handleUpdate}
           >
-            {
-              <List
-                data={data}
-                tableTextStyle={tableTextStyle}
-                tableViewStyle={tableViewStyle}
-                galleryContainerStyle={galleryContainerStyle}
-                galleryImgStyle={galleryImgStyle}
-              />
-            }
-          </TouchableOpacity>
-          <View style={[tableViewStyle, { width: 60 }]}>
-            <ReactButton
-              touchableStyle={buttonStyle}
-              onPress={handleDelete}
-              icon={icon}
-              iconStyle={iconStyle}
+            <List
+              data={data}
+              tableTextStyle={tableTextStyle}
+              tableViewStyle={tableViewStyle}
+              galleryContainerStyle={galleryContainerStyle}
+              galleryImgStyle={galleryImgStyle}
             />
-          </View>
+          </TouchableOpacity>
+          <ReactButton
+            touchableStyle={buttonStyle}
+            onPress={handleDelete}
+            icon={icon}
+            iconStyle={iconStyle}
+          />
         </>
       )}
     </View>

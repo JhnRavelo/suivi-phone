@@ -21,7 +21,7 @@ const TableSuivi = ({ navigation }) => {
   const { setLoading } = useLoading();
   const buttonStyles = useButtonStyles();
   const handleClick = () => {
-    navigation.navigate("addsuivi");
+    navigation.navigate("formsuivi");
   };
 
   const handleDelete = (item) => {
@@ -55,7 +55,7 @@ const TableSuivi = ({ navigation }) => {
 
   const handleUpdate = (item) => {
     setUpdateRow(item);
-    navigation.navigate("updatesuivi");
+    navigation.navigate("formsuivi");
   };
 
   return (

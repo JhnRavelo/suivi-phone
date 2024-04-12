@@ -59,7 +59,7 @@ const useSuiviStyles = () => {
     },
     buttonIcon: {
       alignItems: "center",
-      justifyContent: "center",
+      paddingLeft: 20,
     },
     icon: {
       width: height > 700 ? 20 : 17,

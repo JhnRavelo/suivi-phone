@@ -3,7 +3,7 @@ import useSuivi from "../hooks/useSuivi";
 import MultiStep from "../components/MultiStep";
 import useProblem from "../hooks/useProblem";
 
-const UpdateSuivi = ({ navigation }) => {
+const FormSuivi = ({ navigation }) => {
   const { updateRow } = useSuivi();
   const { problems } = useProblem();
   const idProblem = problems.find(
@@ -13,15 +13,12 @@ const UpdateSuivi = ({ navigation }) => {
   )?.value;
   return (
     <MultiStep
-      probleme={updateRow.problem}
-      solutions={updateRow.solution}
-      obser={updateRow.observation}
       screen="update"
       navigation={navigation}
-      id={updateRow.id}
       idProblem={idProblem}
+      updateRow={updateRow}
     />
   );
 };
 
-export default UpdateSuivi;
+export default FormSuivi;

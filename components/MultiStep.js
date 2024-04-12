@@ -21,26 +21,24 @@ import useButtonStyles from "../styles/buttonStyles";
 import ReactButton from "./ReactButton";
 import deleteIcon from "../assets/png/effacer.png";
 
-const MultiStep = ({
-  navigation,
-  screen,
-  probleme,
-  obser,
-  solutions,
-  id,
-  idProblem,
-}) => {
+const MultiStep = ({navigation, screen, idProblem, updateRow}) => {
   const suiviStyles = useSuiviStyles();
   const [problemId, setProblemId] = useState(idProblem);
-  const [problem, setProblem] = useState(probleme?.split(":")[probleme?.split(":").length -1].trim());
-  const [observation, setObservation] = useState(obser?.split(";")[0]);
-  const [solution, setSolution] = useState(solutions);
+  const [problem, setProblem] = useState(
+    updateRow?.problem
+      ?.split(":")
+      [updateRow?.problem?.split(":").length - 1].trim()
+  );
+  const [observation, setObservation] = useState(
+    updateRow?.observation?.split(";")[0]
+  );
+  const [solution, setSolution] = useState(updateRow?.solution);
   const [errors, setErrors] = useState({});
   const [nextStep, setNextStep] = useState(true);
-  const [gallery, setGallery] = useState(obser);
+  const [gallery, setGallery] = useState(updateRow?.observation);
   const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
   const { scanInfo } = useScan();
-  const { setSuivis, images, setImages } = useSuivi();
+  const { setSuivis, images, setImages, setUpdateRow } = useSuivi();
   const { problems } = useProblem();
   const { setLoading } = useLoading();
   const axiosPrivate = useAxiosPrivate();
@@ -76,9 +74,9 @@ const MultiStep = ({
       const newForm = new FormData();
       dataInForm(body, newForm);
       if (images) imgInFormData(images, newForm);
-      if (id) {
-        newForm.append("id", id);
-        newForm.append("gallery", gallery)
+      if (updateRow && updateRow?.id) {
+        newForm.append("id", updateRow.id);
+        newForm.append("gallery", gallery);
         res = await axiosPrivate.put("/suivi", newForm, {
           headers: { "Content-Type": "multipart/form-data" },
         });
@@ -91,6 +89,7 @@ const MultiStep = ({
         setLoading(false);
         setImages(null);
         navigation.dispatch(StackActions.replace("tablesuivi"));
+        setUpdateRow(null);
       } else {
         setLoading(false);
       }
@@ -151,145 +150,139 @@ const MultiStep = ({
   }, []);
 
   return (
-    <>
-      <FormContainer screen="step">
-        <View style={suiviStyles.progressStep}>
-          <ProgressSteps>
-            <ProgressStep
-              label="Problème"
-              nextBtnText="Suivant"
-              nextBtnStyle={suiviStyles.nextprevButton}
-              nextBtnTextStyle={suiviStyles.nexprevText}
-              onNext={() => {
-                return validate(
-                  problem,
-                  "Veuillez remplir le problème",
-                  "problem"
-                );
+    <FormContainer screen="step">
+      <View style={suiviStyles.progressStep}>
+        <ProgressSteps>
+          <ProgressStep
+            label="Problème"
+            nextBtnText="Suivant"
+            nextBtnStyle={suiviStyles.nextprevButton}
+            nextBtnTextStyle={suiviStyles.nexprevText}
+            onNext={() => {
+              return validate(
+                problem,
+                "Veuillez remplir le problème",
+                "problem"
+              );
+            }}
+            errors={nextStep}
+          >
+            {problems && (
+              <DropDownLists
+                value={problemId}
+                setValue={setProblemId}
+                icon={problemIcon}
+                text="Sélectionnez le catégorie de problème"
+                label="Problème"
+                data={problems}
+              />
+            )}
+            <MultiLineInput
+              placeholder="Problème"
+              value={problem}
+              onChange={setProblem}
+              error={errors.problem}
+            />
+          </ProgressStep>
+          <ProgressStep
+            label="Solution"
+            nextBtnText="Suivant"
+            previousBtnText="Retour"
+            nextBtnStyle={suiviStyles.nextprevButton}
+            nextBtnTextStyle={suiviStyles.nexprevText}
+            previousBtnStyle={suiviStyles.nextprevButton}
+            previousBtnTextStyle={suiviStyles.nexprevText}
+            onNext={() => {
+              return validate(
+                solution,
+                "Veuillez remplir la solution",
+                "solution"
+              );
+            }}
+            errors={nextStep}
+          >
+            <MultiLineInput
+              placeholder="Solution"
+              value={solution}
+              onChange={setSolution}
+              error={errors.solution}
+            />
+          </ProgressStep>
+          <ProgressStep
+            label="Observation"
+            nextBtnText="Suivant"
+            previousBtnText="Retour"
+            nextBtnStyle={suiviStyles.nextprevButton}
+            nextBtnTextStyle={suiviStyles.nexprevText}
+            previousBtnStyle={suiviStyles.nextprevButton}
+            previousBtnTextStyle={suiviStyles.nexprevText}
+          >
+            <MultiLineInput
+              placeholder="Observation"
+              value={observation}
+              onChange={setObservation}
+            />
+            <View
+              style={{
+                flexDirection: "row-reverse",
+                justifyContent: "space-between",
               }}
-              errors={nextStep}
             >
-              {problems && (
-                <DropDownLists
-                  value={problemId}
-                  setValue={setProblemId}
-                  icon={problemIcon}
-                  text="Sélectionnez le catégorie de problème"
-                  label="Problème"
-                  data={problems}
-                />
-              )}
-              <MultiLineInput
-                placeholder="Problème"
-                value={problem}
-                onChange={setProblem}
-                error={errors.problem}
-              />
-            </ProgressStep>
-            <ProgressStep
-              label="Solution"
-              nextBtnText="Suivant"
-              previousBtnText="Retour"
-              nextBtnStyle={suiviStyles.nextprevButton}
-              nextBtnTextStyle={suiviStyles.nexprevText}
-              previousBtnStyle={suiviStyles.nextprevButton}
-              previousBtnTextStyle={suiviStyles.nexprevText}
-              onNext={() => {
-                return validate(
-                  solution,
-                  "Veuillez remplir la solution",
-                  "solution"
-                );
-              }}
-              errors={nextStep}
-            >
-              <MultiLineInput
-                placeholder="Solution"
-                value={solution}
-                onChange={setSolution}
-                error={errors.solution}
-              />
-            </ProgressStep>
-            <ProgressStep
-              label="Observation"
-              nextBtnText="Suivant"
-              previousBtnText="Retour"
-              nextBtnStyle={suiviStyles.nextprevButton}
-              nextBtnTextStyle={suiviStyles.nexprevText}
-              previousBtnStyle={suiviStyles.nextprevButton}
-              previousBtnTextStyle={suiviStyles.nexprevText}
-            >
-              <MultiLineInput
-                placeholder="Observation"
-                value={observation}
-                onChange={setObservation}
-              />
-              <View
-                style={{
-                  flexDirection: "row-reverse",
-                  justifyContent: "space-between",
-                }}
-              >
-                <ReactButton
-                  onPress={() => handleImagesPicker()}
-                  text="pièces jointes"
-                  touchableStyle={[
-                    buttonStyles.buttonContainer,
-                    {
-                      marginRight: 35,
-                      marginTop: 5,
-                    },
-                  ]}
-                  viewStyle={[
-                    buttonStyles.buttonView,
-                    { padding: 6, borderRadius: 4 },
-                  ]}
-                  textStyle={[buttonStyles.buttonText, { fontSize: 13 }]}
-                />
-                {(images ||
-                  (obser?.includes(";") && obser?.split(";")[1])) ? (
-                    <ReactButton
-                      onPress={() => handleDeleteImg()}
-                      icon={deleteIcon}
-                      iconStyle={{
-                        width: 20,
-                        height: 20,
-                        resizeMode: "contain",
-                      }}
-                      touchableStyle={[
-                        suiviStyles.buttonIcon,
-                        { marginLeft: 35 },
-                      ]}
-                    />
-                  ) : null}
-              </View>
-              <Gallery screen={screen} images={images} observation={gallery} />
-            </ProgressStep>
-            <ProgressStep
-              label="Vérification"
-              finishBtnText="Envoyer"
-              previousBtnText="Retour"
-              nextBtnStyle={suiviStyles.nextprevButton}
-              nextBtnTextStyle={suiviStyles.nexprevText}
-              previousBtnStyle={suiviStyles.nextprevButton}
-              previousBtnTextStyle={suiviStyles.nexprevText}
-              onSubmit={handleSubmit}
-            >
-              <VerifyText
-                items={[
-                  { label: "Problème", value: problem },
-                  { label: "Solution", value: solution },
-                  { label: "Observation", value: observation },
+              <ReactButton
+                onPress={() => handleImagesPicker()}
+                text="pièces jointes"
+                touchableStyle={[
+                  buttonStyles.buttonContainer,
+                  {
+                    marginRight: 35,
+                    marginTop: 5,
+                  },
                 ]}
-                containerStyle={{ marginTop: 5 }}
-                contentStyle={{ paddingTop: 15 }}
-                labelStyle={{ fontSize: 16 }}
+                viewStyle={[
+                  buttonStyles.buttonView,
+                  { padding: 6, borderRadius: 4 },
+                ]}
+                textStyle={[buttonStyles.buttonText, { fontSize: 13 }]}
               />
-            </ProgressStep>
-          </ProgressSteps>
-        </View>
-      </FormContainer>
-    </>
+              {(images || (gallery?.includes(";") && gallery?.split(";")[1])) ? (
+                <ReactButton
+                  onPress={() => handleDeleteImg()}
+                  icon={deleteIcon}
+                  iconStyle={{
+                    width: 20,
+                    height: 20,
+                    resizeMode: "contain",
+                  }}
+                  touchableStyle={[suiviStyles.buttonIcon, { marginLeft: 35 }]}
+                />
+              ) : null}
+            </View>
+            <Gallery screen={screen} images={images} observation={gallery} />
+          </ProgressStep>
+          <ProgressStep
+            label="Vérification"
+            finishBtnText="Envoyer"
+            previousBtnText="Retour"
+            nextBtnStyle={suiviStyles.nextprevButton}
+            nextBtnTextStyle={suiviStyles.nexprevText}
+            previousBtnStyle={suiviStyles.nextprevButton}
+            previousBtnTextStyle={suiviStyles.nexprevText}
+            onSubmit={handleSubmit}
+          >
+            <VerifyText
+              items={[
+                { label: "Problème", value: problem },
+                { label: "Solution", value: solution },
+                { label: "Observation", value: observation },
+              ]}
+              containerStyle={{ marginTop: 5 }}
+              contentStyle={{ paddingTop: 15 }}
+              labelStyle={{ fontSize: 16 }}
+            />
+          </ProgressStep>
+        </ProgressSteps>
+      </View>
+    </FormContainer>
   );
 };
 

@@ -6,7 +6,6 @@ const useFormData = () => {
         formData.append(key, value);
       }
     });
-    // await Promise.all(bodyEntries);
   };
   return putDataInFormData;
 };

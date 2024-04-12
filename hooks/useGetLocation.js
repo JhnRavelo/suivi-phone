@@ -1,9 +1,8 @@
 import * as Location from "expo-location";
 
-const useGetLocation = (status, setLoading) => {
+const useGetLocation = (status) => {
   const getLocation = async () => {
     let myLocation;
-    setLoading(true)
     if (status !== "granted") {
       alert("Vous n'avez pas de permission sur la localiastion");
     } else {
@@ -16,7 +15,6 @@ const useGetLocation = (status, setLoading) => {
       let address = currentAddress[0];
       myLocation = `${address.country}-${address.city}-${address.region}`;
     }
-    setLoading(false)
     return myLocation;
   };
   return getLocation;

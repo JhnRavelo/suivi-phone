@@ -8,7 +8,7 @@ import { axiosDefault } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LinearGradientBody from "../components/LinearGradienBody";
-import LoginInput from "../components/LoginInput";
+import Input from "../components/Input";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
 import { StackActions } from "@react-navigation/native";
 import logo from "../assets/png/Logo_Euro.png";
@@ -120,7 +120,7 @@ const Login = ({ navigation }) => {
             <View style={styles.screenContent}>
               <View style={styles.login}>
                 <Image source={logo} style={styles.logoLogin} />
-                <LoginInput
+                <Input
                   value={email}
                   icon={userIcon}
                   onChange={setEmail}
@@ -128,7 +128,7 @@ const Login = ({ navigation }) => {
                   errors={errors?.email}
                   secure={false}
                 />
-                <LoginInput
+                <Input
                   value={password}
                   icon={cadenaIcon}
                   onChange={setPassword}

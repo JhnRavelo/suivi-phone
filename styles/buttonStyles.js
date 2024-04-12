@@ -4,8 +4,9 @@ const useButtonStyles = () => {
   const { height, width } = useWindowDimensions();
   return StyleSheet.create({
     buttonContainer: {
-      marginTop: height > 700 ? 50 : 20,
+      marginTop: height > 700 ? 30 : 20,
       alignItems: "center",
+      elevation: 5
     },
     buttonView: {
       elevation: 10,

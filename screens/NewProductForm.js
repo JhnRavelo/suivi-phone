@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LoginInput from "../components/LoginInput";
+import Input from "../components/Input";
 import DropDownTypeLists from "../components/DropDownLists";
 import useQRCodeForm from "../hooks/useQRCodeForm";
 import FormContainer from "../components/FormContainer";
@@ -7,7 +7,6 @@ import charpentIcon from "../assets/png/charpenterie.png";
 import FormTitle from "../components/FormTitle";
 import useLocation from "../hooks/useLocation";
 import useGetLocation from "../hooks/useGetLocation";
-import { useLoading } from "../hooks/useLoading";
 
 const dimensionRegex = /^\d+\*\d+$/;
 
@@ -18,12 +17,11 @@ const NewProductForm = ({ navigation }) => {
   const [type, setType] = useState();
   const [client, setClient] = useState();
   const [chantier, setChantier] = useState();
-  const { setLoading } = useLoading();
   const [errors, setErrors] = useState({});
   const { setFormDataQRCode, setDataQRCodeVerify, productTypes } =
     useQRCodeForm();
   const { statusLocation } = useLocation();
-  const getLocation = useGetLocation(statusLocation, setLoading);
+  const getLocation = useGetLocation(statusLocation);
 
   const validate = () => {
     let error = {};
@@ -87,7 +85,7 @@ const NewProductForm = ({ navigation }) => {
         data={productTypes}
         label="Type de ménuiserie"
       />
-      <LoginInput
+      <Input
         value={dimension}
         icon={null}
         secure={false}
@@ -96,7 +94,7 @@ const NewProductForm = ({ navigation }) => {
         errors={errors?.dimension}
         type="input"
       />
-      <LoginInput
+      <Input
         value={devis}
         icon={null}
         secure={false}
@@ -105,7 +103,7 @@ const NewProductForm = ({ navigation }) => {
         errors={errors?.devis}
         type="input"
       />
-      <LoginInput
+      <Input
         value={detail}
         icon={null}
         secure={false}
@@ -114,7 +112,7 @@ const NewProductForm = ({ navigation }) => {
         errors={errors?.detail}
         type="input"
       />
-      <LoginInput
+      <Input
         value={chantier}
         icon={null}
         secure={false}
@@ -122,7 +120,7 @@ const NewProductForm = ({ navigation }) => {
         placeholder="Chantier"
         type="input"
       />
-      <LoginInput
+      <Input
         value={client}
         icon={null}
         secure={false}

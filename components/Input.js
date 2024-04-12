@@ -3,7 +3,7 @@ import { Image, Text, TextInput, View } from "react-native";
 import useStyles from "../styles/main";
 import useQrcodeStyles from "../styles/qrcodeStyles";
 
-const LoginInput = ({
+const Input = ({
   icon,
   value,
   onChange,
@@ -50,4 +50,4 @@ const LoginInput = ({
   );
 };
 
-export default LoginInput;
+export default Input;

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 import { Picker } from "@react-native-picker/picker";
 import useGetDateFormat from "../hooks/useGetDateFormat";
+import useCalendarStyles from "../styles/calendarStyles";
 
 const ONE_DAY_STAMP = 86400000;
 
@@ -11,11 +12,11 @@ const Calendars = ({ setOpen, setFirstDate, setLastDate }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const getDateFormat = useGetDateFormat();
+  const styles = useCalendarStyles();
 
   const handleDateSelect = (date) => {
     let updatedDates = { ...selectedDates };
-    const dateString = date.dateString;
-    const timestamp = date.timestamp;
+    const {dateString, timestamp} = date
     const updatedDatesLength = Object.keys(updatedDates).length;
     if (updatedDatesLength == 0) {
       updatedDates[dateString] = {
@@ -84,8 +85,8 @@ const Calendars = ({ setOpen, setFirstDate, setLastDate }) => {
   };
 
   const handleDateFilter = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <Modal animationType="slide" transparent={true}>
@@ -113,31 +114,11 @@ const Calendars = ({ setOpen, setFirstDate, setLastDate }) => {
             markedDates={selectedDates}
           />
           <View style={{ flexDirection: "row-reverse" }}>
-            <Pressable
-              onPress={() => handleClose()}
-            >
-              <Text
-                style={{
-                  color: "blue",
-                  marginTop: 20,
-                  fontSize: 18,
-                  marginRight: 20,
-                }}
-              >
-                Annuler
-              </Text>
+            <Pressable onPress={() => handleClose()}>
+              <Text style={styles.btnText}>Annuler</Text>
             </Pressable>
-            <Pressable onPress={()=>handleDateFilter()}>
-              <Text
-                style={{
-                  color: "blue",
-                  marginTop: 20,
-                  fontSize: 18,
-                  marginRight: 20,
-                }}
-              >
-                OK
-              </Text>
+            <Pressable onPress={() => handleDateFilter()}>
+              <Text style={styles.btnText}>OK</Text>
             </Pressable>
           </View>
         </View>
@@ -145,24 +126,5 @@ const Calendars = ({ setOpen, setFirstDate, setLastDate }) => {
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    width: "80%",
-  },
-  yearPicker: {
-    marginBottom: 10,
-    width: "40%",
-  },
-});
 
 export default Calendars;

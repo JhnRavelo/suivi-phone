@@ -1,4 +1,4 @@
-import { Alert, FlatList, ScrollView, View } from "react-native";
+import { Alert, FlatList, ScrollView, Text, View } from "react-native";
 import FormTitle from "../components/FormTitle";
 import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
@@ -12,6 +12,10 @@ import ReactButton from "../components/ReactButton";
 import useButtonStyles from "../styles/buttonStyles";
 import Table from "../components/Table";
 import { headerArray } from "../assets/js/dataSuivi";
+import calendarIcon from "../assets/png/calendar.png";
+import { useEffect, useState } from "react";
+import Calendars from "../components/Calendars";
+import useDateToTimestamp from "../hooks/useDateToTimestamp";
 
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -20,6 +24,12 @@ const TableSuivi = ({ navigation }) => {
   const axiosPrivate = useAxiosPrivate();
   const { setLoading } = useLoading();
   const buttonStyles = useButtonStyles();
+  const [open, setOpen] = useState(false);
+  const [firstDate, setFirstDate] = useState("");
+  const [lastDate, setLastDate] = useState("");
+  const [rowSuivis, setRowSuivis] = useState([]);
+  const getTimestamp = useDateToTimestamp();
+
   const handleClick = () => {
     navigation.navigate("formsuivi");
   };
@@ -46,7 +56,7 @@ const TableSuivi = ({ navigation }) => {
             }
           } catch (error) {
             setLoading(false);
-            console.log(error);
+            console.log("ERROR DELETE SUIVI", error);
           }
         },
       },
@@ -58,10 +68,69 @@ const TableSuivi = ({ navigation }) => {
     navigation.navigate("formsuivi");
   };
 
+  useEffect(() => {
+    if (suivis) {
+      if (firstDate && lastDate) {
+        const filterSuivis = suivis.filter((suivi) => {
+          const suiviCreatedAt = suivi.createdAt.split("\n")[0];
+          const suiviTimestamp = getTimestamp(suiviCreatedAt);
+          return (
+            suiviTimestamp >= getTimestamp(firstDate) &&
+            suiviTimestamp <= getTimestamp(lastDate)
+          );
+        });
+        setRowSuivis(filterSuivis);
+      } else setRowSuivis(suivis);
+    }
+  }, [suivis, lastDate, firstDate]);
+
   return (
     <LinearGradientBody>
       <Header />
+      {open && (
+        <Calendars
+          setOpen={setOpen}
+          setFirstDate={setFirstDate}
+          setLastDate={setLastDate}
+        />
+      )}
       <FormTitle title="Tableau des suivis" />
+      <View
+        style={{
+          paddingLeft: 10,
+          paddingTop: 10,
+          flexDirection: "row",
+          gap: 10,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ReactButton
+          icon={calendarIcon}
+          iconStyle={{ width: 25, height: 25 }}
+          onPress={() => setOpen(true)}
+        />
+        <View
+          style={{
+            width: 160,
+            height: 25,
+            borderWidth: 2,
+            borderColor: "white",
+            borderRadius: 5,
+          }}
+        >
+          <Text
+            style={{
+              color: "#1C2B39",
+              fontWeight: "500",
+              textAlign: "center",
+              fontSize: 13,
+            }}
+          >
+            {firstDate} / {lastDate}
+          </Text>
+        </View>
+      </View>
       <View style={suiviStyles.tableContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={suiviStyles.listContainer}>
@@ -75,7 +144,7 @@ const TableSuivi = ({ navigation }) => {
               <FlatList
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1 }}
-                data={suivis}
+                data={rowSuivis}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => {
                   const itemEntries = Object.entries(item);

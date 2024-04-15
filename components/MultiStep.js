@@ -95,7 +95,7 @@ const MultiStep = ({navigation, screen, idProblem, updateRow}) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      console.log("ERROR SUBMIT SUIVI", error);
     }
   };
 
@@ -253,7 +253,7 @@ const MultiStep = ({navigation, screen, idProblem, updateRow}) => {
                     height: 20,
                     resizeMode: "contain",
                   }}
-                  touchableStyle={[suiviStyles.buttonIcon, { marginLeft: 35 }]}
+                  touchableStyle={[suiviStyles.buttonIcon, { marginLeft: 35, marginTop: 5, }]}
                 />
               ) : null}
             </View>

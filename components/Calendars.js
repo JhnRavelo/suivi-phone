@@ -1,4 +1,4 @@
-import { View, Text, Modal, StyleSheet, Pressable } from "react-native";
+import { View, Text, Modal, Pressable } from "react-native";
 import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 import { Picker } from "@react-native-picker/picker";
@@ -16,7 +16,7 @@ const Calendars = ({ setOpen, setFirstDate, setLastDate }) => {
 
   const handleDateSelect = (date) => {
     let updatedDates = { ...selectedDates };
-    const {dateString, timestamp} = date
+    const { dateString, timestamp } = date;
     const updatedDatesLength = Object.keys(updatedDates).length;
     if (updatedDatesLength == 0) {
       updatedDates[dateString] = {

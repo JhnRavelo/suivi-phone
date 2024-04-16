@@ -47,7 +47,7 @@ const useStyles = () => {
     logoLogin: {
       width: 100,
       height: 100,
-      top: -120,
+      top: height > 700 ? -100 : -120,
       left: 20,
       marginBottom: -80,
     },

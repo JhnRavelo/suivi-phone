@@ -1,6 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
 const useCalendarStyles = () => {
+  const {width} = useWindowDimensions()
   return StyleSheet.create({
     modalContainer: {
       flex: 1,
@@ -15,8 +16,8 @@ const useCalendarStyles = () => {
       width: "80%",
     },
     yearPicker: {
-      marginBottom: 10,
-      width: "40%",
+      marginBottom: 5,
+      width: width < 380 ? "45%" : "40%",
     },
     btnText: {
       color: "blue",

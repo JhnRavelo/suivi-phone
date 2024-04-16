@@ -2,10 +2,10 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import useTabIconStyles from "../styles/tabIconStyles";
 
-const TabIcon = ({ icon, focused, text, viewTabStyle, textTabStyle }) => {
+const TabIcon = ({ icon, focused, text, textTabStyle }) => {
   const tabsIconStyles = useTabIconStyles();
   return (
-    <View style={[tabsIconStyles.viewStyle, viewTabStyle]}>
+    <View style={tabsIconStyles.viewStyle}>
       <Image
         source={icon}
         resizeMode="contain"

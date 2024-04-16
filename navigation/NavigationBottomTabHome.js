@@ -9,82 +9,94 @@ import ficheIcon from "../assets/png/table.png";
 import suiviIcon from "../assets/png/commande-traitee.png";
 import addIcon from "../assets/png/plus.png";
 import TabIcon from "../components/TabIcon";
-import useBottomStyle from "../styles/bottomTabsStyles"
+import useBottomStyle from "../styles/bottomTabsStyles";
+import Chart from "../screens/Chart";
+import { Image } from "react-native";
+import chartIcon from "../assets/png/charte-de-croissance.png";
+import CustomTabBarButton from "../components/CustomTabBarButton";
 
 const Tab = createBottomTabNavigator();
 
 const NavigationBottomTabHome = () => {
-  const bottomTabsStyle = useBottomStyle()
+  const bottomTabsStyle = useBottomStyle();
   return (
-    <>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarShowLabel: false,
-          tabBarStyle: bottomTabsStyle.tabBar,
-          tabBarHideOnKeyboard: true,
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: bottomTabsStyle.tabBar,
+        tabBarHideOnKeyboard: true,
+      }}
+      initialRouteName="scan"
+    >
+      <Tab.Screen
+        name="scan"
+        component={Scan}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              focused={focused}
+              icon={scanIcon}
+              text={"scan"}
+            />
+          ),
         }}
-        initialRouteName="scan"
-      >
-        <Tab.Screen
-          name="scan"
-          component={Scan}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TabIcon
-                focused={focused}
-                icon={scanIcon}
-                text={"scan"}
-                viewTabStyle={{ marginRight: 20 }}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="fiche"
-          component={Fiche}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TabIcon
-                icon={ficheIcon}
-                text={"fiche"}
-                viewTabStyle={{ marginRight: 10 }}
-                focused={focused}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="qrcode"
-          component={QrCode}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TabIcon
-                text="qr code"
-                focused={focused}
-                viewTabStyle={{ marginLeft: 10 }}
-                icon={addIcon}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="suivi"
-          component={Suivi}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TabIcon
-                icon={suiviIcon}
-                focused={focused}
-                viewTabStyle={{ marginLeft: 20 }}
-                text="suivi"
-                textTabStyle={{marginRight: 3,}}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </>
+      />
+      <Tab.Screen
+        name="fiche"
+        component={Fiche}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              icon={ficheIcon}
+              text={"fiche"}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="chart"
+        component={Chart}
+        options={{
+          tabBarIcon: () => (
+            <Image
+              source={chartIcon}
+              resizeMode="contain"
+              style={{ width: 30, height: 30, tintColor: "#fff" }}
+            />
+          ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
+        }}
+      />
+      <Tab.Screen
+        name="qrcode"
+        component={QrCode}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              text="qr code"
+              focused={focused}
+              icon={addIcon}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="suivi"
+        component={Suivi}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              icon={suiviIcon}
+              focused={focused}
+              text="suivi"
+              textTabStyle={{ marginRight: 3 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 

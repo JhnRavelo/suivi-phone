@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import Calendars from "../components/Calendars";
 import useDateToTimestamp from "../hooks/useDateToTimestamp";
 import SortSuivi from "../components/SortSuivi";
+import addSuiviIcon from "../assets/png/nouveau-fichier.png";
 
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -171,13 +172,10 @@ const TableSuivi = ({ navigation }) => {
       </View>
       {scanInfo && (
         <ReactButton
-          text="Ajout de suivi"
-          touchableStyle={[
-            buttonStyles.buttonContainer,
-            suiviStyles.buttonAddSuivi,
-          ]}
+          icon={addSuiviIcon}
+          touchableStyle={[suiviStyles.buttonAddSuivi]}
+          iconStyle={{ width: 30, height: 30, tintColor: "#fff" }}
           viewStyle={buttonStyles.buttonView}
-          textStyle={buttonStyles.buttonText}
           onPress={() => handleClick()}
         />
       )}

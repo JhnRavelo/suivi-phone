@@ -28,7 +28,7 @@ const useSuiviStyles = () => {
     },
     flatListView: {
       overflow: "hidden",
-      height: height > 700 ? 390 : 235,
+      height: height > 700 ? 400 : 240,
     },
     tableRow: {
       flexDirection: "row",
@@ -56,6 +56,8 @@ const useSuiviStyles = () => {
     },
     buttonAddSuivi: {
       top: height > 700 ? -110 : -100,
+      alignItems: "flex-end",
+      marginRight: "10%"
     },
     buttonIcon: {
       alignItems: "center",

@@ -20,7 +20,7 @@ const Tab = createBottomTabNavigator();
 
 const NavigationBottomTabHome = () => {
   const bottomTabsStyle = useBottomStyle();
-  const { statProducts, statProblems } = useChart();
+  const { statProducts } = useChart();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -49,7 +49,7 @@ const NavigationBottomTabHome = () => {
           ),
         }}
       />
-      {statProducts.length > 0 && (
+      {statProducts && statProducts?.length > 0 && (
         <Tab.Screen
           name="chart"
           component={Chart}

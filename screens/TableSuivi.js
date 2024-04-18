@@ -17,6 +17,7 @@ import Calendars from "../components/Calendars";
 import useDateToTimestamp from "../hooks/useDateToTimestamp";
 import SortSuivi from "../components/SortSuivi";
 import addSuiviIcon from "../assets/png/nouveau-fichier.png";
+import useChart from "../hooks/useChart";
 
 const TableSuivi = ({ navigation }) => {
   const suiviStyles = useSuiviStyles();
@@ -27,6 +28,7 @@ const TableSuivi = ({ navigation }) => {
   const buttonStyles = useButtonStyles();
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const { setYears, setStatProducts, setStatProblems } = useChart();
   const [firstDate, setFirstDate] = useState("");
   const [lastDate, setLastDate] = useState("");
   const [rowSuivis, setRowSuivis] = useState([]);
@@ -53,6 +55,9 @@ const TableSuivi = ({ navigation }) => {
               productId: scanInfo.split(",")[1],
             });
             if (res.data.success) {
+              setYears(res.data.years);
+              setStatProblems(res.data.statProblems);
+              setStatProducts(res.data.statProducts);
               setLoading(false);
               setSuivis(res.data.suivis);
             } else {

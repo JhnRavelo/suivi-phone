@@ -22,12 +22,12 @@ const Chart = () => {
   const { years, statProducts, statProblems } = useChart();
   const styles = useChartStyles();
   const [year, setYear] = useState(
-    years.length > 0 ? years[0] : date.getFullYear()
+    years && years?.length > 0 ? years[0] : date.getFullYear()
   );
   const [totalProblem, setTotalProblem] = useState({});
   const getChart = useGetDataPerMonth();
   const datas = useMemo(() => {
-    if (statProducts.length > 0 && year) {
+    if (statProducts && statProducts?.length > 0 && year) {
       const filterDatas = statProducts.filter((data) => data.year == year);
       const datas = getChart(filterDatas, data, "value");
       return datas;
@@ -35,6 +35,7 @@ const Chart = () => {
   }, [statProducts, year]);
   const totalValue = useMemo(() => {
     const totalValue = datas.reduce((acc, cur) => acc + cur.value, 0);
+    console.log(totalValue);
     return totalValue;
   }, [datas]);
 
@@ -66,7 +67,7 @@ const Chart = () => {
   }, [progress, selectedValue, totalValue, totalProblem]);
 
   useEffect(() => {
-    if (statProblems.length > 0 && year) {
+    if (statProblems && statProblems?.length > 0 && year) {
       const filterStatProblem = statProblems.filter(
         (item) => item.year == year
       );
@@ -88,7 +89,7 @@ const Chart = () => {
       ) {
         selectedBar.value = label;
         setSelsctedDay(month);
-        selectedValue.value = value;
+        selectedValue.value = withTiming(value, { duration: 1000 });
       } else {
         selectedBar.value = null;
         setSelsctedDay("Total");
@@ -107,7 +108,7 @@ const Chart = () => {
             <AnimatedText key={year} selectedValue={selectedValue} />
             <Text style={styles.textSteps}>{selsctedDay} Suivis</Text>
           </View>
-          {years.length > 0 && (
+          {years && years?.length > 0 && (
             <View style={styles.pickerView}>
               <Picker
                 selectedValue={year}
@@ -126,15 +127,7 @@ const Chart = () => {
               </Picker>
             </View>
           )}
-          <View
-            style={{
-              borderWidth: 2,
-              borderColor: colorBlue,
-              width: "auto",
-              padding: 10,
-              elevation: 2,
-            }}
-          >
+          <View style={styles.infoView}>
             <AnimatedText key={year} selectedValue={problemValue} />
             <Text style={styles.textSteps}>
               {totalProblem?.problems?.name
@@ -144,7 +137,7 @@ const Chart = () => {
           </View>
         </View>
       </View>
-      {datas.length > 0 && typeof y !== undefined && (
+      {datas && datas?.length > 0 && typeof y !== undefined && (
         <Canvas
           key={year}
           onTouchStart={(e) => touchHandler(e)}

@@ -20,14 +20,15 @@ import useFormData from "../hooks/useFormData";
 import useButtonStyles from "../styles/buttonStyles";
 import ReactButton from "./ReactButton";
 import deleteIcon from "../assets/png/effacer.png";
+import useChart from "../hooks/useChart";
 
-const MultiStep = ({navigation, screen, idProblem, updateRow}) => {
+const MultiStep = ({ navigation, screen, idProblem, updateRow }) => {
   const suiviStyles = useSuiviStyles();
   const [problemId, setProblemId] = useState(idProblem);
   const [problem, setProblem] = useState(
     updateRow?.problem
       ?.split(":")
-      [updateRow?.problem?.split(":").length - 1].trim()
+      [updateRow?.problem?.split(":")?.length - 1].trim()
   );
   const [observation, setObservation] = useState(
     updateRow?.observation?.split(";")[0]
@@ -39,6 +40,7 @@ const MultiStep = ({navigation, screen, idProblem, updateRow}) => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(false);
   const { scanInfo } = useScan();
   const { setSuivis, images, setImages, setUpdateRow } = useSuivi();
+  const { setYears, setStatProducts, setStatProblems } = useChart();
   const { problems } = useProblem();
   const { setLoading } = useLoading();
   const axiosPrivate = useAxiosPrivate();
@@ -88,6 +90,9 @@ const MultiStep = ({navigation, screen, idProblem, updateRow}) => {
         setSuivis(res.data.suivis);
         setLoading(false);
         setImages(null);
+        setYears(res.data.years);
+        setStatProblems(res.data.statProblems);
+        setStatProducts(res.data.statProducts);
         navigation.dispatch(StackActions.replace("tablesuivi"));
         setUpdateRow(null);
       } else {
@@ -253,7 +258,10 @@ const MultiStep = ({navigation, screen, idProblem, updateRow}) => {
                     height: 20,
                     resizeMode: "contain",
                   }}
-                  touchableStyle={[suiviStyles.buttonIcon, { marginLeft: 35, marginTop: 5, }]}
+                  touchableStyle={[
+                    suiviStyles.buttonIcon,
+                    { marginLeft: 35, marginTop: 5 },
+                  ]}
                 />
               ) : null}
             </View>

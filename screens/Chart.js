@@ -1,5 +1,5 @@
-import { View, Text, useWindowDimensions, StyleSheet } from "react-native";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { View, Text, useWindowDimensions } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
 import LinearGradientBody from "../components/LinearGradienBody";
 import Header from "../components/Header";
 import { Canvas, Group } from "@shopify/react-native-skia";
@@ -13,13 +13,14 @@ import FormTitle from "../components/FormTitle.js";
 import useChart from "../hooks/useChart.js";
 import useGetDataPerMonth from "../hooks/useGetDataPerMonth.js";
 import { Picker } from "@react-native-picker/picker";
+import useChartStyles from "../styles/chartStyles.js";
 
-const colorBlue = "#1C2B39";
 const date = new Date();
 
 const Chart = () => {
   const { width } = useWindowDimensions();
   const { years, statProducts, statProblems } = useChart();
+  const styles = useChartStyles();
   const [year, setYear] = useState(
     years.length > 0 ? years[0] : date.getFullYear()
   );
@@ -36,7 +37,7 @@ const Chart = () => {
     const totalValue = datas.reduce((acc, cur) => acc + cur.value, 0);
     return totalValue;
   }, [datas]);
-  
+
   const barWidth = 18;
   const graphMargin = 20;
   const canvasHeight = 350;
@@ -101,31 +102,13 @@ const Chart = () => {
       <Header />
       <View style={styles.textContainer}>
         <FormTitle title="Statistiques" />
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <View
-            style={{
-              borderWidth: 2,
-              borderColor: colorBlue,
-              width: "auto",
-              padding: 10,
-              elevation: 2,
-            }}
-          >
-            {totalValue > 0 && (
-              <AnimatedText key={year} selectedValue={selectedValue} />
-            )}
+        <View style={styles.infoContainer}>
+          <View style={styles.infoView}>
+            <AnimatedText key={year} selectedValue={selectedValue} />
             <Text style={styles.textSteps}>{selsctedDay} Suivis</Text>
           </View>
           {years.length > 0 && (
-            <View
-              style={{
-                width: 120,
-                backgroundColor: "#fff",
-                height: 50,
-                borderRadius: 5,
-                elevation: 5,
-              }}
-            >
+            <View style={styles.pickerView}>
               <Picker
                 selectedValue={year}
                 style={{ width: "100%" }}
@@ -156,7 +139,7 @@ const Chart = () => {
             <Text style={styles.textSteps}>
               {totalProblem?.problems?.name
                 ? totalProblem?.problems?.name
-                : "Aucun probl"}
+                : "Aucun problème"}
             </Text>
           </View>
         </View>
@@ -193,24 +176,3 @@ const Chart = () => {
 };
 
 export default Chart;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ebecde",
-  },
-  textContainer: {
-    marginHorizontal: 10,
-    marginBottom: 20,
-  },
-  textTitle: {
-    fontFamily: "Lato-Regular",
-    fontSize: 24,
-    color: colorBlue,
-  },
-  textSteps: {
-    fontFamily: "Lato-Regular",
-    fontSize: 18,
-    color: colorBlue,
-  },
-});

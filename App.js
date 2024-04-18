@@ -12,6 +12,7 @@ import { LoadingProvider } from "./context/LoadingContext";
 import { StatusBar } from "react-native";
 import { LocationProvider } from "./context/LocationContext";
 import { ProblemProvider } from "./context/ProblemContext";
+import { ChartProvider } from "./context/ChartContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
@@ -41,7 +42,9 @@ const App = () => {
                         <LocationProvider>
                           <NavigationContainer>
                             <ProblemProvider>
-                              <NavigationStackLog />
+                              <ChartProvider>
+                                <NavigationStackLog />
+                              </ChartProvider>
                             </ProblemProvider>
                           </NavigationContainer>
                         </LocationProvider>

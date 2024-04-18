@@ -16,6 +16,7 @@ import useProblem from "../hooks/useProblem";
 import ReactButton from "../components/ReactButton";
 import scanerIcon from "../assets/png/scan.png";
 import useHeaderStyles from "../styles/headerStyles";
+import useChart from "../hooks/useChart";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
@@ -29,6 +30,7 @@ const Scan = ({ navigation }) => {
   const { setFiche, setPdf } = useFiche();
   const axiosPrivate = useAxiosPrivate();
   const { setLoading } = useLoading();
+  const { setYears, setStatProducts, setStatProblems } = useChart();
   const headerStyles = useHeaderStyles();
   let screenName = screenRoute.name;
 
@@ -87,6 +89,9 @@ const Scan = ({ navigation }) => {
                             setPdf(res.data.pdf);
                             setScanInfo(data);
                             setProblems(res.data.problems);
+                            setYears(res.data.years);
+                            setStatProducts(res.data.statProducts);
+                            setStatProblems(res.data.statProblems);
                             setScanned(true);
                             navigation.navigate("suivi");
                           } else {

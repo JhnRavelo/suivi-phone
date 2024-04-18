@@ -14,11 +14,13 @@ import Chart from "../screens/Chart";
 import { Image } from "react-native";
 import chartIcon from "../assets/png/charte-de-croissance.png";
 import CustomTabBarButton from "../components/CustomTabBarButton";
+import useChart from "../hooks/useChart";
 
 const Tab = createBottomTabNavigator();
 
 const NavigationBottomTabHome = () => {
   const bottomTabsStyle = useBottomStyle();
+  const { statProducts, statProblems } = useChart();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -34,11 +36,7 @@ const NavigationBottomTabHome = () => {
         component={Scan}
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              icon={scanIcon}
-              text={"scan"}
-            />
+            <TabIcon focused={focused} icon={scanIcon} text={"scan"} />
           ),
         }}
       />
@@ -47,38 +45,32 @@ const NavigationBottomTabHome = () => {
         component={Fiche}
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabIcon
-              icon={ficheIcon}
-              text={"fiche"}
-              focused={focused}
-            />
+            <TabIcon icon={ficheIcon} text={"fiche"} focused={focused} />
           ),
         }}
       />
-      <Tab.Screen
-        name="chart"
-        component={Chart}
-        options={{
-          tabBarIcon: () => (
-            <Image
-              source={chartIcon}
-              resizeMode="contain"
-              style={{ width: 30, height: 30, tintColor: "#fff" }}
-            />
-          ),
-          tabBarButton: (props) => <CustomTabBarButton {...props} />,
-        }}
-      />
+      {statProducts.length > 0 && (
+        <Tab.Screen
+          name="chart"
+          component={Chart}
+          options={{
+            tabBarIcon: () => (
+              <Image
+                source={chartIcon}
+                resizeMode="contain"
+                style={{ width: 30, height: 30, tintColor: "#fff" }}
+              />
+            ),
+            tabBarButton: (props) => <CustomTabBarButton {...props} />,
+          }}
+        />
+      )}
       <Tab.Screen
         name="qrcode"
         component={QrCode}
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabIcon
-              text="qr code"
-              focused={focused}
-              icon={addIcon}
-            />
+            <TabIcon text="qr code" focused={focused} icon={addIcon} />
           ),
         }}
       />

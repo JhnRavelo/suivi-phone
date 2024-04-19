@@ -14,7 +14,8 @@ android
 *.p12
 *.key
 *.mobileprovision
-
+app.json
+eas.json
 # Metro
 .metro-health-check*
 

@@ -1,25 +1,26 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 
 const colorBlue = "#1C2B39";
 
 const useChartStyles = () => {
+  const { width, height } = useWindowDimensions();
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: "#ebecde",
     },
     textContainer: {
-      marginHorizontal: 10,
-      marginBottom: 20,
+      marginHorizontal: width < 380 ? 5 : 10,
+      marginBottom: width < 380 ? 14 : 20,
     },
     textTitle: {
       fontFamily: "Lato-Regular",
-      fontSize: 24,
+      fontSize: width < 380 ? 18 : 24,
       color: colorBlue,
     },
     textSteps: {
       fontFamily: "Lato-Regular",
-      fontSize: 18,
+      fontSize: width < 380 ? 14 : 18,
       color: colorBlue,
     },
     infoContainer: { flexDirection: "row", justifyContent: "space-around" },

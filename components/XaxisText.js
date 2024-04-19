@@ -19,12 +19,11 @@ const XAxisText = ({ x, y, text, selectedBar }) => {
     return null;
   }
   const fontSize = font?.getMetrics(text);
-
   return (
     <Text
       font={font}
       x={x - fontSize?.bounds?.width / 2}
-      y={y}
+      y={y - 5}
       text={text}
       color={color}
     />

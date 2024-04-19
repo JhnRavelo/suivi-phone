@@ -1,10 +1,11 @@
-import { View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import React from "react";
 import { useDerivedValue } from "react-native-reanimated";
 import { Canvas, Text, useFont } from "@shopify/react-native-skia";
 
 const AnimatedText = ({ selectedValue }) => {
-  const font = useFont(require("../assets/fonts/Lato-Regular.ttf"), 40);
+  const {height} = useWindowDimensions()
+  const font = useFont(require("../assets/fonts/Lato-Regular.ttf"), height > 700 ? 40 : 26);
 
   const animatedText = useDerivedValue(() => {
     return `${Math.round(selectedValue.value)}`;

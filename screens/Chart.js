@@ -18,7 +18,8 @@ import useChartStyles from "../styles/chartStyles.js";
 const date = new Date();
 
 const Chart = () => {
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
+  console.log(height)
   const { years, statProducts, statProblems } = useChart();
   const styles = useChartStyles();
   const [year, setYear] = useState(
@@ -41,7 +42,7 @@ const Chart = () => {
 
   const barWidth = 18;
   const graphMargin = 20;
-  const canvasHeight = 350;
+  const canvasHeight = height > 700 ? 350 : 235;
   const canvasWidth = width;
   const graphHeight = canvasHeight - graphMargin;
   const graphWidth = width;

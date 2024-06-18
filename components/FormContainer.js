@@ -8,7 +8,7 @@ import useSuiviStyles from "../styles/suiviStyles";
 import ReactButton from "./ReactButton";
 import useButtonStyles from "../styles/buttonStyles";
 
-const FormContainer = ({ children, text, onPress, screen, index }) => {
+const FormContainer = ({ children, text, onPress, screen }) => {
   const styles = useStyles();
   const qrcodeStyles = useQrcodeStyles();
   const suiviStyles = useSuiviStyles();
@@ -25,11 +25,10 @@ const FormContainer = ({ children, text, onPress, screen, index }) => {
             <ScrollView
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              style={
-                screen === "step"
-                  ? [qrcodeStyles.formScrollView, suiviStyles.formScrollView]
-                  : qrcodeStyles.formScrollView
-              }
+              style={[
+                qrcodeStyles.formScrollView,
+                screen === "step" ? suiviStyles.formScrollView : {},
+              ]}
             >
               {children}
             </ScrollView>

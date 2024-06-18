@@ -7,6 +7,7 @@ import charpentIcon from "../assets/png/charpenterie.png";
 import FormTitle from "../components/FormTitle";
 import useLocation from "../hooks/useLocation";
 import useGetLocation from "../hooks/useGetLocation";
+import { useLoading } from "../hooks/useLoading";
 
 const dimensionRegex = /^\d+\*\d+$/;
 
@@ -18,6 +19,7 @@ const NewProductForm = ({ navigation }) => {
   const [client, setClient] = useState();
   const [chantier, setChantier] = useState();
   const [errors, setErrors] = useState({});
+  const { setLoading } = useLoading();
   const { setFormDataQRCode, setDataQRCodeVerify, productTypes } =
     useQRCodeForm();
   const { statusLocation } = useLocation();
@@ -36,6 +38,12 @@ const NewProductForm = ({ navigation }) => {
     if (!type) {
       error.type = "Veuillez choisir le type de ménuiserie";
     }
+    if (!client) {
+      error.client = "Veuillez mettre le client";
+    }
+    if (!chantier) {
+      error.chantier = "Veuillez mettre le chantier";
+    }
     setErrors(error);
     return Object.keys(error).length === 0;
   };
@@ -43,8 +51,9 @@ const NewProductForm = ({ navigation }) => {
   const handleClick = async () => {
     const isValid = validate();
     let formData = {};
-    const location = await getLocation();
     if (isValid) {
+      setLoading(true);
+      const location = await getLocation();
       formData.type = type;
       formData.dimension = dimension;
       formData.devis = devis;
@@ -68,7 +77,7 @@ const NewProductForm = ({ navigation }) => {
         { label: "Client", value: client },
         { label: "Chantier", value: chantier },
       ]);
-
+      setLoading(false);
       navigation.navigate("verifyProduct");
     }
   };
@@ -118,6 +127,7 @@ const NewProductForm = ({ navigation }) => {
         secure={false}
         onChange={setChantier}
         placeholder="Chantier"
+        errors={errors?.chantier}
         type="input"
       />
       <Input
@@ -126,6 +136,7 @@ const NewProductForm = ({ navigation }) => {
         secure={false}
         onChange={setClient}
         placeholder="Client"
+        errors={errors?.client}
         type="input"
       />
     </FormContainer>

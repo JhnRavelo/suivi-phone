@@ -17,6 +17,7 @@ import ReactButton from "../components/ReactButton";
 import scanerIcon from "../assets/png/scan.png";
 import useHeaderStyles from "../styles/headerStyles";
 import useChart from "../hooks/useChart";
+import { PrinterMainActivity } from "../module/PrinterModule";
 
 const Scan = ({ navigation }) => {
   const styles = useStyles();
@@ -61,6 +62,10 @@ const Scan = ({ navigation }) => {
   const askPermissionForCamera = async () => {
     const { status } = await BarCodeScanner.requestPermissionsAsync();
     setCameraPermission(status === "granted");
+    PrinterMainActivity.checkAndRequestBluetoothPermissions((err, msg)=>{
+      if(err) return;
+      console.log(msg);
+    })
   };
 
   return (
@@ -74,13 +79,12 @@ const Scan = ({ navigation }) => {
                 scanned
                   ? undefined
                   : async ({ data }) => {
-                      let arrayData = data.split(",");
                       if (!scanned) {
                         try {
                           setLoading(true);
                           const res = await axiosPrivate.post(
                             "/suivi/getByProduct",
-                            { email: arrayData[0], id: arrayData[1] }
+                            { id: data }
                           );
                           if (res.data.success) {
                             setLoading(false);
@@ -110,7 +114,9 @@ const Scan = ({ navigation }) => {
         )}
         {scanned && (
           <ReactButton
-            onPress={() => setScanned(false)}
+            onPress={() => {
+              setScanned(false);
+            }}
             touchableStyle={scanStyles.scanButton}
             viewStyle={[
               headerStyles.logoutButtonView,
